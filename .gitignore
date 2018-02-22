@@ -1,0 +1,14 @@
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+# Ignore the game audio folder (for legal reasons)
+Game_Audio/
+
+# Mono-specific ignores
+.mono/
+
+# System/tool-specific ignores
+.directory
+*~
