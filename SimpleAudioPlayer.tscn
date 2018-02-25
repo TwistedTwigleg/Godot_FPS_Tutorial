@@ -1,7 +1,16 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://SimpleAudioPlayer.gd" type="Script" id=1]
-[ext_resource path="res://Sonniss_GDC_Game_Audio/Gamemaster_audio_gun_sound_pack/gun_revolver_pistol_shot_04_edited.ogg" type="AudioStream" id=2]
+
+[sub_resource type="AudioStreamSample" id=1]
+
+format = 0
+loop_mode = 0
+loop_begin = 0
+loop_end = 0
+mix_rate = 44100
+stereo = false
+data = PoolByteArray(  )
 
 [node name="SimpleAudioPlayer" type="Spatial"]
 
@@ -9,7 +18,7 @@ script = ExtResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="0"]
 
-stream = ExtResource( 2 )
+stream = SubResource( 1 )
 volume_db = -4.0
 autoplay = false
 mix_target = 0

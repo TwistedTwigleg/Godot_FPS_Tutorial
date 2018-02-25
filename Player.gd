@@ -10,11 +10,8 @@ const JUMP_SPEED = 18
 const ACCEL= 4.5
 
 # Sprinting variables. Similar to the varibles above, just allowing for quicker movement
-# NOTE: we increase gravity a little to make the jumps feel a little more snappy
-const sprint_grav = -30.8
 const MAX_SPRINT_SPEED = 30
 const SPRINT_ACCEL = 18
-const SPRINT_JUMP_SPEED = 24
 # A boolean to track whether or not we are spriting
 var is_spriting = false
 
@@ -129,18 +126,18 @@ func _physics_process(delta):
 	# Sprinting
 	# If we are sprinting, we need to increase our gravity and
 	# change the is_sprinting boolean accordingly
-	var grav = 0
 	if Input.is_action_pressed("movement_sprint"):
 		is_spriting = true
-		grav = sprint_grav
 	else:
 		is_spriting = false
-		grav = norm_grav
 	# ----------------------------------
 	
 	
 	# ----------------------------------
 	# Processing our movements and sending them to KinematicBody
+	
+	# Apply gravity
+	var grav = norm_grav;
 	
 	# Assure our movement direction on the Y axis is zero, and then normalize it.
 	dir.y = 0
@@ -185,11 +182,7 @@ func _physics_process(delta):
 	# Jumping
 	if is_on_floor():
 		if Input.is_action_just_pressed("movement_jump"):
-			# If we are sprinting, we should jump a little higher
-			if is_spriting:
-				vel.y = SPRINT_JUMP_SPEED
-			else:
-				vel.y = JUMP_SPEED
+			vel.y = JUMP_SPEED
 	# ----------------------------------
 	
 	
@@ -215,10 +208,12 @@ func _physics_process(delta):
 	# Reloading
 	if reloading_gun == false:
 		if Input.is_action_just_pressed("reload"):
-			# Make sure we're not in a reloading animation. If we are not, then set reloading gun to true
-			# so we can reload as soon as possible
-			if animation_manager.current_state != "Pistol_reload" and animation_manager.current_state != "Rifle_reload":
-				reloading_gun = true
+			# Make sure we are using a  gun we can reload
+			if current_gun == "PISTOL" or current_gun == "RIFLE":
+				# Make sure we're not in a reloading animation. If we are not, then set reloading gun to true
+				# so we can reload as soon as possible
+				if animation_manager.current_state != "Pistol_reload" and animation_manager.current_state != "Rifle_reload":
+					reloading_gun = true
 	
 	# Turning the flashlight on/off
 	if Input.is_action_just_pressed("flashlight"):

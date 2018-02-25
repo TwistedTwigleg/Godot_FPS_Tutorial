@@ -10,7 +10,7 @@ source_file="res://assets/Level_assets/Game_Level_Assets.dae"
 source_md5="64ec86feabdfe5173708bb095312611b"
 
 dest_files=[ "res://.import/Game_Level_Assets.dae-d586bc42a9a3c77e3a67b75469ebba49.scn" ]
-dest_md5="92b07cb9a2e57da803dfd2079200dd72"
+dest_md5="488fca0c6ac552c370d50906d5357994"
 
 [params]
 
@@ -22,7 +22,7 @@ nodes/storage=1
 materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
-meshes/compress=false
+meshes/compress=true
 meshes/ensure_tangents=true
 meshes/storage=0
 meshes/light_baking=0

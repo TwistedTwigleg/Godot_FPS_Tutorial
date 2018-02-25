@@ -12,7 +12,7 @@ radius = 2.9
 
 extents = Vector3( 2, 0.5, 2 )
 
-[node name="Cylinder" type="RigidBody"]
+[node name="Cylinder" type="RigidBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -28,7 +28,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = true
+can_sleep = false
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
