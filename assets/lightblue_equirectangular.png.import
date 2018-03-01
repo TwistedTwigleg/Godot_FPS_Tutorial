@@ -7,10 +7,10 @@ path="res://.import/lightblue_equirectangular.png-4443ea404861d24dcbb2f1ada4d083
 [deps]
 
 source_file="res://assets/lightblue_equirectangular.png"
-source_md5="71d76c27b922bf86fbe57a16e28608ed"
+source_md5="d18f3f4b9cac2a896562c764a5f1bfd2"
 
 dest_files=[ "res://.import/lightblue_equirectangular.png-4443ea404861d24dcbb2f1ada4d083d2.stex" ]
-dest_md5="6d41d5e191c105d1a270c8268299df9b"
+dest_md5="a4f75a1c0a21348b14df7e22d2d50951"
 
 [params]
 
