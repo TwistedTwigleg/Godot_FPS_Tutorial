@@ -18,7 +18,7 @@ height = 9.0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.4, 0.2, 0.4 )
+extents = Vector3( 0.45, 0.2, 0.45 )
 
 [sub_resource type="SpatialMaterial" id=3]
 
@@ -4116,7 +4116,7 @@ use_filter = true
 font_data = ExtResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -4134,14 +4134,14 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Body_CollisionShape" type="CollisionShape" parent="." index="0"]
 
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 6.96341, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 5.81098, 0 )
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
 [node name="Feet_CollisionShape" type="CollisionShape" parent="." index="1"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45569, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356126, 0 )
 shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
@@ -4149,7 +4149,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Rotation_helper" type="Spatial" parent="." index="2"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.3914, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Model" type="Spatial" parent="Rotation_helper" index="0"]
@@ -4511,7 +4511,6 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4530,7 +4529,6 @@ margin_top = -21.0
 margin_right = 21.0
 margin_bottom = 21.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4548,7 +4546,6 @@ margin_top = 4.5
 margin_right = 2.5
 margin_bottom = 20.5
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4569,7 +4566,6 @@ margin_top = -20.5
 margin_right = 2.5
 margin_bottom = -4.5
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4591,7 +4587,6 @@ margin_right = 0.5
 margin_bottom = 12.5
 rect_rotation = 90.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4613,7 +4608,6 @@ margin_right = 24.5
 margin_bottom = 12.5
 rect_rotation = 90.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4635,7 +4629,6 @@ margin_top = 610.0
 margin_right = 370.0
 margin_bottom = 720.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4657,7 +4650,6 @@ margin_top = -10.0
 margin_right = 380.0
 margin_bottom = 110.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -4679,7 +4671,6 @@ margin_top = 20.0
 margin_right = 380.0
 margin_bottom = 109.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
