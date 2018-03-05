@@ -1,7 +1,7 @@
 extends Spatial
 
 # NOTE: we do not need these values, but we may in the future
-# (or rather we may need all weapons to have these values)
+# (or rather we may need all weapons to have these variables)
 var ammo_in_weapon = 1;
 var spare_ammo = 1;
 const AMMO_IN_MAG = 1;
@@ -27,8 +27,9 @@ var player_node = null;
 
 func _ready():
 	# We are going to assume the player will pass themselves in.
-	# While we can have cases where the player does not pass themselves in
-	# (say we forget to), having a complicated get_node call does not look pretty.
+	# While we can have cases where the player does not pass themselves in,
+	# having a complicated get_node call does not look pretty and it (relatively) safe to assume
+	# player_node will be passed in.
 	pass;
 
 func fire_weapon():
@@ -48,10 +49,13 @@ func reload_weapon():
 	return false;
 
 func equip_weapon():
+	# If we are in our idle animation, then we have succesfully been equipped.
 	if player_node.animation_manager.current_state == "Knife_idle":
 		is_weapon_enabled = true;
 		return true
 	
+	# If we are in a animation state where we can be equipped (Idle_unarmed), then
+	# change to our equip animation
 	if player_node.animation_manager.current_state == "Idle_unarmed":
 		player_node.animation_manager.set_animation("Knife_equip")
 	
@@ -59,10 +63,11 @@ func equip_weapon():
 
 func unequip_weapon():
 	
+	# If we are in our idle animation, then set the animation to our unequip animation
 	if player_node.animation_manager.current_state == "Knife_idle":
-		if (player_node.animation_manager.current_state != "Knife_unequip"):
-			player_node.animation_manager.set_animation("Knife_unequip")
+		player_node.animation_manager.set_animation("Knife_unequip")
 	
+	# If we have returned to "Idle_unarmed", then we have been succesfully unequipped.
 	if player_node.animation_manager.current_state == "Idle_unarmed":
 		is_weapon_enabled = false;
 		return true
