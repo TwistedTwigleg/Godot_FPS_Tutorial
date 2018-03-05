@@ -9,6 +9,9 @@ const MAX_SPEED = 20
 const JUMP_SPEED = 18
 const ACCEL= 4.5
 
+# A vector for storing the direction the player intends to walk towards.
+var dir = Vector3()
+
 # Sprinting variables. Similar to the varibles above, just allowing for quicker movement
 const MAX_SPRINT_SPEED = 30
 const SPRINT_ACCEL = 18
@@ -31,28 +34,19 @@ const MOUSE_SENSITIVITY = 0.05
 var animation_manager
 
 # Gun variables.
-# The name of the gun we are currently using
-var current_gun = "UNARMED"
-# A boolean to track if we are changing guns
-var changing_gun = false
+# The name of the weapon we are currently using
+var current_weapon_name = "UNARMED"
+# A dictonary of all the weapons we have
+var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
+# A boolean to track if we are changing weapons
+var changing_weapon = false
+# The name of the weapon we want to change to, if we are changing weapons
+var changing_weapon_name = "UNARMED"
 # A boolean to track if we are reloading
-var reloading_gun = false
-# How much ammo we have in reserve for the guns. This can be viewed as the ammount of bullets
-# we have on our person, but not in our guns. (total ammo = ammo_for_guns + ammo_in_guns)
-var ammo_for_guns = {"PISTOL":60, "RIFLE":160, "KNIFE":1}
-# How much ammo we currently have in the guns.
-var ammo_in_guns = {"PISTOL":20, "RIFLE":80, "KNIFE":1}
-# How much ammo fills a magazine.
-const AMMO_IN_MAGS = {"PISTOL":20, "RIFLE":80, "KNIFE":1}
-# The bullet scene we'll spawn when we create a bullet
-var bullet_scene = preload("Bullet_Scene.tscn")
+var reloading_weapon = false
 
 # How much health we currently have
 var health = 100
-# How much damage a single rifle bullet causes
-const RIFLE_DAMAGE = 4
-# How much damage a single knife stab/swipe causes
-const KNIFE_DAMAGE = 40
 
 # The label for how much health we have, and how much ammo we have.
 var UI_status_label
@@ -78,17 +72,28 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_process_input(true)
 	
-	# Make sure the bullet spawn point, the raycast, and the knife area are aiming at the center of the screen
-	var gun_aim_point_pos = get_node("Rotation_helper/Gun_aim_point").global_transform.origin
-	get_node("Rotation_helper/Gun_fire_points/Pistol_point").look_at(gun_aim_point_pos, Vector3(0, 1, 0))
-	get_node("Rotation_helper/Gun_fire_points/Rifle_point").look_at(gun_aim_point_pos, Vector3(0, 1, 0))
-	get_node("Rotation_helper/Gun_fire_points/Knife_point").look_at(gun_aim_point_pos, Vector3(0, 1, 0))
+	# Get all of the weapons
+	weapons["KNIFE"] = get_node("Rotation_helper/Gun_fire_points/Knife_point")
+	weapons["PISTOL"] = get_node("Rotation_helper/Gun_fire_points/Pistol_point")
+	weapons["RIFLE"] = get_node("Rotation_helper/Gun_fire_points/Rifle_point")
 	
-	# Because we have the camera rotated by 180 degrees, we need to rotate the points around by 180
-	# degrees on their local Y axis because otherwise the bullets will fire backwards
-	get_node("Rotation_helper/Gun_fire_points/Pistol_point").rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
-	get_node("Rotation_helper/Gun_fire_points/Rifle_point").rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
-	get_node("Rotation_helper/Gun_fire_points/Knife_point").rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
+	# The point where we want all of the guns to aim at
+	var gun_aim_point_pos = get_node("Rotation_helper/Gun_aim_point").global_transform.origin
+	
+	# Send our script to all of the weapons and rotate them to aim at the center of the screen
+	for weapon in weapons:
+		var weapon_node = weapons[weapon];
+		if weapon_node != null:
+			weapon_node.player_node = self;
+			# Look at the center point
+			weapon_node.look_at(gun_aim_point_pos, Vector3(0, 1, 0));
+			# Because we have the camera rotated by 180 degrees, we need to rotate the points around by 180
+			# degrees on their local Y axis because otherwise the bullets will fire backwards
+			weapon_node.rotate_object_local(Vector3(0, 1, 0), deg2rad(180));
+	
+	# Make sure we are starting with UNARMED
+	current_weapon_name = "UNARMED";
+	changing_weapon_name = "UNARMED";
 	
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
 	UI_status_label = get_node("HUD/Panel/Gun_label")
@@ -97,12 +102,26 @@ func _ready():
 
 func _physics_process(delta):
 	
-	# A vector for storing the direction the player intends to walk towards.
-	var dir = Vector3()
-	# We also get the camera's global transform so we can use its directional vectors
-	var cam_xform = camera.get_global_transform()
+	# Process all of the input related code.
+	# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
+	# 				 firing the weapons, and reloading.
+	process_input(delta);
 	
+	# Process our KinematicBody's movement.
+	# This will move our KinematicBody based on its previous state, and the input we just processed
+	process_movement(delta);
 	
+	# Process the weapon changing logic. 
+	process_changing_weapons(delta);
+	
+	# Process the weapon reloading logic
+	process_reloading(delta);
+	
+	# Process the UI
+	process_UI(delta);
+
+
+func process_input(delta):
 	# ----------------------------------
 	# Walking
 	# Based on the action pressed, we move in a direction relative to the camera.
@@ -111,6 +130,13 @@ func _physics_process(delta):
 	# all of the directional vectors are the opposite in comparison to our KinematicBody.
 	# (The camera's local Z axis actually points backwards while our KinematicBody points forwards)
 	# To get around this, we flip the camera's directional vectors so they point in the same direction
+	
+	# Reset dir, so our previous movement does not effect us
+	dir = Vector3()
+	# Get the camera's global transform so we can use its directional vectors
+	var cam_xform = camera.get_global_transform()
+	
+	# Based on which directional key is pressed, add that direction to dir
 	if Input.is_action_pressed("movement_forward"):
 		dir += -cam_xform.basis.z.normalized()
 	if Input.is_action_pressed("movement_backward"):
@@ -120,7 +146,6 @@ func _physics_process(delta):
 	if Input.is_action_pressed("movement_right"):
 		dir += cam_xform.basis.x.normalized()
 	# ----------------------------------
-	
 	
 	# ----------------------------------
 	# Sprinting
@@ -132,9 +157,91 @@ func _physics_process(delta):
 		is_spriting = false
 	# ----------------------------------
 	
+	# ----------------------------------
+	# Jumping
+	# Check if we are on the floor. If we are and the "movement_jump" action has
+	# been pressed, then jump.
+	if is_on_floor():
+		if Input.is_action_just_pressed("movement_jump"):
+			vel.y = JUMP_SPEED
+	# ----------------------------------
 	
 	# ----------------------------------
-	# Processing our movements and sending them to KinematicBody
+	# Changing weapons.
+	if changing_weapon == false:
+		if reloading_weapon == false:
+			if Input.is_key_pressed(KEY_1):
+				changing_weapon_name = "UNARMED"
+				changing_weapon = true
+			elif Input.is_key_pressed(KEY_2):
+				changing_weapon_name = "KNIFE"
+				changing_weapon = true
+			elif Input.is_key_pressed(KEY_3):
+				changing_weapon_name = "PISTOL"
+				changing_weapon = true
+			elif Input.is_key_pressed(KEY_4):
+				changing_weapon_name = "RIFLE"
+				changing_weapon = true
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Reloading
+	if reloading_weapon == false:
+		if (changing_weapon == false):
+			if Input.is_action_just_pressed("reload"):
+				# Get the current weapon, and make sure it is not null
+				var current_weapon = weapons[current_weapon_name];
+				if (current_weapon != null):
+					# Make sure this weapon can reload
+					if (current_weapon.CAN_RELOAD == true):
+						# Make sure we're not in a reloading animation. If we are not, then set reloading gun to true
+						# so we can reload as soon as possible
+						var current_anim_state = animation_manager.current_state;
+						var is_reloading = false;
+						for weapon in weapons:
+							var weapon_node = weapons[weapon];
+							if weapon_node != null:
+								if current_anim_state == weapon_node.RELOADING_ANIM_NAME:
+									is_reloading = true;
+						if is_reloading == false:
+							reloading_weapon = true;
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Firing the weapons
+	if Input.is_action_pressed("fire"):
+		if (reloading_weapon == false):
+			if (changing_weapon == false):
+				var current_weapon = weapons[current_weapon_name];
+				if (current_weapon != null):
+					if current_weapon.ammo_in_weapon > 0:
+						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME);
+					else:
+						reloading_weapon = true;
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Turning the flashlight on/off
+	if Input.is_action_just_pressed("flashlight"):
+		if flashlight.is_visible_in_tree():
+			flashlight.hide()
+		else:
+			flashlight.show()
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Capturing/Freeing the cursor
+	if Input.is_action_just_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# ----------------------------------
+
+
+func process_movement(delta):
+	# Process our movements (influnced by our input) and sending them to KinematicBody
 	
 	# Apply gravity
 	var grav = norm_grav;
@@ -175,215 +282,61 @@ func _physics_process(delta):
 	vel.x = hvel.x
 	vel.z = hvel.z
 	vel = move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
-	# ----------------------------------
-	
-	
-	# ----------------------------------
-	# Jumping
-	if is_on_floor():
-		if Input.is_action_just_pressed("movement_jump"):
-			vel.y = JUMP_SPEED
-	# ----------------------------------
-	
-	
-	# ----------------------------------
-	# Input handling for changing weapons, reloading,
-	# turning the flashlight on/off, and for capturing/freeing the cursor
-	
-	# Changing weapons.
-	if changing_gun == false and reloading_gun == false:
-		if Input.is_key_pressed(KEY_1):
-			current_gun = "UNARMED"
-			changing_gun = true
-		elif Input.is_key_pressed(KEY_2):
-			current_gun = "KNIFE"
-			changing_gun = true
-		elif Input.is_key_pressed(KEY_3):
-			current_gun = "PISTOL"
-			changing_gun = true
-		elif Input.is_key_pressed(KEY_4):
-			current_gun = "RIFLE"
-			changing_gun = true
-	
-	# Reloading
-	if reloading_gun == false:
-		if Input.is_action_just_pressed("reload"):
-			# Make sure we are using a  gun we can reload
-			if current_gun == "PISTOL" or current_gun == "RIFLE":
-				# Make sure we're not in a reloading animation. If we are not, then set reloading gun to true
-				# so we can reload as soon as possible
-				if animation_manager.current_state != "Pistol_reload" and animation_manager.current_state != "Rifle_reload":
-					reloading_gun = true
-	
-	# Turning the flashlight on/off
-	if Input.is_action_just_pressed("flashlight"):
-		if flashlight.is_visible_in_tree():
-			flashlight.hide()
-		else:
-			flashlight.show()
-	
-	# Capturing/Freeing the cursor
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	# ----------------------------------
-	
-	
-	# ----------------------------------
-	# Animation state changing based on player data
-	#
-	# NOTE: in theory this should be in a statemachine elsewhere (likely in AnimationPlayer_Manager)
-	# but for simplicity, we'll just change the states as we need here.
-	
+
+
+func process_changing_weapons(delta):
 	# changing weapons
-	if changing_gun == true:
+	if changing_weapon == true:
 		
-		# If we are in a idle state with the weapon we do not want to be changing to,
-		# then we need to unequip it
-		if current_gun != "PISTOL":
-			if animation_manager.current_state == "Pistol_idle":
-				animation_manager.set_animation("Pistol_unequip")
-		if current_gun != "RIFLE":
-			if animation_manager.current_state == "Rifle_idle":
-				animation_manager.set_animation("Rifle_unequip")
-		if current_gun != "KNIFE":
-			if animation_manager.current_state == "Knife_idle":
-				animation_manager.set_animation("Knife_unequip")
-		
-		# If we are changing to UNARMED and we are at 'Idle_unarmed', then
-		# we've successfully changed weapons
-		if current_gun == "UNARMED":
-			if animation_manager.current_state == "Idle_unarmed":
-				changing_gun = false
-		
-		# For all of the other weapons, we need to see if we are at '[weapon]_idle'.
-		# If we are, then we have successfully changed weapons.
-		# If we are at 'Idle_unarmed', then we need to change to '[weapon]_equip'
-		# so we get to '[weapon]_idle'.
-		elif current_gun == "KNIFE":
-			if animation_manager.current_state == "Knife_idle":
-				changing_gun = false
-			if animation_manager.current_state == "Idle_unarmed":
-				animation_manager.set_animation("Knife_equip")
-				
-		elif current_gun == "PISTOL":
-			if animation_manager.current_state == "Pistol_idle":
-				changing_gun = false
-			if animation_manager.current_state == "Idle_unarmed":
-				animation_manager.set_animation("Pistol_equip")
-				
-				# Play a sound when we play a equiping animation
-				create_sound("Gun_cock", camera.global_transform.origin)
-				
-		elif current_gun == "RIFLE":
-			if animation_manager.current_state == "Rifle_idle":
-				changing_gun = false
-			if animation_manager.current_state == "Idle_unarmed":
-				animation_manager.set_animation("Rifle_equip")
-				
-				# Play a sound when we play a equiping animation
-				create_sound("Gun_cock", camera.global_transform.origin)
-	
-	
-	# Firing the weapons
-	if Input.is_action_pressed("fire"):
-		
-		if current_gun == "PISTOL":
-			# If we have ammo, and we're at 'Pistol_idle', then set the animation to 'Pistol_fire'
-			# If we do not have ammo, then we should (try to) reload.
-			if ammo_in_guns["PISTOL"] > 0:
-				if animation_manager.current_state == "Pistol_idle":
-					animation_manager.set_animation("Pistol_fire")
-			else:
-				reloading_gun = true
-		
-		elif current_gun == "RIFLE":
-			# Same as the pistol, just changed for the rifle
-			if ammo_in_guns["RIFLE"] > 0:
-				if animation_manager.current_state == "Rifle_idle":
-					animation_manager.set_animation("Rifle_fire")
-			else:
-				reloading_gun = true
-		
-		# Because the knife does not have ammo, we just change to 'Knife_fire' if we are at 'Knife_idle'.
-		elif current_gun == "KNIFE":
-			if animation_manager.current_state == "Knife_idle":
-				animation_manager.set_animation("Knife_fire")
-	
-	# ----------------------------------
-	
-	# ----------------------------------
-	# Reloading logic
-	
-	if reloading_gun == true:
-		
-		# We need to check whether it is possible to reload or not.
-		var can_reload = false
-		
-		# Make sure the animation is correct for reloading.
-		if current_gun == "PISTOL":
-			if animation_manager.current_state == "Pistol_idle":
-				can_reload = true
-		elif current_gun == "RIFLE":
-			if animation_manager.current_state == "Rifle_idle":
-				can_reload = true
-		elif current_gun == "KNIFE":
-			# We cannon reload a knife, so do nothing and stop reloading
-			can_reload = false
-			reloading_gun = false
+		# Unequip the current gun
+		var gun_unequipped = false
+		var current_weapon = weapons[current_weapon_name]
+		if current_weapon == null:
+			gun_unequipped = true
 		else:
-			# If it is a weapon we do not know about, then we cannot reload it!
-			can_reload = false
-			reloading_gun = false
-		
-		# Make sure we have ammo to reload, and that our gun is not already fully loaded.
-		if ammo_for_guns[current_gun] <= 0 or ammo_in_guns[current_gun] == AMMO_IN_MAGS[current_gun]:
-			can_reload = false
-			reloading_gun = false
-		
-		
-		if can_reload == true:
-			
-			# Calculate how much ammo we need
-			var ammo_needed = AMMO_IN_MAGS[current_gun] - ammo_in_guns[current_gun]
-			
-			# If we have enough ammo to refil the gun, then do so.
-			if ammo_for_guns[current_gun] >= ammo_needed:
-				ammo_for_guns[current_gun] -= ammo_needed
-				ammo_in_guns[current_gun] = AMMO_IN_MAGS[current_gun]
-			# If we do not, then just put the remaining ammo into the gun.
+			if (current_weapon.is_weapon_enabled == true):
+				gun_unequipped = current_weapon.unequip_weapon()
 			else:
-				ammo_in_guns[current_gun] += ammo_for_guns[current_gun]
-				ammo_for_guns[current_gun] = 0
+				gun_unequipped = true;
+		
+		if gun_unequipped == true:
 			
-			# Set the reloading animation
-			if current_gun == "PISTOL":
-				animation_manager.set_animation("Pistol_reload")
-			elif current_gun == "RIFLE":
-				animation_manager.set_animation("Rifle_reload")
+			var weapon_equiped = false
+			var weapon_to_equip = weapons[changing_weapon_name]
 			
-			# We've finished reloading, so set reloading_gun to false
-			reloading_gun = false
+			if weapon_to_equip == null:
+				weapon_equiped = true
+			else:
+				if (weapon_to_equip.is_weapon_enabled == false):
+					weapon_equiped = weapon_to_equip.equip_weapon()
+				else:
+					weapon_equiped = true;
 			
-			# Play the 'gun_cock' sound so it sounds like we've reloaded.
-			create_sound("Gun_cock", camera.global_transform.origin)
-	
-	# ----------------------------------
-	
-	
-	# ----------------------------------
+			if weapon_equiped == true:
+				changing_weapon = false
+				current_weapon_name = changing_weapon_name;
+				changing_weapon_name = "";
+
+
+func process_reloading(delta):
+	# Reloading logic
+	if reloading_weapon == true:
+		var current_weapon = weapons[current_weapon_name];
+		if (current_weapon != null):
+			current_weapon.reload_weapon();
+		reloading_weapon = false;
+
+
+func process_UI(delta):
 	# UI processing
 	
 	# HUD (UI)
-	if current_gun == "UNARMED" or current_gun == "KNIFE":
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		UI_status_label.text = "HEALTH: " + str(health)
 	else:
+		var current_weapon = weapons[current_weapon_name];
 		UI_status_label.text = "HEALTH: " + str(health) + "\nAMMO:" + \
-			str(ammo_in_guns[current_gun]) + "/" + str(ammo_for_guns[current_gun])
-	# ----------------------------------
-	
+			str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
 
 # Mouse based camera movement
@@ -409,61 +362,11 @@ func _input(event):
 func fire_bullet():
 	# Do not fire if we are changing weapons.
 	# (Because the rifle fires so fast, we fire a couple pistol bullets when we change if we do not check this)
-	if changing_gun == true:
+	if changing_weapon == true:
 		return
 	
-	# Pistol bullet handling: Spawn a bullet object!
-	if current_gun == "PISTOL":
-		# Clone the bullet, get the scene root, and add the bullet as a child.
-		# NOTE: we are assuming that the first child of the scene's root is
-		# the 3D level we're wanting to spawn the bullet at.
-		var clone = bullet_scene.instance()
-		var scene_root = get_tree().root.get_children()[0]
-		scene_root.add_child(clone)
-		
-		# Set the bullet's global_transform to that of the pistol spawn point.
-		clone.global_transform = get_node("Rotation_helper/Gun_fire_points/Pistol_point").global_transform
-		# The bullet is a little too small (by default), so let's make it bigger!
-		clone.scale = Vector3(4, 4, 4)
-		# Remove the bullet from the pistol's magazine
-		ammo_in_guns["PISTOL"] -= 1
-		
-		# Play the gun sound
-		create_sound("Pistol_shot", get_node("Rotation_helper/Gun_fire_points/Pistol_point").global_transform.origin)
-	
-	# Rifle bullet handeling: Send a raycast!
-	elif current_gun == "RIFLE":
-		# Get the raycast node
-		var ray = get_node("Rotation_helper/Gun_fire_points/Rifle_point/RayCast")
-		# Force the raycast to update. This will force the raycast to detect collisions when we call it.
-		# This means we are getting a frame perfect collision check with the 3D world.
-		ray.force_raycast_update()
-		
-		# If the ray hit something, get its collider and see if it has the 'bullet_hit' method.
-		# If it does, then call it and pass the ray's collision point as the bullet collision point.
-		if ray.is_colliding():
-			var body = ray.get_collider()
-			if body.has_method("bullet_hit"):
-				body.bullet_hit(RIFLE_DAMAGE, ray.get_collision_point())
-		
-		# Remove the bullet from the mag
-		ammo_in_guns["RIFLE"] -= 1
-		
-		# Play the gun sound
-		create_sound("Rifle_shot", ray.global_transform.origin)
-	
-	# Knife bullet(?) handeling: Use an area!
-	elif current_gun == "KNIFE":
-		# Get the knife area and all of the overlapping bodies.
-		var area = get_node("Rotation_helper/Gun_fire_points/Knife_point/Area")
-		var bodies = area.get_overlapping_bodies()
-		
-		# For every body inside the knife's area, see if it has the method 'bullet_hit'.
-		# If one of the bodies do, then call it and pass the area's global origin as the bullet collision point.
-		for body in bodies:
-			if body.has_method("bullet_hit"):
-				body.bullet_hit(KNIFE_DAMAGE, area.global_transform.origin)
-
+	var current_weapon = weapons[current_weapon_name];
+	current_weapon.fire_weapon()
 
 
 func create_sound(sound_name, position=null):

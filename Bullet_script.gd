@@ -3,7 +3,9 @@ extends Spatial
 # The speed the bullet travels at
 const BULLET_SPEED = 80
 # The damage it causes
-const BULLET_DAMAGE = 15
+# NOTE: while this is not a constant, we want it to be used like one, so we will
+# retain the UPPERCASE naming (for now).
+var BULLET_DAMAGE = 15
 
 # How many seconds does it last before we free it
 # (because we do not want bullets traveling forever as they will consume resources)

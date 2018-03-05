@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/Colors.material" type="Material" id=2]
@@ -8,8 +8,11 @@
 [ext_resource path="res://assets/MuzzleFlash.material" type="Material" id=6]
 [ext_resource path="res://assets/Gun_Emission.material" type="Material" id=7]
 [ext_resource path="res://AnimationPlayer_Manager.gd" type="Script" id=8]
-[ext_resource path="res://assets/32-32_white.png" type="Texture" id=9]
-[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=10]
+[ext_resource path="res://Weapon_Rifle.gd" type="Script" id=9]
+[ext_resource path="res://Weapon_Knife.gd" type="Script" id=10]
+[ext_resource path="res://Weapon_Pistol.gd" type="Script" id=11]
+[ext_resource path="res://assets/32-32_white.png" type="Texture" id=12]
+[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=13]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -4113,10 +4116,10 @@ _sections_unfolded = [ "Border Width" ]
 size = 42
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 10 )
+font_data = ExtResource( 13 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -4148,13 +4151,11 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Rotation_helper" type="Spatial" parent="." index="2"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Model" type="Spatial" parent="Rotation_helper" index="0"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.405, 0 )
 
 [node name="Armature" type="Spatial" parent="Rotation_helper/Model" index="0"]
@@ -4398,7 +4399,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Gun_fire_points" type="Spatial" parent="Rotation_helper" index="2"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3914, 0 )
 _sections_unfolded = [ "Transform" ]
 
@@ -4406,6 +4406,7 @@ _sections_unfolded = [ "Transform" ]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 7.04431 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="RayCast" type="RayCast" parent="Rotation_helper/Gun_fire_points/Rifle_point" index="0"]
@@ -4417,7 +4418,9 @@ collision_mask = 1
 
 [node name="Knife_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="1"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 2.54082 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Area" type="Area" parent="Rotation_helper/Gun_fire_points/Knife_point" index="0"]
@@ -4453,6 +4456,7 @@ disabled = false
 [node name="Pistol_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="2"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436506, 11.3604, 4.77607 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Gun_aim_point" type="Spatial" parent="Rotation_helper" index="3"]
@@ -4550,7 +4554,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Visibility" ]
@@ -4570,7 +4574,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
@@ -4591,7 +4595,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
@@ -4612,7 +4616,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
