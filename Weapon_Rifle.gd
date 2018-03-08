@@ -57,7 +57,7 @@ func reload_weapon():
 	var can_reload = false;
 	
 	# Make sure we are in the correct animation for reloading
-	if player_node.animation_manager.current_state == "Rifle_idle":
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		can_reload = true
 	
 	# Make sure we have ammo to reload, and that our gun is not already fully loaded.
@@ -90,8 +90,8 @@ func reload_weapon():
 	return false;
 
 func equip_weapon():
-	# If we are in our idle animation, then we have succesfully been equipped.
-	if player_node.animation_manager.current_state == "Rifle_idle":
+	# If we are in our idle animation, then we have successfully been equipped.
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		is_weapon_enabled = true;
 		return true
 	
@@ -100,7 +100,7 @@ func equip_weapon():
 	if player_node.animation_manager.current_state == "Idle_unarmed":
 		player_node.animation_manager.set_animation("Rifle_equip")
 		
-		# Play a sound when we play a equiping animation
+		# Play a sound when we play a equipping animation
 		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
 	
 	return false
@@ -108,13 +108,13 @@ func equip_weapon():
 func unequip_weapon():
 	
 	# If we are in our idle animation, then set the animation to our unequip animation
-	if player_node.animation_manager.current_state == "Rifle_idle":
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		if (player_node.animation_manager.current_state != "Rifle_unequip"):
 			player_node.animation_manager.set_animation("Rifle_unequip")
 	
-	# If we have returned to "Idle_unarmed", then we have been succesfully unequipped.
+	# If we have returned to "Idle_unarmed", then we have been successfully unequipped.
 	if player_node.animation_manager.current_state == "Idle_unarmed":
 		is_weapon_enabled = false;
 		return true
-	else:
-		return false
+	
+	return false

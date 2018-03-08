@@ -45,12 +45,12 @@ const JOYPAD_DEADZONE = 0.15
 # The animation manager that holds all of our animations and their transition states
 var animation_manager
 
-# Gun variables.
+# Weapon variables.
 # The name of the weapon we are currently using
 var current_weapon_name = "UNARMED"
-# A dictonary of all the weapons we have
+# A dictionary of all the weapons we have
 var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
-# A dictonary containing the weapons names and which number they use
+# A dictionary containing the weapons names and which number they use
 const weapon_number_to_name = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
 const weapon_name_to_number = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
 # A boolean to track if we are changing weapons
@@ -313,8 +313,53 @@ func process_input(delta):
 	# ----------------------------------
 
 
+func process_view_input(delta):
+	
+	# If our cursor is not captured, then we do NOT want to rotate
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
+	
+	# NOTE: Until some bugs relating to captured mouses are fixed, we cannot put the mouse view
+	# rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
+	
+	# ----------------------------------
+	# Joypad rotation
+	
+	# Get the right joypad movement vector, if there is a joypad connected (otherwise joypad_vec will equal (0, 0))
+	var joypad_vec = Vector2()
+	if Input.get_connected_joypads().size() > 0:
+		
+		# For windows (XBOX 360)
+		joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		# For Linux (XBOX 360)
+		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		# For Mac (XBOX 360) Unkown, but likely:
+		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		
+		# Account for joypad dead zones
+		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
+			joypad_vec.x = 0
+		if abs(joypad_vec.y) <= JOYPAD_DEADZONE:
+			joypad_vec.y = 0
+	
+	# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y joypad motion.
+	# NOTE: If you want your joystick inverted, then change "joypad_vec.y" to "-joypad_vec.y".
+	rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+	# Rotate the kinematic body on the Y axis by the relative X motion.
+	# We also need to multiply it by -1 because we're wanting to turn in the same direction as
+	# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
+	self.rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+	# ----------------------------------
+	
+	# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
+	# We need to do this every time we rotate so we cannot rotate upside down with mouse and/or joypad input
+	var camera_rot = rotation_helper.rotation_degrees
+	camera_rot.x = clamp(camera_rot.x, -70, 70)
+	rotation_helper.rotation_degrees = camera_rot
+
+
 func process_movement(delta):
-	# Process our movements (influnced by our input) and sending them to KinematicBody
+	# Process our movements (influenced by our input) and sending them to KinematicBody
 	
 	# Apply gravity
 	var grav = norm_grav
@@ -401,51 +446,6 @@ func process_changing_weapons(delta):
 				changing_weapon = false
 				current_weapon_name = changing_weapon_name
 				changing_weapon_name = ""
-
-
-func process_view_input(delta):
-	
-	# If our cursor is not captured, then we do NOT want to rotate
-	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-		return
-	
-	# NOTE: Until some bugs relating to captured mouses are fixed, we cannot put the mouse view
-	# rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
-	
-	# ----------------------------------
-	# Joypad rotation
-	
-	# Get the right joypad movement vector, if there is a joypad connected (otherwise joypad_vec will equal (0, 0))
-	var joypad_vec = Vector2()
-	if Input.get_connected_joypads().size() > 0:
-		
-		# For windows (XBOX 360)
-		joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
-		# For Linux (XBOX 360)
-		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
-		# For Mac (XBOX 360) Unkown, but likely:
-		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
-		
-		# Account for joypad dead zones
-		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
-			joypad_vec.x = 0
-		if abs(joypad_vec.y) <= JOYPAD_DEADZONE:
-			joypad_vec.y = 0
-	
-	# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y joypad motion.
-	# NOTE: If you want your joystick inverted, then change "joypad_vec.y" to "-joypad_vec.y".
-	rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
-	# Rotate the kinematic body on the Y axis by the relative X motion.
-	# We also need to multiply it by -1 because we're wanting to turn in the same direction as
-	# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
-	self.rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
-	# ----------------------------------
-	
-	# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
-	# We need to do this every time we rotate so we cannot rotate upside down with mouse and/or joypad input
-	var camera_rot = rotation_helper.rotation_degrees
-	camera_rot.x = clamp(camera_rot.x, -70, 70)
-	rotation_helper.rotation_degrees = camera_rot
 
 
 func process_reloading(delta):

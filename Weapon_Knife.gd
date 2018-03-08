@@ -49,8 +49,8 @@ func reload_weapon():
 	return false;
 
 func equip_weapon():
-	# If we are in our idle animation, then we have succesfully been equipped.
-	if player_node.animation_manager.current_state == "Knife_idle":
+	# If we are in our idle animation, then we have successfully been equipped.
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		is_weapon_enabled = true;
 		return true
 	
@@ -64,12 +64,12 @@ func equip_weapon():
 func unequip_weapon():
 	
 	# If we are in our idle animation, then set the animation to our unequip animation
-	if player_node.animation_manager.current_state == "Knife_idle":
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		player_node.animation_manager.set_animation("Knife_unequip")
 	
-	# If we have returned to "Idle_unarmed", then we have been succesfully unequipped.
+	# If we have returned to "Idle_unarmed", then we have been successfully unequipped.
 	if player_node.animation_manager.current_state == "Idle_unarmed":
 		is_weapon_enabled = false;
 		return true
-	else:
-		return false
+	
+	return false
