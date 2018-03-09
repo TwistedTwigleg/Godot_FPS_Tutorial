@@ -29,8 +29,6 @@ var rotation_helper
 
 # You may need to adjust depending on the sensitivity of your mouse
 const MOUSE_SENSITIVITY = 0.05
-# The last position of the mouse
-var last_mouse_pos = Vector2()
 # The scroll wheel value
 var mouse_scroll_value = 0
 # How much a single scroll action increases mouse_scroll_value
@@ -333,7 +331,7 @@ func process_view_input(delta):
 		joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
 		# For Linux (XBOX 360)
 		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
-		# For Mac (XBOX 360) Unkown, but likely:
+		# For Mac (XBOX 360) Unknown, but likely:
 		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
 		
 		# Account for joypad dead zones
@@ -410,18 +408,18 @@ func process_changing_weapons(delta):
 		var weapon_unequipped = false
 		# Get the current weapon.
 		var current_weapon = weapons[current_weapon_name]
-		# If the weapon is null (UNARMED), then we can change weapons.
+		# If the current weapon is null (UNARMED), then we can change weapons.
 		# If not, then we need to check if the current weapon is enabled or not.
-		# If it is enabled, then call unequip_weapon.
 		if current_weapon == null:
 			weapon_unequipped = true
 		else:
+			# If the current weapon is enabled, then call unequip_weapon.
 			if current_weapon.is_weapon_enabled == true:
 				weapon_unequipped = current_weapon.unequip_weapon()
 			else:
 				weapon_unequipped = true
 		
-		# If we have succesfully unequipped the current weapon, we need to equip the new weapon
+		# If we have successfully unequipped the current weapon, we need to equip the new weapon
 		if weapon_unequipped == true:
 			
 			# A variable to hold whether or not we've equipped the new weapon
@@ -429,18 +427,18 @@ func process_changing_weapons(delta):
 			# Get the new weapon
 			var weapon_to_equip = weapons[changing_weapon_name]
 			
-			# If the new weapon is null (UNARMED), then we can say we've succesfully equipped the new weapon.
+			# If the new weapon is null (UNARMED), then we can say we've successfully equipped the new weapon.
 			# If not, then we need to check if the new weapon is enabled or not.
-			# If it is not enabled, then call equip_weapon.
 			if weapon_to_equip == null:
 				weapon_equiped = true
 			else:
+				# If the new weapon is not enabled, then call equip_weapon.
 				if weapon_to_equip.is_weapon_enabled == false:
 					weapon_equiped = weapon_to_equip.equip_weapon()
 				else:
 					weapon_equiped = true
 			
-			# If we have succesfully equipped the new weapon then we need to
+			# If we have successfully equipped the new weapon then we need to
 			# set some variables to reflect the change in weapon.
 			if weapon_equiped == true:
 				changing_weapon = false
@@ -498,7 +496,7 @@ func _input(event):
 						changing_weapon_name = weapon_number_to_name[round_mouse_scroll_value]
 						changing_weapon = true
 						# Set mouse scroll value to the rounded value so the amount of time it takes to change weapons
-						# is consistant.
+						# is consistent.
 						mouse_scroll_value = round_mouse_scroll_value
 	
 	# Make sure the event is a mouse motion event, and that the cursor is captured
