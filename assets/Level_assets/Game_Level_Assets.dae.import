@@ -7,10 +7,10 @@ path="res://.import/Game_Level_Assets.dae-d586bc42a9a3c77e3a67b75469ebba49.scn"
 [deps]
 
 source_file="res://assets/Level_assets/Game_Level_Assets.dae"
-source_md5="64ec86feabdfe5173708bb095312611b"
+source_md5="356475e86de3a58e7beefd20d7d67bee"
 
 dest_files=[ "res://.import/Game_Level_Assets.dae-d586bc42a9a3c77e3a67b75469ebba49.scn" ]
-dest_md5="488fca0c6ac552c370d50906d5357994"
+dest_md5="9df89394adf3e20f10bab11630ccd7ea"
 
 [params]
 
