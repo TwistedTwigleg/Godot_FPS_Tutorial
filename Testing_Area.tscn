@@ -1,7 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
+[ext_resource path="res://assets/Level_gameobjects/Target.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Level_gameobjects/HealthPickup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/Level_gameobjects/AmmoPickup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/Level_gameobjects/Turret.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -338,7 +342,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Spatial" type="Spatial" index="0"]
+[node name="Spatial" type="Spatial"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
 
@@ -1220,5 +1224,63 @@ mesh = SubResource( 9 )
 skeleton = NodePath("..")
 material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
+
+[node name="Targets" type="Spatial" parent="." index="4"]
+
+editor/display_folded = true
+
+[node name="TargetWhole" parent="Targets" index="0" instance=ExtResource( 3 )]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 9.30001, 0 )
+
+[node name="TargetWhole2" parent="Targets" index="1" instance=ExtResource( 3 )]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 22.2968, 24.3869 )
+
+[node name="TargetWhole3" parent="Targets" index="2" instance=ExtResource( 3 )]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 23.1918, -15.5231 )
+
+[node name="TargetWhole4" parent="Targets" index="3" instance=ExtResource( 3 )]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 36.0166, 6.8679 )
+
+[node name="TargetWhole5" parent="Targets" index="4" instance=ExtResource( 3 )]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 23.0219, 4.52206 )
+
+[node name="TargetWhole6" parent="Targets" index="5" instance=ExtResource( 3 )]
+
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -15.9474, 23.0219, -36.7415 )
+
+[node name="TargetWhole7" parent="Targets" index="6" instance=ExtResource( 3 )]
+
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -30.2721, 9.88401, -36.7415 )
+
+[node name="TargetWhole8" parent="Targets" index="7" instance=ExtResource( 3 )]
+
+transform = Transform( -1, 0, 8.74228e-08, 6.69697e-08, 0.642788, 0.766044, -5.61943e-08, 0.766044, -0.642788, -26.5127, 34.3122, -19.5636 )
+
+[node name="HealthPickup" parent="." index="5" instance=ExtResource( 4 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0198, 2.68939, 21.5176 )
+
+[node name="HealthPickup2" parent="." index="6" instance=ExtResource( 4 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6616, 2.68939, 21.5176 )
+kit_size = 1
+
+[node name="AmmoPickup" parent="." index="7" instance=ExtResource( 5 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7308, 3, 24.4157 )
+
+[node name="AmmoPickup2" parent="." index="8" instance=ExtResource( 5 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.0525, 3, 24.4157 )
+kit_size = 1
+
+[node name="Turret" parent="." index="9" instance=ExtResource( 6 )]
+
+transform = Transform( -0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, -0.766044, -32.4815, 1.26983, -29.8235 )
 
 

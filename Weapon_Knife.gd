@@ -11,6 +11,9 @@ const DAMAGE = 40;
 
 # Can this weapon reload?
 const CAN_RELOAD = false;
+# Can this weapon be refilled
+const CAN_REFILL = false;
+
 # The name of the reloading animation.
 const RELOADING_ANIM_NAME = ""
 # The name of the idle animation.

@@ -2,14 +2,16 @@ extends Spatial
 
 # Variables for storing how much ammo is in the weapon, how much spare ammo this weapon has
 # and how much ammo is in a full weapon/magazine.
-var ammo_in_weapon = 20;
-var spare_ammo = 60;
-const AMMO_IN_MAG = 20;
+var ammo_in_weapon = 10;
+var spare_ammo = 20;
+const AMMO_IN_MAG = 10;
 # How much damage does this weapon do
 const DAMAGE = 15;
 
 # Can this weapon reload?
 const CAN_RELOAD = true;
+# Can this weapon be refilled
+const CAN_REFILL = true;
 
 # The name of the reloading animation.
 const RELOADING_ANIM_NAME = "Pistol_reload"

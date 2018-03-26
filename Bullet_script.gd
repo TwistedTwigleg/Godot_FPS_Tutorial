@@ -1,7 +1,7 @@
 extends Spatial
 
 # The speed the bullet travels at
-const BULLET_SPEED = 80
+var BULLET_SPEED = 80
 # The damage it causes
 # NOTE: while this is not a constant, we want it to be used like one, so we will
 # retain the UPPERCASE naming (for now).

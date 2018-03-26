@@ -60,6 +60,8 @@ var reloading_weapon = false
 
 # How much health we currently have
 var health = 100
+# How much health is the max ammount
+const MAX_HEALTH = 150
 
 # The label for how much health we have, and how much ammo we have.
 var UI_status_label
@@ -535,4 +537,19 @@ func create_sound(sound_name, position=null):
 	var scene_root = get_tree().root.get_children()[0]
 	scene_root.add_child(audio_clone)
 	audio_clone.play_sound(sound_name, position)
+
+
+func add_health(additional_health):
+	health += additional_health;
+	health = clamp(health, 0, MAX_HEALTH);
+
+
+func add_ammo(additional_ammo):
+	if (current_weapon_name != "UNARMED"):
+		if (weapons[current_weapon_name].CAN_REFILL == true):
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo;
+
+
+func bullet_hit(damage, bullet_hit_pos):
+	health -= damage;
 
