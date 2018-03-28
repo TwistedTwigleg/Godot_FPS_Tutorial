@@ -21,7 +21,7 @@ height = 9.0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.45, 0.2, 0.45 )
+extents = Vector3( 0.8, 0.2, 0.8 )
 
 [sub_resource type="SpatialMaterial" id=3]
 
@@ -4144,14 +4144,13 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Feet_CollisionShape" type="CollisionShape" parent="." index="1"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356126, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493176, 0 )
 shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
 [node name="Rotation_helper" type="Spatial" parent="." index="2"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
@@ -4405,7 +4404,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Rifle_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="0"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 7.04431 )
 script = ExtResource( 9 )
 _sections_unfolded = [ "Transform" ]
@@ -4447,6 +4445,7 @@ reverb_bus_enable = false
 reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Rotation_helper/Gun_fire_points/Knife_point/Area" index="0"]
 
@@ -4508,9 +4507,12 @@ spot_angle = 50.0
 spot_angle_attenuation = 1.0
 _sections_unfolded = [ "Light", "Spot", "Transform" ]
 
+[node name="GrenadeTossPos" type="Spatial" parent="Rotation_helper" index="5"]
+
+transform = Transform( 1, 0, 0, 0, 0.983001, 0.1836, 0, -0.1836, 0.983001, 0, -0.411827, 1.2795 )
+
 [node name="HUD" type="Control" parent="." index="3"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -4630,13 +4632,12 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Panel" type="Panel" parent="HUD" index="1"]
 
-editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.705882 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 610.0
+margin_top = 560.0
 margin_right = 370.0
 margin_bottom = 720.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -4660,7 +4661,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = -10.0
 margin_right = 380.0
-margin_bottom = 110.0
+margin_bottom = 160.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -4692,7 +4693,8 @@ size_flags_vertical = 4
 custom_fonts/font = SubResource( 25 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Health: 100
-Ammo: 000/000"
+Ammo: 000/000
+"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

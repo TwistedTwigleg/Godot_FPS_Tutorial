@@ -342,7 +342,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Spatial" type="Spatial"]
+[node name="Spatial" type="Spatial" index="0"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
 
@@ -1231,7 +1231,7 @@ editor/display_folded = true
 
 [node name="TargetWhole" parent="Targets" index="0" instance=ExtResource( 3 )]
 
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 9.30001, 0 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.5618, 9.30001, 0 )
 
 [node name="TargetWhole2" parent="Targets" index="1" instance=ExtResource( 3 )]
 
@@ -1263,15 +1263,18 @@ transform = Transform( -1, 0, 8.74228e-08, 6.69697e-08, 0.642788, 0.766044, -5.6
 
 [node name="HealthPickup" parent="." index="5" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0198, 2.68939, 21.5176 )
 
 [node name="HealthPickup2" parent="." index="6" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6616, 2.68939, 21.5176 )
 kit_size = 1
 
 [node name="AmmoPickup" parent="." index="7" instance=ExtResource( 5 )]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7308, 3, 24.4157 )
 
 [node name="AmmoPickup2" parent="." index="8" instance=ExtResource( 5 )]

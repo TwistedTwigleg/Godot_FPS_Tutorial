@@ -26,13 +26,14 @@ surfaces/0 = {
 "vertex_count": 232
 }
 
-[node name="Bullet" type="Spatial" index="0"]
+[node name="Bullet" type="Spatial"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="Area" type="Area" parent="." index="0"]
 
+editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0

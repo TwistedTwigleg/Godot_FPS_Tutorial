@@ -11,6 +11,9 @@ points = PoolVector3Array( -0.000762939, -4.0625, 0.206787, 1.55566, -3.75195, -
 
 [node name="TargetWhole" type="Spatial"]
 
+editor/display_folded = true
+_sections_unfolded = [ "Transform" ]
+
 [node name="Target" type="StaticBody" parent="." index="0"]
 
 input_ray_pickable = true
@@ -28,6 +31,7 @@ destroyed_target = ExtResource( 2 )
 
 shape = SubResource( 1 )
 disabled = false
+_sections_unfolded = [ "Transform" ]
 
 [node name="Target_whole" parent="Target" index="1" instance=ExtResource( 3 )]
 

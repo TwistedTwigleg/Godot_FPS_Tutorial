@@ -71,6 +71,12 @@ var flashlight
 # The audio player scene. Will play a sound, and then destroy itself.
 var simple_audio_player = preload("res://SimpleAudioPlayer.tscn")
 
+var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+var current_grenade = "Grenade";
+var grenade_scene = preload("res://Grenade.tscn");
+var sticky_grenade_scene = preload("res://StickyGrenade.tscn");
+const GRENADE_THROW_FORCE = 50;
+
 
 func _ready():
 	
@@ -109,8 +115,10 @@ func _ready():
 			weapon_node.rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
 	
 	# Make sure the starting weapon is UNARMED
+	# and we are using normal grenades
 	current_weapon_name = "UNARMED"
 	changing_weapon_name = "UNARMED"
+	current_grenade = "Grenade"
 	
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
 	UI_status_label = get_node("HUD/Panel/Gun_label")
@@ -311,6 +319,31 @@ func process_input(delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	# ----------------------------------
+	
+	
+	# ----------------------------------
+	# Changing, and throwing grenades
+	if Input.is_action_just_pressed("change_grenade"):
+		if (current_grenade == "Grenade"):
+			current_grenade = "Sticky Grenade";
+		elif (current_grenade == "Sticky Grenade"):
+			current_grenade = "Grenade";
+	
+	if Input.is_action_just_pressed("fire_grenade"):
+		if (grenade_amounts[current_grenade] > 0):
+			grenade_amounts[current_grenade] -= 1;
+		
+			var grenade_clone;
+			if (current_grenade == "Grenade"):
+				grenade_clone = grenade_scene.instance();
+			elif (current_grenade == "Sticky Grenade"):
+				grenade_clone = sticky_grenade_scene.instance();
+				grenade_clone.player_body = self;
+			
+			get_tree().root.add_child(grenade_clone);
+			grenade_clone.global_transform = get_node("Rotation_helper/GrenadeTossPos").global_transform;
+			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE);
+	# ----------------------------------
 
 
 func process_view_input(delta):
@@ -465,10 +498,12 @@ func process_UI(delta):
 	# Set the HUD text
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		UI_status_label.text = "HEALTH: " + str(health)
+		UI_status_label.text += "\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 	else:
 		var current_weapon = weapons[current_weapon_name]
 		UI_status_label.text = "HEALTH: " + str(health) + "\nAMMO:" + \
 			str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
+		UI_status_label.text += "\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 
 
 # Mouse based camera movement
@@ -548,6 +583,10 @@ func add_ammo(additional_ammo):
 	if (current_weapon_name != "UNARMED"):
 		if (weapons[current_weapon_name].CAN_REFILL == true):
 			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo;
+
+func add_grenade(additional_grenade):
+	grenade_amounts[current_grenade] += additional_grenade
+	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
 
 
 func bullet_hit(damage, bullet_hit_pos):

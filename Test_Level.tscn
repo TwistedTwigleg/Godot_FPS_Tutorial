@@ -5623,42 +5623,34 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30.1
 [node name="TargetWhole2" parent="Targets" index="1" instance=ExtResource( 36 )]
 
 transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -20.4272, 23.8731, -44.9195 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole3" parent="Targets" index="2" instance=ExtResource( 36 )]
 
 transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 20.2046, 23.8731, -44.9195 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole4" parent="Targets" index="3" instance=ExtResource( 36 )]
 
 transform = Transform( 4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 13.2046, 24.8731, 35.1796 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole5" parent="Targets" index="4" instance=ExtResource( 36 )]
 
 transform = Transform( -1.31134e-07, 1.14641e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 1.31134e-07, -13.7954, 24.8731, 35.1796 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole6" parent="Targets" index="5" instance=ExtResource( 36 )]
 
 transform = Transform( 2.18557e-07, -1.91069e-14, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -2.18557e-07, 133.841, 28.3842, 0.204346 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole7" parent="Targets" index="6" instance=ExtResource( 36 )]
 
 transform = Transform( 2.18557e-07, -1.91069e-14, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -2.18557e-07, 133.841, 28.3842, -9.79565 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole8" parent="Targets" index="7" instance=ExtResource( 36 )]
 
 transform = Transform( -3.0598e-07, 2.67496e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 3.0598e-07, -134.159, 28.3842, -9.79565 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="TargetWhole9" parent="Targets" index="8" instance=ExtResource( 36 )]
 
 transform = Transform( -3.0598e-07, 2.67496e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 3.0598e-07, -134.159, 28.3842, -0.795653 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Turrets" type="Spatial" parent="." index="8"]
 
