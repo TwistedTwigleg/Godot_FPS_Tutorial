@@ -74,15 +74,15 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Emission" ]
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=4]
 
 extents = Vector3( 1.85373, 1.67194, 4.22614 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=5]
 
 extents = Vector3( 1, 2.17965, 0.672486 )
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape" id=6]
 
 radius = 36.0
 
@@ -184,14 +184,12 @@ radial_segments = 6
 rings = 3
 is_hemisphere = false
 
-[node name="Turret" type="Spatial"]
+[node name="Turret" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
 use_raycast = false
 
 [node name="Base" type="Spatial" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="Turret_base" parent="Base" index="0" instance=ExtResource( 2 )]
 
@@ -227,7 +225,6 @@ disabled = false
 
 [node name="Head" type="Spatial" parent="." index="1"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.78783, 0.549067 )
 _sections_unfolded = [ "Transform" ]
 
@@ -282,7 +279,7 @@ collision_mask = 1
 
 [node name="BarrleEnd" type="Spatial" parent="Head" index="4"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.22162, -11.5493 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 4.22162, -11.5493 )
 
 [node name="StaticBody" type="StaticBody" parent="Head" index="5"]
 
@@ -301,13 +298,13 @@ path_to_turret_root = NodePath("../..")
 [node name="CollisionShape" type="CollisionShape" parent="Head/StaticBody" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37812, -4.27506 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 disabled = false
 
 [node name="CollisionShape2" type="CollisionShape" parent="Head/StaticBody" index="1"]
 
 transform = Transform( 1, 0, 0, 0, 0.922934, 0.384959, 0, -0.384959, 0.922934, 0, 2.66293, 0.692402 )
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 disabled = false
 
 [node name="VisionArea" type="Area" parent="." index="2"]
@@ -337,7 +334,7 @@ reverb_bus_uniformity = 0.0
 [node name="CollisionShape" type="CollisionShape" parent="VisionArea" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 disabled = false
 
 [node name="Smoke" type="Particles" parent="." index="3"]

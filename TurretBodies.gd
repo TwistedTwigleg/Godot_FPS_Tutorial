@@ -1,5 +1,6 @@
 extends StaticBody
 
+# The path to the turret root node (needed to send the signal pack up)
 export (NodePath) var path_to_turret_root;
 
 func _ready():

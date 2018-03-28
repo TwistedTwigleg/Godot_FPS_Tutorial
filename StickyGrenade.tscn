@@ -173,14 +173,14 @@ radial_segments = 4
 rings = 4
 is_hemisphere = false
 
-[node name="StickyGrenade" type="RigidBody"]
+[node name="StickyGrenade" type="RigidBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
 collision_mask = 1
 mode = 0
-mass = 1.0
+mass = 2.0
 friction = 1.0
 bounce = 0.0
 gravity_scale = 2.0
