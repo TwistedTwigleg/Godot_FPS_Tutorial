@@ -1,0 +1,371 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Turret.gd" type="Script" id=1]
+[ext_resource path="res://assets/Level_assets/Turret_base.scn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Level_assets/LevelAssets_SpatialMaterial.tres" type="Material" id=3]
+[ext_resource path="res://TurretBodies.gd" type="Script" id=4]
+[ext_resource path="res://assets/Level_assets/Turret_Head.scn" type="PackedScene" id=5]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 4, 3.4, 2 )
+
+[sub_resource type="CylinderMesh" id=2]
+
+top_radius = 0.4
+bottom_radius = 1.4
+height = 2.0
+radial_segments = 6
+rings = 2
+
+[sub_resource type="SpatialMaterial" id=3]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 1, 1, 1, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = true
+emission = Color( 1, 0.723816, 0.292969, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Emission" ]
+
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 1.85373, 1.67194, 4.22614 )
+
+[sub_resource type="BoxShape" id=5]
+
+extents = Vector3( 1, 2.17965, 0.672486 )
+
+[sub_resource type="SphereShape" id=6]
+
+radius = 36.0
+
+[sub_resource type="ParticlesMaterial" id=7]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = false
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 9.8, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 2.0
+radial_accel_random = 1.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 6.0
+scale_random = 0.2
+color = Color( 1, 1, 1, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+
+[sub_resource type="SpatialMaterial" id=8]
+
+render_priority = 0
+flags_transparent = true
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 3
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.0507813, 0.0507813, 0.0507813, 0.491726 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.8
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo" ]
+
+[sub_resource type="SphereMesh" id=9]
+
+material = SubResource( 8 )
+radius = 0.2
+height = 0.5
+radial_segments = 6
+rings = 3
+is_hemisphere = false
+
+[node name="Turret" type="Spatial"]
+
+script = ExtResource( 1 )
+use_raycast = false
+
+[node name="Base" type="Spatial" parent="." index="0"]
+
+editor/display_folded = true
+
+[node name="Turret_Base" parent="Base" index="0" instance=ExtResource( 2 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.273253 )
+material/0 = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "material" ]
+
+[node name="Static_Body" type="StaticBody" parent="Base" index="1"]
+
+editor/display_folded = true
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 4 )
+path_to_turret_root = NodePath("../..")
+
+[node name="Collision_Shape" type="CollisionShape" parent="Base/Static_Body" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68306, 0.587342 )
+shape = SubResource( 1 )
+disabled = false
+
+[node name="Collision_Shape_2" type="CollisionShape" parent="Base/Static_Body" index="1"]
+
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.68306, 0.587342 )
+shape = SubResource( 1 )
+disabled = false
+
+[node name="Head" type="Spatial" parent="." index="1"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.78783, 0.549067 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Turret_Head" parent="Head" index="0" instance=ExtResource( 5 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00935364, 0.493907 )
+use_in_baked_light = false
+material/0 = ExtResource( 3 )
+_sections_unfolded = [ "Geometry", "Transform", "material" ]
+
+[node name="Flash" type="MeshInstance" parent="Head" index="1"]
+
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.94556, -9.58062 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 2 )
+skeleton = NodePath("..")
+material/0 = SubResource( 3 )
+_sections_unfolded = [ "material" ]
+
+[node name="Flash_2" type="MeshInstance" parent="Head" index="2"]
+
+transform = Transform( 0.8, 0, 0, 0, -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 3.62722, -8.96148 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 2 )
+skeleton = NodePath("..")
+material/0 = SubResource( 3 )
+_sections_unfolded = [ "Geometry", "Transform", "material" ]
+
+[node name="Ray_Cast" type="RayCast" parent="Head" index="3"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.35444, -2.734 )
+enabled = false
+exclude_parent = true
+cast_to = Vector3( 0, 0, -40 )
+collision_mask = 1
+
+[node name="Barrel_End" type="Spatial" parent="Head" index="4"]
+
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 4.22162, -11.5493 )
+
+[node name="Static_Body" type="StaticBody" parent="Head" index="5"]
+
+editor/display_folded = true
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 4 )
+path_to_turret_root = NodePath("../..")
+
+[node name="Collision_Shape" type="CollisionShape" parent="Head/Static_Body" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37812, -4.27506 )
+shape = SubResource( 4 )
+disabled = false
+
+[node name="Collision_Shape_2" type="CollisionShape" parent="Head/Static_Body" index="1"]
+
+transform = Transform( 1, 0, 0, 0, 0.922934, 0.384959, 0, -0.384959, 0.922934, 0, 2.66293, 0.692402 )
+shape = SubResource( 5 )
+disabled = false
+
+[node name="Vision_Area" type="Area" parent="." index="2"]
+
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+
+[node name="Collision_Shape" type="CollisionShape" parent="Vision_Area" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
+shape = SubResource( 6 )
+disabled = false
+
+[node name="Smoke" type="Particles" parent="." index="3"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85465, 0.50817 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+emitting = false
+amount = 64
+lifetime = 1.4
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_aabb = AABB( -4, -4, -4, 8, 8, 8 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 7 )
+draw_passes = 1
+draw_pass_1 = SubResource( 9 )
+_sections_unfolded = [ "Draw Passes", "Process Material", "Time" ]
+
+

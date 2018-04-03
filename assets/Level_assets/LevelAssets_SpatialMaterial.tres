@@ -26,7 +26,7 @@ params_point_size = 1.0
 params_billboard_mode = 0
 params_grow = false
 params_use_alpha_scissor = false
-albedo_color = Color( 1, 1, 1, 1 )
+albedo_color = Color( 0.882813, 0.882813, 0.882813, 1 )
 albedo_texture = ExtResource( 1 )
 metallic = 0.0
 metallic_specular = 0.5
@@ -59,4 +59,5 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
+_sections_unfolded = [ "Albedo" ]
 

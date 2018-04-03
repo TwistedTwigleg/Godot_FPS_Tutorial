@@ -19,7 +19,7 @@ var audio_node = null
 
 func _ready():
 	# Get the audio player node, connect the finished singal, and assure it's not playing anything.
-	audio_node = get_node("AudioStreamPlayer")
+	audio_node = $Audio_Stream_Player
 	audio_node.connect("finished", self, "destroy_self")
 	audio_node.stop()
 
