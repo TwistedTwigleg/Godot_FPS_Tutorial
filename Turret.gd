@@ -73,6 +73,12 @@ func _ready():
 	node_flash_one = get_node("Head/Flash");
 	node_flash_two = get_node("Head/Flash2");
 	
+	# Add some exceptions to the raycast (so we cannot hurt ourself)
+	node_raycast.add_exception(self)
+	node_raycast.add_exception($Base/StaticBody);
+	node_raycast.add_exception($Head/StaticBody);
+	node_raycast.add_exception($VisionArea);
+	
 	# Because we are not firing at start, we need to assure the flash is invisible.
 	node_flash_one.visible = false;
 	node_flash_two.visible = false;
@@ -159,6 +165,9 @@ func fire_bullet():
 		# Remove the bullet from the turret
 		ammo_in_turret -= 1
 	else:
+		# Rotate the raycast to look at the target (assuring we'll hit)
+		node_raycast.look_at(current_target.global_transform.origin, Vector3(0,1,0));
+		
 		# Force the raycast to update. This will force the raycast to detect collisions when we call it.
 		# This means we are getting a frame perfect collision check with the 3D world.
 		node_raycast.force_raycast_update()
@@ -198,14 +207,15 @@ func body_entered_vision(body):
 func body_exited_vision(body):
 	# If the body that has just left is our target, we need to
 	# reset the turret's target dependent variables.
-	if (body == current_target):
-		current_target = null;
-		is_active = false;
-		
-		flash_timer = 0;
-		fire_timer = 0;
-		node_flash_one.visible = false;
-		node_flash_two.visible = false;
+	if (current_target != null):
+		if (body == current_target):
+			current_target = null;
+			is_active = false;
+			
+			flash_timer = 0;
+			fire_timer = 0;
+			node_flash_one.visible = false;
+			node_flash_two.visible = false;
 
 
 func bullet_hit(damage, bullet_hit_pos):

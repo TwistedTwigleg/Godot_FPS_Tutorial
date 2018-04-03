@@ -342,7 +342,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Spatial" type="Spatial"]
+[node name="Spatial" type="Spatial" index="0"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
 
@@ -1285,5 +1285,10 @@ kit_size = 1
 [node name="Turret" parent="." index="9" instance=ExtResource( 6 )]
 
 transform = Transform( -0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, -0.766044, -32.4815, 1.26983, -29.8235 )
+
+[node name="Turret_Raycast" parent="." index="10" instance=ExtResource( 6 )]
+
+transform = Transform( -0.707107, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707107, 32.5185, 1.26983, -29.8235 )
+use_raycast = true
 
 

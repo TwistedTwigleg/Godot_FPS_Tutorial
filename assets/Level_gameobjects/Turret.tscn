@@ -184,7 +184,7 @@ radial_segments = 6
 rings = 3
 is_hemisphere = false
 
-[node name="Turret" type="Spatial" index="0"]
+[node name="Turret" type="Spatial"]
 
 script = ExtResource( 1 )
 use_raycast = false
@@ -225,6 +225,7 @@ disabled = false
 
 [node name="Head" type="Spatial" parent="." index="1"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.78783, 0.549067 )
 _sections_unfolded = [ "Transform" ]
 
@@ -271,10 +272,10 @@ _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="RayCast" type="RayCast" parent="Head" index="3"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.35444, -5.36299 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.35444, -2.734 )
 enabled = false
 exclude_parent = true
-cast_to = Vector3( 0, 0, -31 )
+cast_to = Vector3( 0, 0, -40 )
 collision_mask = 1
 
 [node name="BarrleEnd" type="Spatial" parent="Head" index="4"]
