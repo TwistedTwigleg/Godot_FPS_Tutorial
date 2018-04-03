@@ -173,7 +173,7 @@ radial_segments = 4
 rings = 4
 is_hemisphere = false
 
-[node name="StickyGrenade" type="RigidBody" index="0"]
+[node name="Sticky_Grenade" type="RigidBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -203,23 +203,22 @@ angular_damp = -1.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="StickyGrenade" parent="." index="0" instance=ExtResource( 2 )]
+[node name="Sticky_Grenade" parent="." index="0" instance=ExtResource( 2 )]
 
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
+[node name="Collision_Shape" type="CollisionShape" parent="." index="1"]
 
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="BlastArea" type="Area" parent="." index="2"]
+[node name="Blast_Area" type="Area" parent="." index="2"]
 
-editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
@@ -241,7 +240,7 @@ reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 
-[node name="CollisionShape" type="CollisionShape" parent="BlastArea" index="0"]
+[node name="Collision_Shape" type="CollisionShape" parent="Blast_Area" index="0"]
 
 shape = SubResource( 2 )
 disabled = false
@@ -277,7 +276,7 @@ draw_pass_1 = SubResource( 5 )
 draw_pass_2 = SubResource( 7 )
 _sections_unfolded = [ "Draw Passes", "Drawing", "Process Material", "Time", "Transform" ]
 
-[node name="StickyArea" type="Area" parent="." index="4"]
+[node name="Sticky_Area" type="Area" parent="." index="4"]
 
 input_ray_pickable = false
 input_capture_on_drag = false
@@ -300,7 +299,7 @@ reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 
-[node name="CollisionShape" type="CollisionShape" parent="StickyArea" index="0"]
+[node name="Collision_Shape" type="CollisionShape" parent="Sticky_Area" index="0"]
 
 transform = Transform( 2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0 )
 shape = SubResource( 1 )

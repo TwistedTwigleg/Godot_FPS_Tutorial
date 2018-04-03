@@ -35,10 +35,10 @@
 [ext_resource path="res://assets/Level_gameobjects/Wall_two_BLUE.tscn" type="PackedScene" id=33]
 [ext_resource path="res://assets/Level_gameobjects/Wall_two_window_BLUE.tscn" type="PackedScene" id=34]
 [ext_resource path="res://assets/Level_gameobjects/Wall_window_BLUE.tscn" type="PackedScene" id=35]
-[ext_resource path="res://assets/Level_gameobjects/Target.tscn" type="PackedScene" id=36]
-[ext_resource path="res://assets/Level_gameobjects/Turret.tscn" type="PackedScene" id=37]
-[ext_resource path="res://assets/Level_gameobjects/HealthPickup.tscn" type="PackedScene" id=38]
-[ext_resource path="res://assets/Level_gameobjects/AmmoPickup.tscn" type="PackedScene" id=39]
+[ext_resource path="res://Target.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Turret.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=38]
+[ext_resource path="res://Ammo_Pickup.tscn" type="PackedScene" id=39]
 
 [sub_resource type="PanoramaSky" id=1]
 
@@ -5616,39 +5616,39 @@ data = SubResource( 3 )
 
 editor/display_folded = true
 
-[node name="TargetWhole" parent="Targets" index="0" instance=ExtResource( 36 )]
+[node name="Target_Whole" parent="Targets" index="0" instance=ExtResource( 36 )]
 
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30.1723, -4.48783 )
 
-[node name="TargetWhole2" parent="Targets" index="1" instance=ExtResource( 36 )]
+[node name="Target_Whole_2" parent="Targets" index="1" instance=ExtResource( 36 )]
 
 transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -20.4272, 23.8731, -44.9195 )
 
-[node name="TargetWhole3" parent="Targets" index="2" instance=ExtResource( 36 )]
+[node name="Target_Whole_3" parent="Targets" index="2" instance=ExtResource( 36 )]
 
 transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 20.2046, 23.8731, -44.9195 )
 
-[node name="TargetWhole4" parent="Targets" index="3" instance=ExtResource( 36 )]
+[node name="Target_Whole_4" parent="Targets" index="3" instance=ExtResource( 36 )]
 
 transform = Transform( 4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 13.2046, 24.8731, 35.1796 )
 
-[node name="TargetWhole5" parent="Targets" index="4" instance=ExtResource( 36 )]
+[node name="Target_Whole_5" parent="Targets" index="4" instance=ExtResource( 36 )]
 
 transform = Transform( -1.31134e-07, 1.14641e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 1.31134e-07, -13.7954, 24.8731, 35.1796 )
 
-[node name="TargetWhole6" parent="Targets" index="5" instance=ExtResource( 36 )]
+[node name="Target_Whole_6" parent="Targets" index="5" instance=ExtResource( 36 )]
 
 transform = Transform( 2.18557e-07, -1.91069e-14, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -2.18557e-07, 133.841, 28.3842, 0.204346 )
 
-[node name="TargetWhole7" parent="Targets" index="6" instance=ExtResource( 36 )]
+[node name="Target_Whole_7" parent="Targets" index="6" instance=ExtResource( 36 )]
 
 transform = Transform( 2.18557e-07, -1.91069e-14, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -2.18557e-07, 133.841, 28.3842, -9.79565 )
 
-[node name="TargetWhole8" parent="Targets" index="7" instance=ExtResource( 36 )]
+[node name="Target_Whole_8" parent="Targets" index="7" instance=ExtResource( 36 )]
 
 transform = Transform( -3.0598e-07, 2.67496e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 3.0598e-07, -134.159, 28.3842, -9.79565 )
 
-[node name="TargetWhole9" parent="Targets" index="8" instance=ExtResource( 36 )]
+[node name="Target_Whole_9" parent="Targets" index="8" instance=ExtResource( 36 )]
 
 transform = Transform( -3.0598e-07, 2.67496e-14, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, 3.0598e-07, -134.159, 28.3842, -0.795653 )
 
@@ -5662,37 +5662,40 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.0855, 80.1199 )
 
 [node name="Pickups" type="Spatial" parent="." index="9"]
 
-[node name="HealthPickup" parent="Pickups" index="0" instance=ExtResource( 38 )]
+[node name="Health_Pickup" parent="Pickups" index="0" instance=ExtResource( 38 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.15237, -4.90221 )
 
-[node name="HealthPickup2" parent="Pickups" index="1" instance=ExtResource( 38 )]
+[node name="Health_Pickup_Small" parent="Pickups" index="1" instance=ExtResource( 38 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5077, 3.67108, -0.384684 )
+kit_size = 1
 
-[node name="HealthPickup3" parent="Pickups" index="2" instance=ExtResource( 38 )]
+[node name="Health_Pickup_Small_2" parent="Pickups" index="2" instance=ExtResource( 38 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -84.3097, 3.67108, -0.384684 )
+kit_size = 1
 
-[node name="HealthPickup4" parent="Pickups" index="3" instance=ExtResource( 38 )]
+[node name="Health_Pickup_Small_3" parent="Pickups" index="3" instance=ExtResource( 38 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.966, 22.5158, -79.1934 )
+kit_size = 1
 
 [node name="AmmoPickup" parent="Pickups" index="4" instance=ExtResource( 39 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.4838, 71.3203 )
 
-[node name="AmmoPickup2" parent="Pickups" index="5" instance=ExtResource( 39 )]
+[node name="Ammo_Pickup_Small" parent="Pickups" index="5" instance=ExtResource( 39 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8646, 21.0602, -79.1487 )
 kit_size = 1
 
-[node name="AmmoPickup3" parent="Pickups" index="6" instance=ExtResource( 39 )]
+[node name="Ammo_Pickup_Small_2" parent="Pickups" index="6" instance=ExtResource( 39 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84.0698, 4.3006, -9.58457 )
 kit_size = 1
 
-[node name="AmmoPickup4" parent="Pickups" index="7" instance=ExtResource( 39 )]
+[node name="Ammo_Pickup_Small_3" parent="Pickups" index="7" instance=ExtResource( 39 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -84.3534, 4.3006, -9.58457 )
 kit_size = 1

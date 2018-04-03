@@ -2,17 +2,17 @@ extends Spatial
 
 # NOTE: we do not need these values, but we may in the future
 # (or rather we may need all weapons to have these variables)
-var ammo_in_weapon = 1;
-var spare_ammo = 1;
-const AMMO_IN_MAG = 1;
+var ammo_in_weapon = 1
+var spare_ammo = 1
+const AMMO_IN_MAG = 1
 
 # How much damage does this weapon do
-const DAMAGE = 40;
+const DAMAGE = 40
 
 # Can this weapon reload?
-const CAN_RELOAD = false;
+const CAN_RELOAD = false
 # Can this weapon be refilled
-const CAN_REFILL = false;
+const CAN_REFILL = false
 
 # The name of the reloading animation.
 const RELOADING_ANIM_NAME = ""
@@ -22,22 +22,22 @@ const IDLE_ANIM_NAME = "Knife_idle"
 const FIRE_ANIM_NAME = "Knife_fire"
 
 # Is this weapon enabled?
-var is_weapon_enabled = false;
+var is_weapon_enabled = false
 
 # The player script. This is so we can easily access the animation player
 # and other variables.
-var player_node = null;
+var player_node = null
 
 func _ready():
 	# We are going to assume the player will pass themselves in.
 	# While we can have cases where the player does not pass themselves in,
 	# having a complicated get_node call does not look pretty and it (relatively) safe to assume
 	# player_node will be passed in.
-	pass;
+	pass
 
 func fire_weapon():
 	# Get the knife area and all of the overlapping bodies.
-	var area = get_node("Area")
+	var area = $Area
 	var bodies = area.get_overlapping_bodies()
 	
 	# For every body inside the knife's area, see if it has the method 'bullet_hit'.
@@ -49,12 +49,12 @@ func fire_weapon():
 
 func reload_weapon():
 	# Return false because we cannot reload a knife
-	return false;
+	return false
 
 func equip_weapon():
 	# If we are in our idle animation, then we have successfully been equipped.
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
-		is_weapon_enabled = true;
+		is_weapon_enabled = true
 		return true
 	
 	# If we are in a animation state where we can be equipped (Idle_unarmed), then
@@ -72,7 +72,7 @@ func unequip_weapon():
 	
 	# If we have returned to "Idle_unarmed", then we have been successfully unequipped.
 	if player_node.animation_manager.current_state == "Idle_unarmed":
-		is_weapon_enabled = false;
+		is_weapon_enabled = false
 		return true
 	
 	return false

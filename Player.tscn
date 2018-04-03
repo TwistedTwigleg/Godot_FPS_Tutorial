@@ -4119,7 +4119,7 @@ use_filter = true
 font_data = ExtResource( 13 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -4156,6 +4156,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Model" type="Spatial" parent="Rotation_helper" index="0"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.405, 0 )
 
 [node name="Armature" type="Spatial" parent="Rotation_helper/Model" index="0"]
@@ -4402,27 +4403,28 @@ _sections_unfolded = [ "Transform" ]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3914, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Rifle_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="0"]
+[node name="Rifle_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="0"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 7.04431 )
 script = ExtResource( 9 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="RayCast" type="RayCast" parent="Rotation_helper/Gun_fire_points/Rifle_point" index="0"]
+[node name="Ray_Cast" type="RayCast" parent="Rotation_helper/Gun_fire_points/Rifle_Point" index="0"]
 
 enabled = false
 exclude_parent = true
 cast_to = Vector3( 0, 0, 80 )
 collision_mask = 1
 
-[node name="Knife_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="1"]
+[node name="Knife_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="1"]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 2.54082 )
 script = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Area" type="Area" parent="Rotation_helper/Gun_fire_points/Knife_point" index="0"]
+[node name="Area" type="Area" parent="Rotation_helper/Gun_fire_points/Knife_Point" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17163, 1.26893 )
 input_ray_pickable = false
@@ -4447,13 +4449,13 @@ reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 _sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Rotation_helper/Gun_fire_points/Knife_point/Area" index="0"]
+[node name="Collision_Shape" type="CollisionShape" parent="Rotation_helper/Gun_fire_points/Knife_Point/Area" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.300034 )
 shape = SubResource( 22 )
 disabled = false
 
-[node name="Pistol_point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="2"]
+[node name="Pistol_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="2"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436506, 11.3604, 4.77607 )
 script = ExtResource( 11 )

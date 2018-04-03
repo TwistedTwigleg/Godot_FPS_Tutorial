@@ -209,16 +209,15 @@ material/0 = ExtResource( 3 )
 material/1 = ExtResource( 4 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
+[node name="Collision_Shape" type="CollisionShape" parent="." index="1"]
 
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="BlastArea" type="Area" parent="." index="2"]
+[node name="Blast_Area" type="Area" parent="." index="2"]
 
-editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
@@ -240,7 +239,7 @@ reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 
-[node name="CollisionShape" type="CollisionShape" parent="BlastArea" index="0"]
+[node name="Collision_Shape" type="CollisionShape" parent="Blast_Area" index="0"]
 
 shape = SubResource( 2 )
 disabled = false

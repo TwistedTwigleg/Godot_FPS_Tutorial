@@ -1,40 +1,46 @@
 extends KinematicBody
 
 # Walking variables.
-# This manages how fast we walk (and how quickly we can get to top speed),
-# how strong gravity is, and how high we jump.
-const norm_grav = -24.8
+# This manages how fast we are moving, fast we can walk,
+# how quickly we can get to top speed, how strong gravity is, and how high we jump.
+const GRAVITY = -24.8
 var vel = Vector3()
 const MAX_SPEED = 20
 const JUMP_SPEED = 18
 const ACCEL= 4.5
 
-# A vector for storing the direction the player intends to walk towards.
+# A vector for storing the direction the player intends to move towards.
 var dir = Vector3()
 
-# Sprinting variables. Similar to the varibles above, just allowing for quicker movement
+# Sprinting variables. Similar to the varibles above for walking,
+# but these are used when sprinting (so they should be faster/higher)
 const MAX_SPRINT_SPEED = 30
 const SPRINT_ACCEL = 18
-# A boolean to track whether or not we are spriting
+# A boolean to track if we are spriting
 var is_spriting = false
 
-# How fast we slow down, and the steepest angle we can climb.
+# How fast we slow down, and the steepest angle that counts as a floor (to the KinematicBody).
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
 
-# We need the camera for getting directional vectors. We rotate ourselves on the Y-axis using
-# the rotation_helper to avoid rotating on more than one axis at a time.
+# The camera and the rotation helper.
+# We need the camera to get its directional vectors.
+#We rotate ourselves on the Y-axis using the rotation_helper to avoid rotating on more than one axis at a time.
 var camera
 var rotation_helper
 
-# You may need to adjust depending on the sensitivity of your mouse
+# The sensitivity of the mouse
+# (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
+# (You may need to adjust depending on the sensitivity of your mouse)
 const MOUSE_SENSITIVITY = 0.05
-# The scroll wheel value
+# The value of the scroll wheel (relative to our current weapon)
 var mouse_scroll_value = 0
 # How much a single scroll action increases mouse_scroll_value
 const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
 
-# You may need to adjust depending on the sensitivity of your joypad
+# The sensitivity of the joypad's joysticks.
+# (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
+# (You may need to adjust depending on the sensitivity of your joypad)
 const JOYPAD_SENSITIVITY = 2
 # The dead zone for the joypad. Many joypads jitter around a certain point, so any movement in a
 # with a radius of JOYPAD_DEADZONE should be ignored (or the camera will jitter)
@@ -49,8 +55,8 @@ var current_weapon_name = "UNARMED"
 # A dictionary of all the weapons we have
 var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
 # A dictionary containing the weapons names and which number they use
-const weapon_number_to_name = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
-const weapon_name_to_number = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
+const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
+const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
 # A boolean to track if we are changing weapons
 var changing_weapon = false
 # The name of the weapon we want to change to, if we are changing weapons
@@ -58,50 +64,53 @@ var changing_weapon_name = "UNARMED"
 # A boolean to track if we are reloading
 var reloading_weapon = false
 
-# How much health we currently have
+# The amount of health we currently have
 var health = 100
-# How much health is the max ammount
+# The amount of health we have when fully healed
 const MAX_HEALTH = 150
 
-# The label for how much health we have, and how much ammo we have.
+# The label for how much health we have, how many grenades we have,
+# and how much ammo is in our current weapon (along with how much ammo we have in reserve for that weapon)
 var UI_status_label
 # The flashlight spotlight
 var flashlight
 
 # The audio player scene. Will play a sound, and then destroy itself.
-var simple_audio_player = preload("res://SimpleAudioPlayer.tscn")
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
 
+# Grenade variables
+# The number of grenades we currently have for each type of grenade
 var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
-var current_grenade = "Grenade";
-var grenade_scene = preload("res://Grenade.tscn");
-var sticky_grenade_scene = preload("res://StickyGrenade.tscn");
-const GRENADE_THROW_FORCE = 50;
+# The current selected grenade
+var current_grenade = "Grenade"
+# The grenade and sticky grenade scenes
+var grenade_scene = preload("res://Grenade.tscn")
+var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
+# The amount of force we throw the grenades at
+const GRENADE_THROW_FORCE = 50
 
 
 func _ready():
 	
-	camera = get_node("Rotation_helper/Camera")
-	rotation_helper = get_node("Rotation_helper")
+	# Get the camera and the rotation helper
+	camera = $Rotation_helper/Camera
+	rotation_helper = $Rotation_helper
 	
 	# Get the animation manager and pass in a funcref for 'fire bullet'.
 	# This allows 'fire_bullet' to be called from the guns fire animations.
 	animation_manager = get_node("Rotation_helper/Model/AnimationPlayer")
 	animation_manager.callback_function = funcref(self, "fire_bullet")
 	
-	set_physics_process(true)
-	
 	# We need to capture the mouse in order to use it for a FPS style camera control.
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# We need to process _input if we want to use the mouse wheel
-	set_process_input(true)
 	
 	# Get all of the weapon nodes
-	weapons["KNIFE"] = get_node("Rotation_helper/Gun_fire_points/Knife_point")
-	weapons["PISTOL"] = get_node("Rotation_helper/Gun_fire_points/Pistol_point")
-	weapons["RIFLE"] = get_node("Rotation_helper/Gun_fire_points/Rifle_point")
+	weapons["KNIFE"] = $Rotation_helper/Gun_fire_points/Knife_point
+	weapons["PISTOL"] = $Rotation_helper/Gun_fire_points/Pistol_point
+	weapons["RIFLE"] = $Rotation_helper/Gun_fire_points/Rifle_point
 	
 	# The point where we want all of the weapons to aim at
-	var gun_aim_point_pos = get_node("Rotation_helper/Gun_aim_point").global_transform.origin
+	var gun_aim_point_pos = $Rotation_helper/Gun_aim_point.global_transform.origin
 	
 	# Send ourself to all of the weapons, and then rotate them to aim at the center of the screen
 	for weapon in weapons:
@@ -114,22 +123,22 @@ func _ready():
 			# degrees on their local Y axis because otherwise the bullets will fire backwards
 			weapon_node.rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
 	
-	# Make sure the starting weapon is UNARMED
-	# and we are using normal grenades
+	# Make sure the starting weapon is UNARMED,
+	# and we are using normal grenades at the start
 	current_weapon_name = "UNARMED"
 	changing_weapon_name = "UNARMED"
 	current_grenade = "Grenade"
 	
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
-	UI_status_label = get_node("HUD/Panel/Gun_label")
-	flashlight = get_node("Rotation_helper/Flashlight")
+	UI_status_label = $HUD/Panel/Gun_label
+	flashlight = $Rotation_helper/Flashlight
 
 
 func _physics_process(delta):
 	
 	# Process most of the input related code.
 	# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
-	# 				 firing the weapons, and reloading.
+	# 				 firing the weapons, throwing grenades, and reloading.
 	process_input(delta)
 	
 	# Process view related input (Joypad)
@@ -163,13 +172,13 @@ func process_input(delta):
 	var input_movement_vector = Vector2()
 	
 	# Add keyboard input
-	if (Input.is_action_pressed("movement_forward")):
+	if Input.is_action_pressed("movement_forward"):
 		input_movement_vector.y += 1
-	if (Input.is_action_pressed("movement_backward")):
+	if Input.is_action_pressed("movement_backward"):
 		input_movement_vector.y -= 1
-	if (Input.is_action_pressed("movement_left")):
+	if Input.is_action_pressed("movement_left"):
 		input_movement_vector.x -= 1
-	if (Input.is_action_pressed("movement_right")):
+	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x = 1
 	
 	# Add joypad input, if there is a joypad
@@ -182,9 +191,9 @@ func process_input(delta):
 		var joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
 		
 		# Account for joypad dead zones
-		if (abs(joypad_vec.x) <= JOYPAD_DEADZONE):
+		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
 			joypad_vec.x = 0
-		if (abs(joypad_vec.y) <= JOYPAD_DEADZONE):
+		if abs(joypad_vec.y) <= JOYPAD_DEADZONE:
 			joypad_vec.y = 0
 		
 		# Apply the joypad movement
@@ -224,7 +233,7 @@ func process_input(delta):
 	# ----------------------------------
 	# Changing weapons.
 	# Get the current weapon's number.
-	var weapon_change_number = weapon_name_to_number[current_weapon_name]
+	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
 	
 	# If any of the number keys are pressed, then change weapon_change_number to the pressed number.
 	# We offset the number keys by negative 1, so the 1 key really is mapped 0.
@@ -244,7 +253,7 @@ func process_input(delta):
 		weapon_change_number -= 1
 	
 	# Make sure we are using a valid weapon_change_number by clamping it
-	weapon_change_number = clamp(weapon_change_number, 0, weapon_number_to_name.size()-1)
+	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size()-1)
 	
 	# Make sure we are not changing weapons, or reloading. We do not want to be able to change weapons
 	# if we are already changing weapons, or reloading.
@@ -252,9 +261,9 @@ func process_input(delta):
 		if reloading_weapon == false:
 			# Convert the weapon change number into a weapon name and check
 			# if we are not using that weapon. If we are not, then change to it.
-			if weapon_number_to_name[weapon_change_number] != current_weapon_name:
+			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
 				# Set changing_weapon_name to the name of the weapon we want to change to, and set changing_weapon to true.
-				changing_weapon_name = weapon_number_to_name[weapon_change_number]
+				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true
 	# ----------------------------------
 	
@@ -323,26 +332,34 @@ func process_input(delta):
 	
 	# ----------------------------------
 	# Changing, and throwing grenades
-	if Input.is_action_just_pressed("change_grenade"):
-		if (current_grenade == "Grenade"):
-			current_grenade = "Sticky Grenade";
-		elif (current_grenade == "Sticky Grenade"):
-			current_grenade = "Grenade";
 	
+	# Change the name of the current grenade based on which grenade we are using
+	if Input.is_action_just_pressed("change_grenade"):
+		if current_grenade == "Grenade":
+			current_grenade = "Sticky Grenade"
+		elif current_grenade == "Sticky Grenade":
+			current_grenade = "Grenade"
+	
+	# Fire the grenade when fire_grenade is pressed
 	if Input.is_action_just_pressed("fire_grenade"):
-		if (grenade_amounts[current_grenade] > 0):
-			grenade_amounts[current_grenade] -= 1;
-		
-			var grenade_clone;
-			if (current_grenade == "Grenade"):
-				grenade_clone = grenade_scene.instance();
-			elif (current_grenade == "Sticky Grenade"):
-				grenade_clone = sticky_grenade_scene.instance();
-				grenade_clone.player_body = self;
+		# If we have a grenade for the current grenade type we are using
+		if grenade_amounts[current_grenade] > 0:
+			# Remove one from the grenade count
+			grenade_amounts[current_grenade] -= 1
 			
-			get_tree().root.add_child(grenade_clone);
-			grenade_clone.global_transform = get_node("Rotation_helper/GrenadeTossPos").global_transform;
-			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE);
+			# Based on which grenade we are using, instance it and assign it to grenade_clone
+			var grenade_clone
+			if (current_grenade == "Grenade"):
+				grenade_clone = grenade_scene.instance()
+			elif (current_grenade == "Sticky Grenade"):
+				grenade_clone = sticky_grenade_scene.instance()
+				# Sticky grenades will stick to the player if we do not pass ourselves
+				grenade_clone.player_body = self
+			
+			# Add the grenade as a child, position it correctly, and apply an impulse so we are throwing it
+			get_tree().root.add_child(grenade_clone)
+			grenade_clone.global_transform = $Rotation_helper/GrenadeTossPos.global_transform
+			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
 	# ----------------------------------
 
 
@@ -362,12 +379,15 @@ func process_view_input(delta):
 	var joypad_vec = Vector2()
 	if Input.get_connected_joypads().size() > 0:
 		
-		# For windows (XBOX 360)
-		joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
-		# For Linux (XBOX 360)
-		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
-		# For Mac (XBOX 360) Unknown, but likely:
-		#joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		# For windows (Wired XBOX 360 controller)
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		# For Linux (Wired XBOX 360 controller)
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		# For Mac (Wired XBOX 360 controller). (I have no idea on it's axis, so we'll just use the same as Linux):
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
 		
 		# Account for joypad dead zones
 		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
@@ -378,10 +398,11 @@ func process_view_input(delta):
 	# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y joypad motion.
 	# NOTE: If you want your joystick inverted, then change "joypad_vec.y" to "-joypad_vec.y".
 	rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+	
 	# Rotate the kinematic body on the Y axis by the relative X motion.
 	# We also need to multiply it by -1 because we're wanting to turn in the same direction as
 	# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
-	self.rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+	rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
 	# ----------------------------------
 	
 	# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
@@ -394,15 +415,12 @@ func process_view_input(delta):
 func process_movement(delta):
 	# Process our movements (influenced by our input) and sending them to KinematicBody
 	
-	# Apply gravity
-	var grav = norm_grav
-	
 	# Assure our movement direction on the Y axis is zero, and then normalize it.
 	dir.y = 0
 	dir = dir.normalized()
 	
 	# Apply gravity
-	vel.y += delta*grav
+	vel.y += delta*GRAVITY
 	
 	# Set our velocity to a new variable (hvel) and remove the Y velocity.
 	var hvel = vel
@@ -497,13 +515,15 @@ func process_UI(delta):
 	
 	# Set the HUD text
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
-		UI_status_label.text = "HEALTH: " + str(health)
-		UI_status_label.text += "\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
+		# First line: Health, second line: Grenades
+		UI_status_label.text = "HEALTH: " + str(health) + \
+		"\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 	else:
 		var current_weapon = weapons[current_weapon_name]
-		UI_status_label.text = "HEALTH: " + str(health) + "\nAMMO:" + \
-			str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
-		UI_status_label.text += "\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
+		# First line: Health, second line: weapon and ammo, third line: grenades
+		UI_status_label.text = "HEALTH: " + str(health) + \
+		"\nAMMO:" + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
+		"\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 
 
 # Mouse based camera movement
@@ -521,7 +541,7 @@ func _input(event):
 				mouse_scroll_value -= MOUSE_SENSITIVITY_SCROLL_WHEEL
 			
 			# Make sure we are using a valid number by clamping the value
-			mouse_scroll_value = clamp(mouse_scroll_value, 0, weapon_number_to_name.size()-1)
+			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size()-1)
 			
 			# Make sure we are not already changing weapons, or reloading.
 			if changing_weapon == false:
@@ -529,8 +549,8 @@ func _input(event):
 					# Round mouse_scroll_view so we get a full number and convert it from a float to a int
 					var round_mouse_scroll_value = int(round(mouse_scroll_value))
 					# If we are not already using the weapon at that position, then change to it.
-					if weapon_number_to_name[round_mouse_scroll_value] != current_weapon_name:
-						changing_weapon_name = weapon_number_to_name[round_mouse_scroll_value]
+					if WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] != current_weapon_name:
+						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value]
 						changing_weapon = true
 						# Set mouse scroll value to the rounded value so the amount of time it takes to change weapons
 						# is consistent.
@@ -575,20 +595,24 @@ func create_sound(sound_name, position=null):
 
 
 func add_health(additional_health):
-	health += additional_health;
-	health = clamp(health, 0, MAX_HEALTH);
+	# Adds addition_health to our player, and clamps the health from 0 to MAX_HEALTH
+	health += additional_health
+	health = clamp(health, 0, MAX_HEALTH)
 
 
 func add_ammo(additional_ammo):
+	# Adds ammo to the current weapon, IF we are not unarmed and we can refil the current weapon.
 	if (current_weapon_name != "UNARMED"):
 		if (weapons[current_weapon_name].CAN_REFILL == true):
-			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo;
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
 
 func add_grenade(additional_grenade):
+	# Adds additional_grenade to our player's current selected grenade, and clamps the amount from 0 to 4.
 	grenade_amounts[current_grenade] += additional_grenade
 	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
 
 
 func bullet_hit(damage, bullet_hit_pos):
-	health -= damage;
+	# Removes damage from our health
+	health -= damage
 
