@@ -1015,7 +1015,7 @@ tracks/34/imported = true
 tracks/34/enabled = true
 tracks/34/keys = PoolRealArray( 0, 1, 5.96046e-08, 1.86265e-08, 1.3411e-07, -0.546097, 0.0503074, 0.0508105, 0.834665, 1, 1, 1, 1, 1, 5.96046e-08, 1.86265e-08, 1.3411e-07, -0.546097, 0.0503074, 0.0508105, 0.834665, 1, 1, 1 )
 tracks/35/type = "method"
-tracks/35/path = NodePath("AnimationPlayer")
+tracks/35/path = NodePath("Animation_Player")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/imported = false
@@ -2034,7 +2034,7 @@ tracks/34/imported = true
 tracks/34/enabled = true
 tracks/34/keys = PoolRealArray( 0, 1, 1.54972e-06, -9.574e-07, -5.1409e-07, 0.00332353, -0.0589074, 0.159316, 0.985463, 1, 1, 1, 0.0666667, 1, 1.54972e-06, -9.574e-07, -5.1409e-07, -0.0508508, -0.0403509, 0.175271, 0.982378, 1, 1, 1, 0.133333, 1, 1.54972e-06, -9.574e-07, -5.1409e-07, -0.131989, -0.0121728, 0.198097, 0.971179, 1, 1, 1, 0.2, 1, 1.54972e-06, -9.574e-07, -5.1409e-07, -0.131989, -0.0121728, 0.198097, 0.971179, 1, 1, 1, 0.266667, 1, 2.98023e-07, -1.09337e-06, 1.78814e-07, -0.0508508, -0.0403509, 0.175271, 0.982378, 1, 1, 1, 0.333333, 1, -1.78814e-07, -9.46224e-07, 8.9407e-08, 0.00332355, -0.0589073, 0.159316, 0.985463, 1, 1, 1, 0.666667, 1, 1.54972e-06, -9.574e-07, -5.1409e-07, 0.00332353, -0.0589074, 0.159316, 0.985463, 1, 1, 1 )
 tracks/35/type = "method"
-tracks/35/path = NodePath("AnimationPlayer")
+tracks/35/path = NodePath("Animation_Player")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/imported = false
@@ -3303,7 +3303,7 @@ tracks/34/imported = true
 tracks/34/enabled = true
 tracks/34/keys = PoolRealArray( 0, 1, 1.01328e-06, -7.3202e-07, -4.39584e-07, 0.279726, 0.0140126, -0.0783186, 0.956778, 1, 1, 1, 0.0666667, 1, 1.01328e-06, -7.3202e-07, -4.39584e-07, 0.247226, 0.0556837, -0.0586789, 0.965575, 1, 1, 1, 0.133333, 1, 1.01328e-06, -7.3202e-07, -4.39584e-07, 0.196831, 0.118012, -0.0287827, 0.972884, 1, 1, 1, 0.2, 1, 1.01328e-06, -7.3202e-07, -4.39584e-07, 0.186236, 0.130784, -0.0225779, 0.9735, 1, 1, 1, 0.4, 1, 3.57628e-07, -8.41916e-07, -1.86265e-07, 0.186236, 0.130784, -0.0225779, 0.9735, 1, 1, 1, 0.466667, 1, -4.76837e-07, -1.02445e-06, 2.38419e-07, 0.187942, 0.128735, -0.0235749, 0.973422, 1, 1, 1, 0.533333, 1, 2.68221e-07, -9.22009e-07, 8.19564e-08, 0.213845, 0.0972654, -0.038804, 0.971238, 1, 1, 1, 0.6, 1, 7.15256e-07, -7.59959e-07, -2.90573e-07, 0.257967, 0.0420454, -0.0651371, 0.963038, 1, 1, 1, 0.666667, 1, 1.01328e-06, -7.3202e-07, -4.39584e-07, 0.279726, 0.0140126, -0.0783186, 0.956778, 1, 1, 1 )
 tracks/35/type = "method"
-tracks/35/path = NodePath("AnimationPlayer")
+tracks/35/path = NodePath("Animation_Player")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/imported = false
@@ -4149,21 +4149,20 @@ shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="Rotation_helper" type="Spatial" parent="." index="2"]
+[node name="Rotation_Helper" type="Spatial" parent="." index="2"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Model" type="Spatial" parent="Rotation_helper" index="0"]
+[node name="Model" type="Spatial" parent="Rotation_Helper" index="0"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.405, 0 )
 
-[node name="Armature" type="Spatial" parent="Rotation_helper/Model" index="0"]
+[node name="Armature" type="Spatial" parent="Rotation_Helper/Model" index="0"]
 
 editor/display_folded = true
 
-[node name="Skeleton" type="Skeleton" parent="Rotation_helper/Model/Armature" index="0"]
+[node name="Skeleton" type="Skeleton" parent="Rotation_Helper/Model/Armature" index="0"]
 
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -4336,7 +4335,7 @@ bones/33/rest = Transform( 1, 2.38419e-07, 0, -2.38419e-07, 1, 0, 0, 0, 1, 0.830
 bones/33/enabled = true
 bones/33/bound_children = [  ]
 
-[node name="GodotBattleBot" type="MeshInstance" parent="Rotation_helper/Model/Armature/Skeleton" index="0"]
+[node name="GodotBattleBot" type="MeshInstance" parent="Rotation_Helper/Model/Armature/Skeleton" index="0"]
 
 layers = 1
 material_override = null
@@ -4356,7 +4355,7 @@ material/3 = ExtResource( 6 )
 material/4 = ExtResource( 7 )
 _sections_unfolded = [ "Geometry", "material" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Rotation_helper/Model" index="1"]
+[node name="Animation_Player" type="AnimationPlayer" parent="Rotation_Helper/Model" index="1"]
 
 root_node = NodePath("..")
 autoplay = "Idle_unarmed"
@@ -4381,7 +4380,7 @@ anims/Rifle_unequip = SubResource( 21 )
 blend_times = [  ]
 script = ExtResource( 8 )
 
-[node name="Camera" type="Camera" parent="Rotation_helper" index="1"]
+[node name="Camera" type="Camera" parent="Rotation_Helper" index="1"]
 
 transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, -0.307539, -0.0646362 )
 keep_aspect = 1
@@ -4398,33 +4397,34 @@ near = 0.05
 far = 160.0
 _sections_unfolded = [ "Transform" ]
 
-[node name="Gun_fire_points" type="Spatial" parent="Rotation_helper" index="2"]
+[node name="Gun_Fire_Points" type="Spatial" parent="Rotation_Helper" index="2"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3914, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Rifle_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="0"]
+[node name="Rifle_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points" index="0"]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 7.04431 )
 script = ExtResource( 9 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Ray_Cast" type="RayCast" parent="Rotation_helper/Gun_fire_points/Rifle_Point" index="0"]
+[node name="Ray_Cast" type="RayCast" parent="Rotation_Helper/Gun_Fire_Points/Rifle_Point" index="0"]
 
 enabled = false
 exclude_parent = true
 cast_to = Vector3( 0, 0, 80 )
 collision_mask = 1
 
-[node name="Knife_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="1"]
+[node name="Knife_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points" index="1"]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 2.54082 )
 script = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Area" type="Area" parent="Rotation_helper/Gun_fire_points/Knife_Point" index="0"]
+[node name="Area" type="Area" parent="Rotation_Helper/Gun_Fire_Points/Knife_Point" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17163, 1.26893 )
 input_ray_pickable = false
@@ -4449,25 +4449,25 @@ reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 _sections_unfolded = [ "Collision" ]
 
-[node name="Collision_Shape" type="CollisionShape" parent="Rotation_helper/Gun_fire_points/Knife_Point/Area" index="0"]
+[node name="Collision_Shape" type="CollisionShape" parent="Rotation_Helper/Gun_Fire_Points/Knife_Point/Area" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.300034 )
 shape = SubResource( 22 )
 disabled = false
 
-[node name="Pistol_Point" type="Spatial" parent="Rotation_helper/Gun_fire_points" index="2"]
+[node name="Pistol_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points" index="2"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436506, 11.3604, 4.77607 )
 script = ExtResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Gun_aim_point" type="Spatial" parent="Rotation_helper" index="3"]
+[node name="Gun_Aim_Point" type="Spatial" parent="Rotation_Helper" index="3"]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.307539, 20.0487 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="MeshInstance" type="MeshInstance" parent="Rotation_helper/Gun_aim_point" index="0"]
+[node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/Gun_Aim_Point" index="0"]
 
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 visible = false
@@ -4485,7 +4485,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="Flashlight" type="SpotLight" parent="Rotation_helper" index="4"]
+[node name="Flashlight" type="SpotLight" parent="Rotation_Helper" index="4"]
 
 transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -0.307539, -0.0646362 )
 visible = false
@@ -4509,7 +4509,7 @@ spot_angle = 50.0
 spot_angle_attenuation = 1.0
 _sections_unfolded = [ "Light", "Spot", "Transform" ]
 
-[node name="GrenadeTossPos" type="Spatial" parent="Rotation_helper" index="5"]
+[node name="Grenade_Toss_Pos" type="Spatial" parent="Rotation_Helper" index="5"]
 
 transform = Transform( 1, 0, 0, 0, 0.983001, 0.1836, 0, -0.1836, 0.983001, 0, -0.411827, 1.2795 )
 

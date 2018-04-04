@@ -156,7 +156,7 @@ func fire_bullet():
 		scene_root.add_child(clone)
 		
 		# Set the bullet's global_transform to that of the pistol spawn point (which is this node).
-		clone.global_transform = $Head/BarrleEnd.global_transform
+		clone.global_transform = $Head/Barrel_End.global_transform
 		# The bullet is a little too small (by default), so let's make it bigger!
 		clone.scale = Vector3(8, 8, 8)
 		# Set how much damage the bullet does
