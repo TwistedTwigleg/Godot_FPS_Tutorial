@@ -93,24 +93,24 @@ const GRENADE_THROW_FORCE = 50
 func _ready():
 	
 	# Get the camera and the rotation helper
-	camera = $Rotation_helper/Camera
-	rotation_helper = $Rotation_helper
+	camera = $Rotation_Helper/Camera
+	rotation_helper = $Rotation_Helper
 	
 	# Get the animation manager and pass in a funcref for 'fire bullet'.
 	# This allows 'fire_bullet' to be called from the guns fire animations.
-	animation_manager = get_node("Rotation_helper/Model/AnimationPlayer")
+	animation_manager = $Rotation_Helper/Model/Animation_Player
 	animation_manager.callback_function = funcref(self, "fire_bullet")
 	
 	# We need to capture the mouse in order to use it for a FPS style camera control.
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# Get all of the weapon nodes
-	weapons["KNIFE"] = $Rotation_helper/Gun_fire_points/Knife_point
-	weapons["PISTOL"] = $Rotation_helper/Gun_fire_points/Pistol_point
-	weapons["RIFLE"] = $Rotation_helper/Gun_fire_points/Rifle_point
+	weapons["KNIFE"] = $Rotation_Helper/Gun_Fire_Points/Knife_Point
+	weapons["PISTOL"] = $Rotation_Helper/Gun_Fire_Points/Pistol_Point
+	weapons["RIFLE"] = $Rotation_Helper/Gun_Fire_Points/Rifle_Point
 	
 	# The point where we want all of the weapons to aim at
-	var gun_aim_point_pos = $Rotation_helper/Gun_aim_point.global_transform.origin
+	var gun_aim_point_pos = $Rotation_Helper/Gun_Aim_Point.global_transform.origin
 	
 	# Send ourself to all of the weapons, and then rotate them to aim at the center of the screen
 	for weapon in weapons:
@@ -131,7 +131,7 @@ func _ready():
 	
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
 	UI_status_label = $HUD/Panel/Gun_label
-	flashlight = $Rotation_helper/Flashlight
+	flashlight = $Rotation_Helper/Flashlight
 
 
 func _physics_process(delta):
@@ -358,7 +358,7 @@ func process_input(delta):
 			
 			# Add the grenade as a child, position it correctly, and apply an impulse so we are throwing it
 			get_tree().root.add_child(grenade_clone)
-			grenade_clone.global_transform = $Rotation_helper/GrenadeTossPos.global_transform
+			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform
 			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
 	# ----------------------------------
 
@@ -389,27 +389,29 @@ func process_view_input(delta):
 		elif OS.get_name() == "OSX":
 			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
 		
-		# Account for joypad dead zones
-		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
-			joypad_vec.x = 0
-		if abs(joypad_vec.y) <= JOYPAD_DEADZONE:
-			joypad_vec.y = 0
+		# Account for joypad dead zones.
+		# Using the code provided in the article linked below:
+		# (http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html)
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
 	
-	# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y joypad motion.
-	# NOTE: If you want your joystick inverted, then change "joypad_vec.y" to "-joypad_vec.y".
-	rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
-	
-	# Rotate the kinematic body on the Y axis by the relative X motion.
-	# We also need to multiply it by -1 because we're wanting to turn in the same direction as
-	# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
-	rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
-	# ----------------------------------
-	
-	# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
-	# We need to do this every time we rotate so we cannot rotate upside down with mouse and/or joypad input
-	var camera_rot = rotation_helper.rotation_degrees
-	camera_rot.x = clamp(camera_rot.x, -70, 70)
-	rotation_helper.rotation_degrees = camera_rot
+		# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y joypad motion.
+		# NOTE: If you want your joystick inverted, then change "joypad_vec.y" to "-joypad_vec.y".
+		rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+		
+		# Rotate the kinematic body on the Y axis by the relative X motion.
+		# We also need to multiply it by -1 because we're wanting to turn in the same direction as
+		# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
+		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+		# ----------------------------------
+		
+		# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
+		# We need to do this every time we rotate so we cannot rotate upside down with mouse and/or joypad input
+		var camera_rot = rotation_helper.rotation_degrees
+		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot
 
 
 func process_movement(delta):
@@ -530,7 +532,7 @@ func process_UI(delta):
 func _input(event):
 	
 	# Make sure the event is a mouse motion event and that our cursor is locked.
-	if event is InputEventMouseButton && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# We can ONLY access the scroll wheel in _input. Because of this,
 		# we have to process changing weapons with the scroll wheel here.
 		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
@@ -557,7 +559,7 @@ func _input(event):
 						mouse_scroll_value = round_mouse_scroll_value
 	
 	# Make sure the event is a mouse motion event, and that the cursor is captured
-	if event is InputEventMouseMotion && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# Mouse rotation.
 		
 		# Rotate the camera holder (everything that needs to rotate on the X-axis) by the relative Y mouse motion.

@@ -25,7 +25,7 @@ export (PackedScene) var destroyed_target
 func _ready():
 	# Get the required nodes
 	# NOTE: we are using get_node here because we need to get a node in the parent
-	broken_target_holder = get_parent().get_node("BrokenTargetHolder")
+	broken_target_holder = get_parent().get_node("Broken_Target_Holder")
 	target_collision_shape = $Collision_Shape
 
 
