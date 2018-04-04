@@ -225,7 +225,7 @@ adjustment_enabled = true
 adjustment_brightness = 1.0
 adjustment_contrast = 1.0
 adjustment_saturation = 1.0
-_sections_unfolded = [ "Glow/levels" ]
+_sections_unfolded = [ "Glow", "Glow/levels" ]
 
 [sub_resource type="BoxShape" id=8]
 
