@@ -95,6 +95,15 @@ var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
 # The amount of force we throw the grenades at
 const GRENADE_THROW_FORCE = 50
 
+# The object we currently have grabbed
+var grabbed_object = null
+# The amount of force we throw grabbed objects at
+const OBJECT_THROW_FORCE = 120
+# The distance we hold grabbed objects at
+const OBJECT_GRAB_DISTANCE = 7
+# The distance of our grabbing raycast
+const OBJECT_GRAB_RAY_DISTANCE = 10
+
 # Our globals script.
 # We need this for making sounds, and getting a respawn point
 var globals
@@ -167,12 +176,14 @@ func _physics_process(delta):
 		# Process our movement using functions provided in KinematicBody.
 		# This will move us based on our previous state, and the input we just processed
 		process_movement(delta)
-		
-	# Process the weapon changing logic. 
-	process_changing_weapons(delta)
 	
-	# Process the weapon reloading logic
-	process_reloading(delta)
+	# If we have grabbed a object, we do not want to be able to change weapons or reload
+	if (grabbed_object == null):
+		# Process the weapon changing logic. 
+		process_changing_weapons(delta)
+		
+		# Process the weapon reloading logic
+		process_reloading(delta)
 	
 	# Process the UI
 	process_UI(delta)
@@ -288,6 +299,9 @@ func process_input(delta):
 				# Set changing_weapon_name to the name of the weapon we want to change to, and set changing_weapon to true.
 				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true
+				
+				# Set the scroll wheel value to reflect the newly changed weapon
+				mouse_scroll_value = weapon_change_number
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -382,6 +396,54 @@ func process_input(delta):
 			get_tree().root.add_child(grenade_clone)
 			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform
 			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Grabing and throwing objects
+	
+	# If the fire action is pressed, and we are UNARMED.
+	# We could make a grab action, but because our UNARMED 'weapon' does nothing with fire anyway, we'll just use
+	# the fire action to avoid making another action.
+	if Input.is_action_just_pressed("fire") and current_weapon_name == "UNARMED":
+		# If we are not holding a object...
+		if grabbed_object == null:
+			# Cast a ray and see if there is a rigidbody
+			var state = get_world().direct_space_state
+			# We want to project the ray from the camera, using the mouse position, which will be
+			# in the center of the screen, as the origin of the ray
+			var mouse_position = get_viewport().get_mouse_position()
+			var ray_from = camera.project_ray_origin(mouse_position)
+			var ray_to = ray_from + camera.project_ray_normal(mouse_position) * OBJECT_GRAB_RAY_DISTANCE
+			# Send our ray into the space state and see if we got a result.
+			# We want to exclude ourself, and the knife's Area so that does not mess up the results
+			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area])
+			if ray_result:
+				# If the result's collider is a RigidBody...
+				if ray_result["collider"] is RigidBody:
+					# Set grabbed object to the RigidBody
+					grabbed_object = ray_result["collider"]
+					# Set it's mode to static so gravity does not effect it
+					grabbed_object.mode = RigidBody.MODE_STATIC
+					# Place it on collision layer and mask zero, which means it is not
+					# on any collision layer, nor mask
+					grabbed_object.collision_layer = 0
+					grabbed_object.collision_mask = 0
+		# We are holding a object...
+		else:
+			# Set the RigidBody's mode back to MODE_RIGID
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			# Send it flying in the direction we are looking at
+			grabbed_object.apply_impulse(Vector3(0,0,0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
+			# Set it's collision layer and mask back to one
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+			# And set grabbed object to null, because we have successfully thrown the object
+			grabbed_object = null
+	
+	# While technically not input related, it's easy enough to place the code moving the grabbed object here
+	# because it's only two lines, and then all of the grabbing/throwing code is in one place
+	if grabbed_object != null:
+		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 	# ----------------------------------
 
 
@@ -568,6 +630,18 @@ func process_respawn(delta):
 		dead_time = RESPAWN_TIME
 		# Set is_dead, so we know we are dead
 		is_dead = true
+		
+		# If we are holding an object, then let it go
+		if grabbed_object != null:
+			# Set the grabbed RigidBody's mode back to MODE_RIGID
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			# Send it flying in the direction we are looking at (at half our normal force)
+			grabbed_object.apply_impulse(Vector3(0,0,0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
+			# Set it's collision layer and mask back to one
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+			# And set grabbed object to null, because we have successfully thrown the object
+			grabbed_object = null
 	
 	if is_dead:
 		# Subtract time from dead_time
@@ -670,10 +744,7 @@ func fire_bullet():
 func create_sound(sound_name, position=null):
 	# Play the inputted sound at the inputted position
 	# (NOTE: it will only play at the inputted position if you are using a AudioPlayer3D node)
-	var audio_clone = simple_audio_player.instance()
-	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(audio_clone)
-	audio_clone.play_sound(sound_name, position)
+	globals.play_sound(sound_name, false, position)
 
 
 func add_health(additional_health):

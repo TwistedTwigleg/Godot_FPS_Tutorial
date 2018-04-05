@@ -599,8 +599,6 @@ environment = SubResource( 7 )
 
 [node name="Cubes" type="Spatial" parent="." index="3"]
 
-editor/display_folded = true
-
 [node name="PurpleCube" type="RigidBody" parent="Cubes" index="0"]
 
 editor/display_folded = true
@@ -631,6 +629,7 @@ linear_damp = -1.0
 angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
 script = ExtResource( 2 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube" index="0"]
 

@@ -4119,7 +4119,7 @@ use_filter = true
 font_data = ExtResource( 13 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -4151,11 +4151,13 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Rotation_Helper" type="Spatial" parent="." index="2"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Model" type="Spatial" parent="Rotation_Helper" index="0"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.405, 0 )
 
 [node name="Armature" type="Spatial" parent="Rotation_Helper/Model" index="0"]
@@ -4399,6 +4401,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Gun_Fire_Points" type="Spatial" parent="Rotation_Helper" index="2"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3914, 0 )
 _sections_unfolded = [ "Transform" ]
 

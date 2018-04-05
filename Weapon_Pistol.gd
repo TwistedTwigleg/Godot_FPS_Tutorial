@@ -55,7 +55,7 @@ func fire_weapon():
 	ammo_in_weapon -= 1
 	
 	# Play the gun sound
-	player_node.create_sound("Pistol_shot", self.global_transform.origin)
+	player_node.create_sound("pistol_shot", self.global_transform.origin)
 
 
 func reload_weapon():
@@ -87,7 +87,7 @@ func reload_weapon():
 		player_node.animation_manager.set_animation("Pistol_reload")
 		
 		# Play the 'gun_cock' sound so it sounds like we've reloaded.
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.create_sound("gun_cock", player_node.camera.global_transform.origin)
 		
 		# Return true so the player script knows we've reloaded
 		return true
@@ -107,7 +107,7 @@ func equip_weapon():
 		player_node.animation_manager.set_animation("Pistol_equip")
 		
 		# Play a sound when we play a equipping animation
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.create_sound("gun_cock", player_node.camera.global_transform.origin)
 	
 	return false
 
