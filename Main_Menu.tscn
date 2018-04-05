@@ -1,18 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=1]
-[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/32-32_white.png" type="Texture" id=3]
+[ext_resource path="res://Main_Menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=2]
+[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://FPS_project_icon.png" type="Texture" id=4]
 
-[sub_resource type="PanoramaSky" id=6]
+[sub_resource type="PanoramaSky" id=1]
 
 radiance_size = 0
-panorama = ExtResource( 1 )
+panorama = ExtResource( 2 )
 
-[sub_resource type="Environment" id=7]
+[sub_resource type="Environment" id=2]
 
 background_mode = 2
-background_sky = SubResource( 6 )
+background_sky = SubResource( 1 )
 background_sky_custom_fov = 0.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 1.0
@@ -89,7 +90,7 @@ adjustment_contrast = 1.0
 adjustment_saturation = 1.0
 _sections_unfolded = [ "Glow/levels" ]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Background_Animation"
 length = 9.0
@@ -142,7 +143,7 @@ _sections_unfolded = [ "Corner Radius" ]
 size = 32
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 
 [node name="Main_Menu" type="Control" index="0"]
 
@@ -156,6 +157,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+script = ExtResource( 1 )
+testing_area_scene = "res://Testing_Area.tscn"
+test_level_scene = "res://Test_Level.tscn"
+bonus_level_scene = null
 
 [node name="Background_Animation" type="Spatial" parent="." index="0"]
 
@@ -163,7 +168,7 @@ editor/display_folded = true
 
 [node name="World_Environment" type="WorldEnvironment" parent="Background_Animation" index="0"]
 
-environment = SubResource( 7 )
+environment = SubResource( 2 )
 
 [node name="Main_Menu_Camera" type="Camera" parent="Background_Animation" index="1"]
 
@@ -189,7 +194,7 @@ autoplay = "Background_Animation"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 0.18
-anims/Background_Animation = SubResource( 8 )
+anims/Background_Animation = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -472,7 +477,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
@@ -520,7 +525,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
@@ -568,14 +573,13 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Options_Menu" type="Panel" parent="." index="3"]
 
-editor/display_folded = true
 visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
 anchor_left = 0.0
@@ -624,142 +628,31 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_constants" ]
 
-[node name="Button_Back" type="Button" parent="Options_Menu" index="1"]
+[node name="Label_Mouse_Sensitivity" type="Label" parent="Options_Menu" index="1"]
 
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -155.0
-margin_top = -70.0
-margin_right = 155.0
-margin_bottom = -20.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 120.0
+margin_right = 330.0
+margin_bottom = 152.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 1
+size_flags_vertical = 4
 custom_fonts/font = SubResource( 5 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Back"
-flat = false
+text = "Mouse sensitivity"
 align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Button_Back2" type="Button" parent="Options_Menu" index="2"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -135.0
-margin_top = -410.0
-margin_right = 135.0
-margin_bottom = -360.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Normal"
-flat = false
-align = 1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="Button_Back3" type="Button" parent="Options_Menu" index="3"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -135.0
-margin_top = -300.0
-margin_right = 135.0
-margin_bottom = -250.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Fullscreen"
-flat = false
-align = 1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="CheckButton" type="CheckButton" parent="Options_Menu" index="4"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -155.0
-margin_top = -150.0
-margin_right = 155.0
-margin_bottom = -110.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Debug options"
-flat = false
-align = 0
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="CheckButton2" type="CheckButton" parent="Options_Menu" index="5"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -135.0
-margin_top = -350.0
-margin_right = 135.0
-margin_bottom = -310.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "V-Sync"
-flat = false
-align = 0
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="HSlider" type="HSlider" parent="Options_Menu" index="6"]
+[node name="HSlider_Mouse_Sensitivity" type="HSlider" parent="Options_Menu" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -788,7 +681,31 @@ tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
-[node name="HSlider2" type="HSlider" parent="Options_Menu" index="7"]
+[node name="Label_Joypad_Sensitivity" type="Label" parent="Options_Menu" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 190.0
+margin_right = 330.0
+margin_bottom = 222.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 5 )
+text = "Joypad sensitivity"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="HSlider_Joypad_Sensitivity" type="HSlider" parent="Options_Menu" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -817,76 +734,113 @@ tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
-[node name="Label" type="Label" parent="Options_Menu" index="8"]
+[node name="Check_Button_VSync" type="CheckButton" parent="Options_Menu" index="5"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 120.0
-margin_right = 330.0
-margin_bottom = 152.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -135.0
+margin_top = -450.0
+margin_right = 135.0
+margin_bottom = -410.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 2
+focus_mode = 2
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 4
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "Mouse sensitivity"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "V-Sync"
+flat = false
+align = 0
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Label2" type="Label" parent="Options_Menu" index="9"]
+[node name="Button_Fullscreen" type="Button" parent="Options_Menu" index="6"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 190.0
-margin_right = 330.0
-margin_bottom = 222.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -135.0
+margin_top = -400.0
+margin_right = 135.0
+margin_bottom = -350.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 2
+focus_mode = 2
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 4
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "Joypad sensitivity"
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Fullscreen"
+flat = false
 align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Label3" type="Label" parent="Options_Menu" index="10"]
+[node name="Check_Button_Debug" type="CheckButton" parent="Options_Menu" index="7"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 270.0
-margin_right = 330.0
-margin_bottom = 302.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -150.0
+margin_right = 155.0
+margin_bottom = -110.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 2
+focus_mode = 2
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 4
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "Graphics preset"
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Debug display"
+flat = false
+align = 0
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Button_Back" type="Button" parent="Options_Menu" index="8"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -70.0
+margin_right = 155.0
+margin_bottom = -20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Back"
+flat = false
 align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
 

@@ -1227,6 +1227,8 @@ _sections_unfolded = [ "material" ]
 
 [node name="Targets" type="Spatial" parent="." index="4"]
 
+editor/display_folded = true
+
 [node name="Target_Whole" parent="Targets" index="0" instance=ExtResource( 3 )]
 
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.5618, 9.30001, 0 )

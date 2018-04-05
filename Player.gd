@@ -68,6 +68,12 @@ var reloading_weapon = false
 var health = 100
 # The amount of health we have when fully healed
 const MAX_HEALTH = 150
+# The amount of time (in seconds) required to respawn
+const RESPAWN_TIME = 4
+# A variable to track how long we've been dead
+var dead_time = 0
+# A variable to track whether or not we are currently dead
+var is_dead = false
 
 # The label for how much health we have, how many grenades we have,
 # and how much ammo is in our current weapon (along with how much ammo we have in reserve for that weapon)
@@ -88,6 +94,10 @@ var grenade_scene = preload("res://Grenade.tscn")
 var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
 # The amount of force we throw the grenades at
 const GRENADE_THROW_FORCE = 50
+
+# Our globals script.
+# We need this for making sounds, and getting a respawn point
+var globals
 
 
 func _ready():
@@ -132,22 +142,32 @@ func _ready():
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
+	
+	# Get the globals autoload script
+	# We have to use get node, because we cannot access autoload scripts using $
+	globals = get_node("/root/Globals")
+	
+	# Start at a random respawn point
+	global_transform.origin = globals.get_respawn_position()
 
 
 func _physics_process(delta):
 	
-	# Process most of the input related code.
-	# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
-	# 				 firing the weapons, throwing grenades, and reloading.
-	process_input(delta)
-	
-	# Process view related input (Joypad)
-	process_view_input(delta)
-	
-	# Process our movement using functions provided in KinematicBody.
-	# This will move us based on our previous state, and the input we just processed
-	process_movement(delta)
-	
+	# If we are dead, we do not want to process anything that moves the player, or takes player input.
+	#So we check to make sure we are not dead before calling any of those functions
+	if !is_dead:
+		# Process most of the input related code.
+		# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
+		# 				 firing the weapons, throwing grenades, and reloading.
+		process_input(delta)
+		
+		# Process view related input (Joypad)
+		process_view_input(delta)
+		
+		# Process our movement using functions provided in KinematicBody.
+		# This will move us based on our previous state, and the input we just processed
+		process_movement(delta)
+		
 	# Process the weapon changing logic. 
 	process_changing_weapons(delta)
 	
@@ -156,6 +176,9 @@ func _physics_process(delta):
 	
 	# Process the UI
 	process_UI(delta)
+	
+	# Process respawning
+	process_respawn(delta)
 
 
 func process_input(delta):
@@ -322,11 +345,10 @@ func process_input(delta):
 	
 	# ----------------------------------
 	# Capturing/Freeing the cursor
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# Because our pause menu assures the cursor is visible, all we need to do is
+	# check if the cursor is visible, and if it is make it captured.
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# ----------------------------------
 	
 	
@@ -528,8 +550,66 @@ func process_UI(delta):
 		"\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 
 
+func process_respawn(delta):
+	# If we just died
+	if health <= 0 and !is_dead:
+		# Disable our collision shapes
+		$Body_CollisionShape.disabled = true
+		$Feet_CollisionShape.disabled = true
+		# change our weapon to UNARMED
+		changing_weapon = true
+		changing_weapon_name = "UNARMED"
+		# Enable the death UI
+		$HUD/Death_Screen.visible = true
+		# Disable the other UI
+		$HUD/Panel.visible = false
+		$HUD/Crosshair.visible = false
+		# Wait to respawn
+		dead_time = RESPAWN_TIME
+		# Set is_dead, so we know we are dead
+		is_dead = true
+	
+	if is_dead:
+		# Subtract time from dead_time
+		dead_time -= delta
+		# We the purposes of the label, we ideally want the time to be in a prettier format.
+		# Do do this, we convert dead_time to a string, and get the first three characters (2.0, for example)
+		var dead_time_pretty = str(dead_time).left(3)
+		# Update the death screen label
+		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+		
+		# If dead time is 0 or less, we've waited long enough and can respawn
+		if dead_time <= 0:
+			# Get a respawn position
+			global_transform.origin = globals.get_respawn_position()
+			# Enable our collision shapes
+			$Body_CollisionShape.disabled = false
+			$Feet_CollisionShape.disabled = false
+			# Disable the death UI
+			$HUD/Death_Screen.visible = false
+			# Enable the other UI
+			$HUD/Panel.visible = true
+			$HUD/Crosshair.visible = true
+			# Reset all of the weapons
+			for weapon in weapons:
+				var weapon_node = weapons[weapon]
+				if weapon_node != null:
+					weapon_node.reset_weapon()
+			# Reset our health
+			health = 100
+			# Reset our grenades
+			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+			current_grenade = "Grenade"
+			# Now we have respawned, and are no longer dead
+			is_dead = false
+
+
 # Mouse based camera movement
 func _input(event):
+	
+	# If we are dead, we do not want to process input events
+	if is_dead:
+		return
 	
 	# Make sure the event is a mouse motion event and that our cursor is locked.
 	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

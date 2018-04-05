@@ -4399,7 +4399,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Gun_Fire_Points" type="Spatial" parent="Rotation_Helper" index="2"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3914, 0 )
 _sections_unfolded = [ "Transform" ]
 
@@ -4419,7 +4418,6 @@ collision_mask = 1
 
 [node name="Knife_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points" index="1"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 2.54082 )
 script = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
@@ -4515,6 +4513,7 @@ transform = Transform( 1, 0, 0, 0, 0.983001, 0.1836, 0, -0.1836, 0.983001, 0, -0
 
 [node name="HUD" type="Control" parent="." index="3"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -4634,6 +4633,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Panel" type="Panel" parent="HUD" index="1"]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.705882 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -4700,6 +4700,47 @@ Ammo: 000/000
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Death_Screen" type="ColorRect" parent="HUD" index="2"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.140625, 0.140625, 0.140625, 0.901961 )
+
+[node name="Label" type="Label" parent="HUD/Death_Screen" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 25 )
+text = "You died
+0.00 seconds till respawn"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 
