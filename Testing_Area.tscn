@@ -342,7 +342,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Spatial" type="Spatial"]
+[node name="Spatial" type="Spatial" index="0"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
 
@@ -598,6 +598,8 @@ _sections_unfolded = [ "Geometry", "material" ]
 environment = SubResource( 7 )
 
 [node name="Cubes" type="Spatial" parent="." index="3"]
+
+editor/display_folded = true
 
 [node name="PurpleCube" type="RigidBody" parent="Cubes" index="0"]
 
@@ -1280,11 +1282,11 @@ kit_size = 1
 
 [node name="Turret_Raycast" parent="." index="9" instance=ExtResource( 6 )]
 
-transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 30, 1.19459, -30 )
+transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 30, 0.841041, -30 )
 use_raycast = true
 
 [node name="Turret_Bullet_Objects" parent="." index="10" instance=ExtResource( 6 )]
 
-transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -32, 1.19459, -30 )
+transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -32, 0.841041, -30 )
 
 

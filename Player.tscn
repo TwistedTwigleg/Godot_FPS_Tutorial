@@ -4151,7 +4151,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Rotation_Helper" type="Spatial" parent="." index="2"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.239, 0 )
 _sections_unfolded = [ "Transform" ]
 
@@ -4504,7 +4503,7 @@ shadow_bias = 0.15
 shadow_contact = 0.0
 shadow_reverse_cull_face = false
 editor_only = false
-spot_range = 20.0
+spot_range = 30.0
 spot_attenuation = 2.0
 spot_angle = 50.0
 spot_angle_attenuation = 1.0
