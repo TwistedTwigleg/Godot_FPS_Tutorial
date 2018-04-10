@@ -2,20 +2,20 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Grenades.dae-87a83f2023d7d2c9e77bbeb105397eee.scn"
+path="res://.import/Grenades.dae-7d305bf96b28ceb78a40cc34e2f98092.scn"
 
 [deps]
 
-source_file="res://assets/Level_assets/Grenades.dae"
+source_file="res://assets/Grenades.dae"
 source_md5="6c7f6fa301be4417e0cac5b057a0da1e"
 
-dest_files=[ "res://.import/Grenades.dae-87a83f2023d7d2c9e77bbeb105397eee.scn" ]
-dest_md5="bbaaf084729f39c560e609e01b14ad2d"
+dest_files=[ "res://.import/Grenades.dae-7d305bf96b28ceb78a40cc34e2f98092.scn" ]
+dest_md5="27d3593ac9a0cc79e0014d6366919667"
 
 [params]
 
 nodes/root_type="Spatial"
-nodes/root_name="Model_Root"
+nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=1
@@ -28,7 +28,7 @@ meshes/storage=0
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
 external_files/store_in_subdir=false
-animation/import=false
+animation/import=true
 animation/fps=15
 animation/filter_script=""
 animation/storage=false

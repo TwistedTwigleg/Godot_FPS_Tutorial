@@ -147,7 +147,7 @@ use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 3 )
 
-[node name="Main_Menu" type="Control" index="0"]
+[node name="Main_Menu" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
