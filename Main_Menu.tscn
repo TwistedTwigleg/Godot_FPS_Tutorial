@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main_Menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=2]
 [ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://FPS_project_icon.png" type="Texture" id=4]
+[ext_resource path="res://assets/Space_Level_Objects/SpaceThumbnail.png" type="Texture" id=5]
+[ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=6]
 
 [sub_resource type="PanoramaSky" id=1]
 
@@ -145,7 +147,7 @@ use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 3 )
 
-[node name="Main_Menu" type="Control"]
+[node name="Main_Menu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -159,8 +161,8 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
 testing_area_scene = "res://Testing_Area.tscn"
-test_level_scene = "res://Test_Level.tscn"
-bonus_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
+space_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
+ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
 
 [node name="Background_Animation" type="Spatial" parent="." index="0"]
 
@@ -482,7 +484,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
-[node name="Button_Level_Test_Level" type="Button" parent="Level_Select_Menu" index="3"]
+[node name="Button_Level_Space" type="Button" parent="Level_Select_Menu" index="3"]
 
 editor/display_folded = true
 anchor_left = 0.5
@@ -508,9 +510,8 @@ flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Test_Level" index="0"]
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Space" index="0"]
 
-modulate = Color( 0.351563, 0.589661, 1, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -525,12 +526,12 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
-[node name="Button_Level_Bonus_Level" type="Button" parent="Level_Select_Menu" index="4"]
+[node name="Button_Level_Ruins" type="Button" parent="Level_Select_Menu" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.5
@@ -556,9 +557,8 @@ flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Bonus_Level" index="0"]
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Ruins" index="0"]
 
-modulate = Color( 0.5, 1, 0.578125, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -573,10 +573,10 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 0
-_sections_unfolded = [ "Rect", "Visibility" ]
+_sections_unfolded = [ "Visibility" ]
 
 [node name="Options_Menu" type="Panel" parent="." index="3"]
 

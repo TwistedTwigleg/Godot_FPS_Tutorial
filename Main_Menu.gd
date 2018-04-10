@@ -8,8 +8,8 @@ var level_select_menu
 var options_menu
 
 export (String, FILE) var testing_area_scene
-export (String, FILE) var test_level_scene
-export (String, FILE) var bonus_level_scene
+export (String, FILE) var space_level_scene
+export (String, FILE) var ruins_level_scene
 
 
 func _ready():
@@ -26,8 +26,8 @@ func _ready():
 	# Connect all of the level select menu buttons
 	$Level_Select_Menu/Button_Back.connect("pressed", self, "level_select_menu_button_pressed", ["back"])
 	$Level_Select_Menu/Button_Level_Testing_Area.connect("pressed", self, "level_select_menu_button_pressed", ["testing_scene"])
-	$Level_Select_Menu/Button_Level_Test_Level.connect("pressed", self, "level_select_menu_button_pressed", ["test_level"])
-	$Level_Select_Menu/Button_Level_Bonus_Level.connect("pressed", self, "level_select_menu_button_pressed", ["bonus_level"])
+	$Level_Select_Menu/Button_Level_Space.connect("pressed", self, "level_select_menu_button_pressed", ["space_level"])
+	$Level_Select_Menu/Button_Level_Ruins.connect("pressed", self, "level_select_menu_button_pressed", ["ruins_level"])
 	
 	# Connect all of the options menu buttons
 	$Options_Menu/Button_Back.connect("pressed", self, "options_menu_button_pressed", ["back"])
@@ -59,10 +59,10 @@ func level_select_menu_button_pressed(button_name):
 		level_select_menu.visible = false
 	elif button_name == "testing_scene":
 		get_node("/root/Globals").load_new_scene(testing_area_scene)
-	elif button_name == "test_level":
-		get_node("/root/Globals").load_new_scene(test_level_scene)
-	elif button_name == "bonus_level":
-		get_node("/root/Globals").load_new_scene(bonus_level_scene)
+	elif button_name == "space_level":
+		get_node("/root/Globals").load_new_scene(space_level_scene)
+	elif button_name == "ruins_level":
+		get_node("/root/Globals").load_new_scene(ruins_level_scene)
 
 
 func options_menu_button_pressed(button_name):

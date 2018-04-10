@@ -117,7 +117,7 @@ propagation = 1.0
 interior = false
 compress = false
 
-[node name="Space_Level" type="Spatial" index="0"]
+[node name="Space_Level" type="Spatial"]
 
 _sections_unfolded = [ "Transform" ]
 

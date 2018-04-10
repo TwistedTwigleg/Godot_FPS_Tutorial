@@ -4119,7 +4119,7 @@ use_filter = true
 font_data = ExtResource( 13 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -4395,7 +4395,7 @@ current = true
 fov = 90.0
 size = 1.0
 near = 0.05
-far = 160.0
+far = 180.0
 _sections_unfolded = [ "Transform" ]
 
 [node name="Gun_Fire_Points" type="Spatial" parent="Rotation_Helper" index="2"]

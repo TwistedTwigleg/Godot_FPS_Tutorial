@@ -45,7 +45,12 @@ func fire_weapon():
 	# If it does, then call it and pass the ray's collision point as the bullet collision point.
 	if ray.is_colliding():
 		var body = ray.get_collider()
-		if body.has_method("bullet_hit"):
+		
+		# Make sure we're not going to hurt ourselves, so check to see if the body we collided with is ourself.
+		# If it is, then do nothing.
+		if body == player_node:
+			pass
+		elif body.has_method("bullet_hit"):
 			body.bullet_hit(DAMAGE, ray.get_collision_point())
 	
 	# Remove the bullet from the mag
