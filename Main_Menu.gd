@@ -38,6 +38,12 @@ func _ready():
 	# Some times when returning to the title screen the mouse is still captured even though it shouldn't be.
 	# To prevent this from breaking the game, we just set it here too
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	# Get the globals singleton
+	var globals = get_node("/root/Globals")
+	# Get the mouse and joypad sensitivity
+	$Options_Menu/HSlider_Mouse_Sensitivity.value = globals.mouse_sensitivity
+	$Options_Menu/HSlider_Joypad_Sensitivity.value = globals.joypad_sensitivity
 
 
 func start_menu_button_pressed(button_name):
@@ -58,10 +64,13 @@ func level_select_menu_button_pressed(button_name):
 		start_menu.visible = true
 		level_select_menu.visible = false
 	elif button_name == "testing_scene":
+		set_mouse_and_joypad_sensitivity()
 		get_node("/root/Globals").load_new_scene(testing_area_scene)
 	elif button_name == "space_level":
+		set_mouse_and_joypad_sensitivity()
 		get_node("/root/Globals").load_new_scene(space_level_scene)
 	elif button_name == "ruins_level":
+		set_mouse_and_joypad_sensitivity()
 		get_node("/root/Globals").load_new_scene(ruins_level_scene)
 
 
@@ -75,3 +84,11 @@ func options_menu_button_pressed(button_name):
 		OS.vsync_enabled = $Options_Menu/Check_Button_VSync.pressed
 	elif button_name == "debug":
 		get_node("/root/Globals").set_debug_display($Options_Menu/Check_Button_Debug.pressed)
+
+
+func set_mouse_and_joypad_sensitivity():
+	# Get the globals singleton
+	var globals = get_node("/root/Globals")
+	# Set the mouse and joypad sensitivity
+	globals.mouse_sensitivity = $Options_Menu/HSlider_Mouse_Sensitivity.value
+	globals.joypad_sensitivity = $Options_Menu/HSlider_Joypad_Sensitivity.value

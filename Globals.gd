@@ -24,6 +24,11 @@ var debug_display = null
 # A variable to hold all of the respawn points in a level
 var respawn_points = null
 
+# A variable to hold the mouse sensitivity (so Player.gd can load it)
+var mouse_sensitivity = 0.08
+# A variable to hold the joypad sensitivity (so Player.gd can load it)
+var joypad_sensitivity = 2
+
 
 # ------------------------------------
 # All of the audio files.
