@@ -32,7 +32,7 @@ var rotation_helper
 # The sensitivity of the mouse
 # (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
 # (You may need to adjust depending on the sensitivity of your mouse)
-const MOUSE_SENSITIVITY = 0.05
+var MOUSE_SENSITIVITY = 0.05
 # The value of the scroll wheel (relative to our current weapon)
 var mouse_scroll_value = 0
 # How much a single scroll action increases mouse_scroll_value
@@ -41,7 +41,7 @@ const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
 # The sensitivity of the joypad's joysticks.
 # (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
 # (You may need to adjust depending on the sensitivity of your joypad)
-const JOYPAD_SENSITIVITY = 2
+var JOYPAD_SENSITIVITY = 2
 # The dead zone for the joypad. Many joypads jitter around a certain point, so any movement in a
 # with a radius of JOYPAD_DEADZONE should be ignored (or the camera will jitter)
 const JOYPAD_DEADZONE = 0.15
@@ -68,6 +68,12 @@ var reloading_weapon = false
 var health = 100
 # The amount of health we have when fully healed
 const MAX_HEALTH = 150
+# The amount of time (in seconds) required to respawn
+const RESPAWN_TIME = 4
+# A variable to track how long we've been dead
+var dead_time = 0
+# A variable to track whether or not we are currently dead
+var is_dead = false
 
 # The label for how much health we have, how many grenades we have,
 # and how much ammo is in our current weapon (along with how much ammo we have in reserve for that weapon)
@@ -88,6 +94,19 @@ var grenade_scene = preload("res://Grenade.tscn")
 var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
 # The amount of force we throw the grenades at
 const GRENADE_THROW_FORCE = 50
+
+# The object we currently have grabbed
+var grabbed_object = null
+# The amount of force we throw grabbed objects at
+const OBJECT_THROW_FORCE = 120
+# The distance we hold grabbed objects at
+const OBJECT_GRAB_DISTANCE = 7
+# The distance of our grabbing raycast
+const OBJECT_GRAB_RAY_DISTANCE = 10
+
+# Our globals script.
+# We need this for making sounds, and getting a respawn point
+var globals
 
 
 func _ready():
@@ -132,30 +151,49 @@ func _ready():
 	# Get the UI label so we can show our health and ammo, and get the flashlight spotlight
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
+	
+	# Get the globals autoload script
+	# We have to use get node, because we cannot access autoload scripts using $
+	globals = get_node("/root/Globals")
+	
+	# Start at a random respawn point
+	global_transform.origin = globals.get_respawn_position()
+	
+	# Get the mouse and joypad sensitivity
+	MOUSE_SENSITIVITY = globals.mouse_sensitivity
+	JOYPAD_SENSITIVITY = globals.joypad_sensitivity
 
 
 func _physics_process(delta):
 	
-	# Process most of the input related code.
-	# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
-	# 				 firing the weapons, throwing grenades, and reloading.
-	process_input(delta)
+	# If we are dead, we do not want to process anything that moves the player, or takes player input.
+	#So we check to make sure we are not dead before calling any of those functions
+	if !is_dead:
+		# Process most of the input related code.
+		# This includes: Movement, jumping, flash light toggling, freeing/locking the cursor,
+		# 				 firing the weapons, throwing grenades, and reloading.
+		process_input(delta)
+		
+		# Process view related input (Joypad)
+		process_view_input(delta)
+		
+		# Process our movement using functions provided in KinematicBody.
+		# This will move us based on our previous state, and the input we just processed
+		process_movement(delta)
 	
-	# Process view related input (Joypad)
-	process_view_input(delta)
-	
-	# Process our movement using functions provided in KinematicBody.
-	# This will move us based on our previous state, and the input we just processed
-	process_movement(delta)
-	
-	# Process the weapon changing logic. 
-	process_changing_weapons(delta)
-	
-	# Process the weapon reloading logic
-	process_reloading(delta)
+	# If we have grabbed a object, we do not want to be able to change weapons or reload
+	if (grabbed_object == null):
+		# Process the weapon changing logic. 
+		process_changing_weapons(delta)
+		
+		# Process the weapon reloading logic
+		process_reloading(delta)
 	
 	# Process the UI
 	process_UI(delta)
+	
+	# Process respawning
+	process_respawn(delta)
 
 
 func process_input(delta):
@@ -265,6 +303,9 @@ func process_input(delta):
 				# Set changing_weapon_name to the name of the weapon we want to change to, and set changing_weapon to true.
 				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true
+				
+				# Set the scroll wheel value to reflect the newly changed weapon
+				mouse_scroll_value = weapon_change_number
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -322,11 +363,10 @@ func process_input(delta):
 	
 	# ----------------------------------
 	# Capturing/Freeing the cursor
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# Because our pause menu assures the cursor is visible, all we need to do is
+	# check if the cursor is visible, and if it is make it captured.
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# ----------------------------------
 	
 	
@@ -360,6 +400,54 @@ func process_input(delta):
 			get_tree().root.add_child(grenade_clone)
 			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform
 			grenade_clone.apply_impulse(Vector3(0,0,0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Grabing and throwing objects
+	
+	# If the fire action is pressed, and we are UNARMED.
+	# We could make a grab action, but because our UNARMED 'weapon' does nothing with fire anyway, we'll just use
+	# the fire action to avoid making another action.
+	if Input.is_action_just_pressed("fire") and current_weapon_name == "UNARMED":
+		# If we are not holding a object...
+		if grabbed_object == null:
+			# Cast a ray and see if there is a rigidbody
+			var state = get_world().direct_space_state
+			# We want to project the ray from the camera, using the mouse position, which will be
+			# in the center of the screen, as the origin of the ray
+			var mouse_position = get_viewport().get_mouse_position()
+			var ray_from = camera.project_ray_origin(mouse_position)
+			var ray_to = ray_from + camera.project_ray_normal(mouse_position) * OBJECT_GRAB_RAY_DISTANCE
+			# Send our ray into the space state and see if we got a result.
+			# We want to exclude ourself, and the knife's Area so that does not mess up the results
+			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area])
+			if ray_result:
+				# If the result's collider is a RigidBody...
+				if ray_result["collider"] is RigidBody:
+					# Set grabbed object to the RigidBody
+					grabbed_object = ray_result["collider"]
+					# Set it's mode to static so gravity does not effect it
+					grabbed_object.mode = RigidBody.MODE_STATIC
+					# Place it on collision layer and mask zero, which means it is not
+					# on any collision layer, nor mask
+					grabbed_object.collision_layer = 0
+					grabbed_object.collision_mask = 0
+		# We are holding a object...
+		else:
+			# Set the RigidBody's mode back to MODE_RIGID
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			# Send it flying in the direction we are looking at
+			grabbed_object.apply_impulse(Vector3(0,0,0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
+			# Set it's collision layer and mask back to one
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+			# And set grabbed object to null, because we have successfully thrown the object
+			grabbed_object = null
+	
+	# While technically not input related, it's easy enough to place the code moving the grabbed object here
+	# because it's only two lines, and then all of the grabbing/throwing code is in one place
+	if grabbed_object != null:
+		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 	# ----------------------------------
 
 
@@ -528,8 +616,78 @@ func process_UI(delta):
 		"\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 
 
+func process_respawn(delta):
+	# If we just died
+	if health <= 0 and !is_dead:
+		# Disable our collision shapes
+		$Body_CollisionShape.disabled = true
+		$Feet_CollisionShape.disabled = true
+		# change our weapon to UNARMED
+		changing_weapon = true
+		changing_weapon_name = "UNARMED"
+		# Enable the death UI
+		$HUD/Death_Screen.visible = true
+		# Disable the other UI
+		$HUD/Panel.visible = false
+		$HUD/Crosshair.visible = false
+		# Wait to respawn
+		dead_time = RESPAWN_TIME
+		# Set is_dead, so we know we are dead
+		is_dead = true
+		
+		# If we are holding an object, then let it go
+		if grabbed_object != null:
+			# Set the grabbed RigidBody's mode back to MODE_RIGID
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			# Send it flying in the direction we are looking at (at half our normal force)
+			grabbed_object.apply_impulse(Vector3(0,0,0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
+			# Set it's collision layer and mask back to one
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+			# And set grabbed object to null, because we have successfully thrown the object
+			grabbed_object = null
+	
+	if is_dead:
+		# Subtract time from dead_time
+		dead_time -= delta
+		# We the purposes of the label, we ideally want the time to be in a prettier format.
+		# Do do this, we convert dead_time to a string, and get the first three characters (2.0, for example)
+		var dead_time_pretty = str(dead_time).left(3)
+		# Update the death screen label
+		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+		
+		# If dead time is 0 or less, we've waited long enough and can respawn
+		if dead_time <= 0:
+			# Get a respawn position
+			global_transform.origin = globals.get_respawn_position()
+			# Enable our collision shapes
+			$Body_CollisionShape.disabled = false
+			$Feet_CollisionShape.disabled = false
+			# Disable the death UI
+			$HUD/Death_Screen.visible = false
+			# Enable the other UI
+			$HUD/Panel.visible = true
+			$HUD/Crosshair.visible = true
+			# Reset all of the weapons
+			for weapon in weapons:
+				var weapon_node = weapons[weapon]
+				if weapon_node != null:
+					weapon_node.reset_weapon()
+			# Reset our health
+			health = 100
+			# Reset our grenades
+			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+			current_grenade = "Grenade"
+			# Now we have respawned, and are no longer dead
+			is_dead = false
+
+
 # Mouse based camera movement
 func _input(event):
+	
+	# If we are dead, we do not want to process input events
+	if is_dead:
+		return
 	
 	# Make sure the event is a mouse motion event and that our cursor is locked.
 	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -590,10 +748,7 @@ func fire_bullet():
 func create_sound(sound_name, position=null):
 	# Play the inputted sound at the inputted position
 	# (NOTE: it will only play at the inputted position if you are using a AudioPlayer3D node)
-	var audio_clone = simple_audio_player.instance()
-	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(audio_clone)
-	audio_clone.play_sound(sound_name, position)
+	globals.play_sound(sound_name, false, position)
 
 
 func add_health(additional_health):

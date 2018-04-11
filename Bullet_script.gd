@@ -1,7 +1,7 @@
 extends Spatial
 
 # The speed the bullet travels at
-var BULLET_SPEED = 80
+var BULLET_SPEED = 70
 # The damage the bullet does on whatever it hits
 var BULLET_DAMAGE = 15
 # NOTE: for both BULLET_SPEED and BULLET_DAMAGE, we are keeping their

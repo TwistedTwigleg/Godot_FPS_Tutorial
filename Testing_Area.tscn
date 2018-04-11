@@ -225,7 +225,7 @@ adjustment_enabled = true
 adjustment_brightness = 1.0
 adjustment_contrast = 1.0
 adjustment_saturation = 1.0
-_sections_unfolded = [ "Glow/levels" ]
+_sections_unfolded = [ "Glow", "Glow/levels" ]
 
 [sub_resource type="BoxShape" id=8]
 
@@ -342,7 +342,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Spatial" type="Spatial"]
+[node name="Spatial" type="Spatial" index="0"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
 
@@ -631,6 +631,7 @@ linear_damp = -1.0
 angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
 script = ExtResource( 2 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube" index="0"]
 
@@ -1227,6 +1228,8 @@ _sections_unfolded = [ "material" ]
 
 [node name="Targets" type="Spatial" parent="." index="4"]
 
+editor/display_folded = true
+
 [node name="Target_Whole" parent="Targets" index="0" instance=ExtResource( 3 )]
 
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.5618, 9.30001, 0 )
@@ -1279,11 +1282,11 @@ kit_size = 1
 
 [node name="Turret_Raycast" parent="." index="9" instance=ExtResource( 6 )]
 
-transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 30, 1.19459, -30 )
+transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 30, 0.841041, -30 )
 use_raycast = true
 
 [node name="Turret_Bullet_Objects" parent="." index="10" instance=ExtResource( 6 )]
 
-transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -32, 1.19459, -30 )
+transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -32, 0.841041, -30 )
 
 

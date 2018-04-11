@@ -43,6 +43,12 @@ func fire_weapon():
 	# For every body inside the knife's area, see if it has the method 'bullet_hit'.
 	# If one of the bodies do, then call it and pass the area's global origin as the bullet collision point.
 	for body in bodies:
+		
+		# Make sure we're not going to hurt ourselves, so check to see if the body we collided with is ourself.
+		# If it is, then do nothing.
+		if body == player_node:
+			continue
+		
 		if body.has_method("bullet_hit"):
 			body.bullet_hit(DAMAGE, area.global_transform.origin)
 
@@ -76,3 +82,8 @@ func unequip_weapon():
 		return true
 	
 	return false
+
+func reset_weapon():
+	# Reset the ammo count
+	ammo_in_weapon = 1
+	spare_ammo = 1

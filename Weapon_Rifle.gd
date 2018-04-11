@@ -45,14 +45,19 @@ func fire_weapon():
 	# If it does, then call it and pass the ray's collision point as the bullet collision point.
 	if ray.is_colliding():
 		var body = ray.get_collider()
-		if body.has_method("bullet_hit"):
+		
+		# Make sure we're not going to hurt ourselves, so check to see if the body we collided with is ourself.
+		# If it is, then do nothing.
+		if body == player_node:
+			pass
+		elif body.has_method("bullet_hit"):
 			body.bullet_hit(DAMAGE, ray.get_collision_point())
 	
 	# Remove the bullet from the mag
 	ammo_in_weapon -= 1
 	
 	# Play the gun sound
-	player_node.create_sound("Rifle_shot", ray.global_transform.origin)
+	player_node.create_sound("rifle_shot", ray.global_transform.origin)
 
 
 func reload_weapon():
@@ -84,7 +89,7 @@ func reload_weapon():
 		player_node.animation_manager.set_animation("Rifle_reload")
 		
 		# Play the 'gun_cock' sound so it sounds like we've reloaded.
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.create_sound("gun_cock", player_node.camera.global_transform.origin)
 		
 		# Return true so the player script knows we've reloaded
 		return true
@@ -104,7 +109,7 @@ func equip_weapon():
 		player_node.animation_manager.set_animation("Rifle_equip")
 		
 		# Play a sound when we play a equipping animation
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.create_sound("gun_cock", player_node.camera.global_transform.origin)
 	
 	return false
 
@@ -121,3 +126,9 @@ func unequip_weapon():
 		return true
 	
 	return false
+
+func reset_weapon():
+	# Reset the ammo count
+	ammo_in_weapon = 50
+	spare_ammo = 100
+

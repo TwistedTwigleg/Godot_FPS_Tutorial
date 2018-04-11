@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://StickyGrenade.gd" type="Script" id=1]
-[ext_resource path="res://assets/Level_assets/StickyGrenade.scn" type="PackedScene" id=2]
-[ext_resource path="res://assets/GunMaterial.material" type="Material" id=3]
-[ext_resource path="res://assets/Gun_Emission.material" type="Material" id=4]
+[ext_resource path="res://assets/StickyGrenade.scn" type="PackedScene" id=2]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 
@@ -206,8 +204,6 @@ _sections_unfolded = [ "Transform" ]
 [node name="Sticky_Grenade" parent="." index="0" instance=ExtResource( 2 )]
 
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-material/0 = ExtResource( 3 )
-material/1 = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Collision_Shape" type="CollisionShape" parent="." index="1"]
