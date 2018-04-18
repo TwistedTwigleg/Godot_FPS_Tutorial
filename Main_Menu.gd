@@ -1,6 +1,7 @@
 extends Control
 
-# NOTE: The code here is not explained in the tutorial!
+# NOTE: The code here is only briefly explained in the tutorial, nor
+#		does the code have very many comments!
 #		This is because it does not really relate to making a FPS.
 
 var start_menu

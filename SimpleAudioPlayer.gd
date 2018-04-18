@@ -2,13 +2,13 @@ extends Spatial
 
 # The audio player node.
 var audio_node = null
-# A variable to track whehter or not we should loop
+# A variable to track whether or not we should loop
 var should_loop = false
 # The globals autoload script
 var globals = null
 
 func _ready():
-	# Get the audio player node, connect the finished singal, and assure it's not playing anything.
+	# Get the audio player node, connect the finished signal, and assure it's not playing anything.
 	audio_node = $Audio_Stream_Player
 	audio_node.connect("finished", self, "sound_finished")
 	audio_node.stop()

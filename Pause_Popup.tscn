@@ -9,7 +9,7 @@ use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
 
-[node name="Pause_Popup" type="WindowDialog"]
+[node name="Pause_Popup" type="WindowDialog" index="0"]
 
 pause_mode = 2
 anchor_left = 0.5

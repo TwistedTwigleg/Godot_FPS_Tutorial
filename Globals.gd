@@ -1,7 +1,7 @@
 extends Node
 
 # The path to the title screen scene
-const TITLE_SCREEN_PATH = "res://Main_Menu.tscn"
+const MAIN_MENU_PATH = "res://Main_Menu.tscn"
 
 
 # ------------------------------------
@@ -34,8 +34,8 @@ var joypad_sensitivity = 2
 # All of the audio files.
 
 # You will need to provide your own sound files.
-# One site I'd reccomend is GameSounds.xyz. I'm using Sonniss' GDC Game Audio bundle for 2017.
-# The tracks I've used are as follows:
+# One site I'd recommend is GameSounds.xyz. I'm using Sonniss' GDC Game Audio bundle for 2017.
+# The tracks I've used (with some minor editing) are as follows:
 #	Gamemaster audio gun sound pack:
 #		gun_revolver_pistol_shot_04,
 #		gun_semi_auto_rifle_cock_02,
@@ -44,9 +44,6 @@ var audio_clips = {
 	"pistol_shot":null, #preload("res://path_to_your_audio_here!")
 	"rifle_shot":null, #preload("res://path_to_your_audio_here!")
 	"gun_cock":null, #preload("res://path_to_your_audio_here!")
-	
-	"background_one":null, #preload("res://path_to_your_audio_here!")
-	"background_two":null, #preload("res://path_to_your_audio_here!")
 }
 
 # The simple audio player scene
@@ -80,7 +77,7 @@ func get_respawn_position():
 
 
 func load_new_scene(new_scene_path):
-	# Set respawn points to null so when/if we got to a level with no respawn points,
+	# Set respawn points to null so when/if we get to a level with no respawn points,
 	# we do not respawn at the respawn points in the level prior.
 	respawn_points = null
 	
@@ -138,7 +135,7 @@ func popup_quit():
 		popup = null
 	
 	# Go back to the title screen scene
-	load_new_scene(TITLE_SCREEN_PATH)
+	load_new_scene(MAIN_MENU_PATH)
 
 
 func set_debug_display(display_on):

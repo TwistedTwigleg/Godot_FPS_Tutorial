@@ -1,6 +1,6 @@
 extends RigidBody
 
-# The amount of damage the grenade explosion does
+# The amount of damage the grenade causes when it explodes
 const GRENADE_DAMAGE = 60
 
 # The amount of time the grenade takes (in seconds) to explode once it's created/thrown
@@ -8,10 +8,10 @@ const GRENADE_TIME = 2
 # A variable for tracking how long the grenade has been created/thrown
 var grenade_timer = 0
 
-# The amount of time needed (in seconds) to wait before we can destroy the grenade after the explosion
-# (Calculated by taking the particle life time and dividing it by the particle's speed scale)
+# The amount of time needed (in seconds) to wait before we destroy the grenade scene after the explosion
+# (Calculated by taking the particle's life time and dividing it by the particle's speed scale)
 const EXPLOSION_WAIT_TIME = 0.48
-# A variable for tracking how much time has passed since this grenade exploded
+# A variable for tracking how much time has passed since the grenade exploded
 var explosion_wait_timer = 0
 
 # All of the nodes we need
