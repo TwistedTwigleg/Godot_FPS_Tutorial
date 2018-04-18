@@ -16,7 +16,7 @@ const RESPAWN_TIME = 20
 var respawn_timer = 0
 
 # A variable for tracking whether _ready has been called.
-# Because setget functions are called before ready, we need to ignore the
+# Because setget functions are called before _ready, we need to ignore the
 # first kit_size_change call, because we cannot access child nodes until _ready is called
 var is_ready = false
 

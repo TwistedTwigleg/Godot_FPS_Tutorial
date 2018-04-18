@@ -10,7 +10,7 @@ var current_health = 40
 var broken_target_holder
 
 # The collision shape for the target.
-# NOTE: this is for the whole target, not the pices of the target
+# NOTE: this is for the whole target, not the pieces of the target
 var target_collision_shape
 
 # The amount of time (in seconds) it takes for a target to respawn
@@ -72,6 +72,6 @@ func bullet_hit(damage, bullet_hit_pos):
 		# Set our respawn timer
 		target_respawn_timer = TARGET_RESPAWN_TIME
 		
-		# Disable our collision shape and make ourselves invisble
+		# Disable our collision shape and make ourselves invisible
 		target_collision_shape.disabled = true
 		visible = false

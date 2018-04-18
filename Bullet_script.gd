@@ -15,7 +15,7 @@ var timer = 0
 
 # A boolean to store whether or not we have hit something.
 # This is so we cannot damage more than one object if we manage to hit more than one before
-# this bullet is set free / destroted
+# this bullet is set free / destroyed
 var hit_something = false
 
 func _ready():

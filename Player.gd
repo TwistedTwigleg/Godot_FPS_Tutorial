@@ -224,15 +224,17 @@ func process_input(delta):
 		# Make a Vector2 with the left joy stick axes.
 		# 
 		# NOTE: You may need to change the axes depending on your controller/OS.
-		# This tutorial assumes you are using a XBOX 360 controller on Windows.
+		# This tutorial assumes you are using a XBOX 360 controller.
 		# The bindings are likely different for different operating systems and/or controllers
 		var joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
 		
-		# Account for joypad dead zones
-		if abs(joypad_vec.x) <= JOYPAD_DEADZONE:
-			joypad_vec.x = 0
-		if abs(joypad_vec.y) <= JOYPAD_DEADZONE:
-			joypad_vec.y = 0
+		# Account for joypad dead zones.
+		# Using the code provided in the article linked below:
+		# (http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html)
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
 		
 		# Apply the joypad movement
 		input_movement_vector += joypad_vec
@@ -362,16 +364,16 @@ func process_input(delta):
 	# ----------------------------------
 	
 	# ----------------------------------
-	# Capturing/Freeing the cursor
-	# Because our pause menu assures the cursor is visible, all we need to do is
-	# check if the cursor is visible, and if it is make it captured.
+	# Capturing the mouse.
+	# Because our pause menu assures the mouse is visible, all we need to do is
+	# check if the mouse is visible, and if it is make it captured.
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# ----------------------------------
 	
 	
 	# ----------------------------------
-	# Changing, and throwing grenades
+	# Changing and throwing grenades
 	
 	# Change the name of the current grenade based on which grenade we are using
 	if Input.is_action_just_pressed("change_grenade"):
@@ -403,7 +405,7 @@ func process_input(delta):
 	# ----------------------------------
 	
 	# ----------------------------------
-	# Grabing and throwing objects
+	# Grabbing and throwing objects
 	
 	# If the fire action is pressed, and we are UNARMED.
 	# We could make a grab action, but because our UNARMED 'weapon' does nothing with fire anyway, we'll just use
@@ -411,13 +413,12 @@ func process_input(delta):
 	if Input.is_action_just_pressed("fire") and current_weapon_name == "UNARMED":
 		# If we are not holding a object...
 		if grabbed_object == null:
-			# Cast a ray and see if there is a rigidbody
+			# Get the direct space state so we can raycast into the world.
 			var state = get_world().direct_space_state
-			# We want to project the ray from the camera, using the mouse position, which will be
-			# in the center of the screen, as the origin of the ray
-			var mouse_position = get_viewport().get_mouse_position()
-			var ray_from = camera.project_ray_origin(mouse_position)
-			var ray_to = ray_from + camera.project_ray_normal(mouse_position) * OBJECT_GRAB_RAY_DISTANCE
+			# We want to project the ray from the camera, using the center of the screen
+			var center_position = get_viewport().size/2
+			var ray_from = camera.project_ray_origin(center_position)
+			var ray_to = ray_from + camera.project_ray_normal(center_position) * OBJECT_GRAB_RAY_DISTANCE
 			# Send our ray into the space state and see if we got a result.
 			# We want to exclude ourself, and the knife's Area so that does not mess up the results
 			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area])
@@ -493,13 +494,13 @@ func process_view_input(delta):
 		# We also need to multiply it by -1 because we're wanting to turn in the same direction as
 		# joystick motion in real life. If we physically move the joystick left, we want to turn to the left.
 		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
-		# ----------------------------------
 		
 		# We need to clamp the rotation_helper's rotation so we cannot rotate ourselves upside down
 		# We need to do this every time we rotate so we cannot rotate upside down with mouse and/or joypad input
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
+	# ----------------------------------
 
 
 func process_movement(delta):

@@ -147,7 +147,7 @@ use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 3 )
 
-[node name="Main_Menu" type="Control"]
+[node name="Main_Menu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -165,8 +165,6 @@ space_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
 ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
 
 [node name="Background_Animation" type="Spatial" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="World_Environment" type="WorldEnvironment" parent="Background_Animation" index="0"]
 
@@ -580,6 +578,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="Options_Menu" type="Panel" parent="." index="3"]
 
+editor/display_folded = true
 visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
 anchor_left = 0.0

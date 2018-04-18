@@ -8,7 +8,7 @@
 [ext_resource path="res://TurretBodies.gd" type="Script" id=6]
 [ext_resource path="res://assets/Gamemode_Objects/Emissive_White.material" type="Material" id=7]
 
-[sub_resource type="ArrayMesh" id=20]
+[sub_resource type="ArrayMesh" id=1]
 
 resource_name = "Cube.047"
 blend_shape_mode = 1
@@ -66,11 +66,11 @@ surfaces/3 = {
 "vertex_count": 396
 }
 
-[sub_resource type="BoxShape" id=29]
+[sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 3.60699, 2.55167, 2 )
 
-[sub_resource type="ArrayMesh" id=19]
+[sub_resource type="ArrayMesh" id=3]
 
 resource_name = "Cube.046"
 blend_shape_mode = 1
@@ -141,7 +141,7 @@ surfaces/4 = {
 "vertex_count": 120
 }
 
-[sub_resource type="CylinderMesh" id=21]
+[sub_resource type="CylinderMesh" id=4]
 
 top_radius = 0.4
 bottom_radius = 1.4
@@ -149,7 +149,7 @@ height = 2.0
 radial_segments = 6
 rings = 2
 
-[sub_resource type="SpatialMaterial" id=22]
+[sub_resource type="SpatialMaterial" id=5]
 
 render_priority = 0
 flags_transparent = false
@@ -205,19 +205,19 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="BoxShape" id=23]
+[sub_resource type="BoxShape" id=6]
 
 extents = Vector3( 1.85373, 1.33713, 3.24662 )
 
-[sub_resource type="BoxShape" id=24]
+[sub_resource type="BoxShape" id=7]
 
 extents = Vector3( 1, 2.17965, 0.672486 )
 
-[sub_resource type="SphereShape" id=25]
+[sub_resource type="SphereShape" id=8]
 
 radius = 36.0
 
-[sub_resource type="ParticlesMaterial" id=26]
+[sub_resource type="ParticlesMaterial" id=9]
 
 render_priority = 0
 trail_divisor = 1
@@ -254,7 +254,7 @@ anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
 
-[sub_resource type="SpatialMaterial" id=27]
+[sub_resource type="SpatialMaterial" id=10]
 
 render_priority = 0
 flags_transparent = true
@@ -306,24 +306,21 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="SphereMesh" id=28]
+[sub_resource type="SphereMesh" id=11]
 
-material = SubResource( 27 )
+material = SubResource( 10 )
 radius = 0.2
 height = 0.5
 radial_segments = 6
 rings = 3
 is_hemisphere = false
 
-[node name="Turret" type="Spatial"]
+[node name="Turret" type="Spatial" index="0"]
 
-editor/display_folded = true
 script = ExtResource( 1 )
 use_raycast = false
 
 [node name="Base" type="Spatial" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="Turret_Base" type="MeshInstance" parent="Base" index="0"]
 
@@ -337,7 +334,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 20 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = null
 material/1 = null
@@ -362,18 +359,17 @@ path_to_turret_root = NodePath("../..")
 [node name="Collision_Shape" type="CollisionShape" parent="Base/Static_Body" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68306, 0.587342 )
-shape = SubResource( 29 )
+shape = SubResource( 2 )
 disabled = false
 
 [node name="Collision_Shape_2" type="CollisionShape" parent="Base/Static_Body" index="1"]
 
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.68306, 0.587342 )
-shape = SubResource( 29 )
+shape = SubResource( 2 )
 disabled = false
 
 [node name="Head" type="Spatial" parent="." index="1"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75254, 0.549067 )
 _sections_unfolded = [ "Transform" ]
 
@@ -389,7 +385,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 19 )
+mesh = SubResource( 3 )
 skeleton = NodePath("..")
 material/0 = null
 material/1 = null
@@ -410,9 +406,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 21 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
-material/0 = SubResource( 22 )
+material/0 = SubResource( 5 )
 _sections_unfolded = [ "material" ]
 
 [node name="Flash_2" type="MeshInstance" parent="Head" index="2"]
@@ -427,9 +423,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 21 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
-material/0 = SubResource( 22 )
+material/0 = SubResource( 5 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="Ray_Cast" type="RayCast" parent="Head" index="3"]
@@ -461,13 +457,13 @@ path_to_turret_root = NodePath("../..")
 [node name="Collision_Shape" type="CollisionShape" parent="Head/Static_Body" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.43577, -3.32666 )
-shape = SubResource( 23 )
+shape = SubResource( 6 )
 disabled = false
 
 [node name="Collision_Shape_2" type="CollisionShape" parent="Head/Static_Body" index="1"]
 
 transform = Transform( 1, 0, 0, 0, 0.922934, 0.384959, 0, -0.384959, 0.922934, 0, 1.90657, 0.297366 )
-shape = SubResource( 24 )
+shape = SubResource( 7 )
 disabled = false
 
 [node name="Vision_Area" type="Area" parent="." index="2"]
@@ -497,7 +493,7 @@ reverb_bus_uniformity = 0.0
 [node name="Collision_Shape" type="CollisionShape" parent="Vision_Area" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
-shape = SubResource( 25 )
+shape = SubResource( 8 )
 disabled = false
 
 [node name="Smoke" type="Particles" parent="." index="3"]
@@ -525,9 +521,9 @@ fract_delta = true
 visibility_aabb = AABB( -3.64419, -2.44026, -2.50963, 7.57765, 16.6094, 7.38895 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 26 )
+process_material = SubResource( 9 )
 draw_passes = 1
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 11 )
 _sections_unfolded = [ "Draw Passes", "Process Material", "Time" ]
 
 

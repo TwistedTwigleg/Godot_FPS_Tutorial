@@ -178,7 +178,7 @@ distance_fade_enable = false
 
 extents = Vector3( 3, 3, 3 )
 
-[node name="Ruins_Level" type="Spatial"]
+[node name="Ruins_Level" type="Spatial" index="0"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
 

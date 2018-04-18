@@ -126,7 +126,7 @@ func _physics_process(delta):
 						fire_bullet()
 				else:
 					# If we're reloading, then subtract delta from ammo_reload_timer.
-					# If not, then refil the turret's ammo.
+					# If not, then refill the turret's ammo.
 					if ammo_reload_timer > 0:
 						ammo_reload_timer -= delta
 					else:
@@ -135,7 +135,7 @@ func _physics_process(delta):
 	# If we are broken, then we need to wait until we are repaired
 	if turret_health <= 0:
 		# If we are repairing, then subtract delta from destroyed_timer.
-		# Otherwise we set our health to that of a fully reparied turret and stop
+		# Otherwise we set our health to that of a fully repaired turret and stop
 		# emitting the smoke particles.
 		if destroyed_timer > 0:
 			destroyed_timer -= delta
@@ -169,7 +169,7 @@ func fire_bullet():
 	# Otherwise we are using raycasting (which works most of the time, sometimes it does not for some reason)
 	else:
 		# Rotate the raycast to look at the target (assuring we'll hit the target)
-		node_raycast.look_at(current_target.global_transform.origin, Vector3(0,1,0))
+		node_raycast.look_at(current_target.global_transform.origin + PLAYER_HEIGHT, Vector3(0,1,0))
 		
 		# Force the raycast to update. This will force the raycast to detect collisions when we call it.
 		# This means we are getting a frame perfect collision check with the 3D world.
@@ -224,7 +224,7 @@ func body_exited_vision(body):
 
 
 func bullet_hit(damage, bullet_hit_pos):
-	# Remove however much damage we have recieved from our health
+	# Remove however much damage we have received from our health
 	turret_health -= damage
 	
 	# If the turret is destroyed, start emitting smoke particles and set

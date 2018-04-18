@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Two.material" type="Material" id=3]
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Red.material" type="Material" id=4]
 
-[sub_resource type="ArrayMesh" id=9]
+[sub_resource type="ArrayMesh" id=1]
 
 resource_name = "Cube.055"
 blend_shape_mode = 1
@@ -50,7 +50,7 @@ surfaces/2 = {
 "vertex_count": 1103
 }
 
-[sub_resource type="ArrayMesh" id=10]
+[sub_resource type="ArrayMesh" id=2]
 
 resource_name = "Cube.054"
 blend_shape_mode = 1
@@ -95,15 +95,15 @@ surfaces/2 = {
 "vertex_count": 272
 }
 
-[sub_resource type="BoxShape" id=11]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 3, 2, 2.4 )
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=4]
 
 extents = Vector3( 2, 2, 2 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=5]
 
 resource_name = "Health_Anim"
 length = 4.0
@@ -146,6 +146,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Health_Kit" type="Spatial" parent="Holder" index="0"]
 
+editor/display_folded = true
+
 [node name="Health_Kit" type="MeshInstance" parent="Holder/Health_Kit" index="0"]
 
 layers = 1
@@ -157,7 +159,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 9 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = null
 material/1 = null
@@ -166,6 +168,7 @@ _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="Health_Kit_Small" type="Spatial" parent="Holder" index="1"]
 
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449994, 0 )
 
 [node name="Health_Kit_Small" type="MeshInstance" parent="Holder/Health_Kit_Small" index="0"]
@@ -180,7 +183,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 10 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
 material/1 = null
@@ -189,7 +192,6 @@ _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="Health_Pickup_Trigger" type="Area" parent="Holder" index="2"]
 
-editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
@@ -214,13 +216,13 @@ reverb_bus_uniformity = 0.0
 [node name="Shape_Kit" type="CollisionShape" parent="Holder/Health_Pickup_Trigger" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.570922, 0 )
-shape = SubResource( 11 )
+shape = SubResource( 3 )
 disabled = false
 
 [node name="Shape_Kit_Small" type="CollisionShape" parent="Holder/Health_Pickup_Trigger" index="1"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744072, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Animation_Player" type="AnimationPlayer" parent="." index="1"]
@@ -230,7 +232,7 @@ autoplay = "Health_Anim"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Health_Anim = SubResource( 13 )
+anims/Health_Anim = SubResource( 5 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 

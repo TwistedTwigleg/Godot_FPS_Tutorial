@@ -86,7 +86,7 @@ func reload_weapon():
 			spare_ammo = 0
 		
 		# Set the reloading animation
-		player_node.animation_manager.set_animation("Rifle_reload")
+		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
 		
 		# Play the 'gun_cock' sound so it sounds like we've reloaded.
 		player_node.create_sound("gun_cock", player_node.camera.global_transform.origin)
