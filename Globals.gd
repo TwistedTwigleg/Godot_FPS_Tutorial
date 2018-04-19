@@ -72,8 +72,8 @@ func get_respawn_position():
 		return Vector3(0, 0, 0)
 	# If we have respawn points, get a random one and return it's global position
 	else:
-		var respawn_point = rand_range(0, respawn_points.size()-1);
-		return respawn_points[respawn_point].global_transform.origin;
+		var respawn_point = rand_range(0, respawn_points.size()-1)
+		return respawn_points[respawn_point].global_transform.origin
 
 
 func load_new_scene(new_scene_path):
