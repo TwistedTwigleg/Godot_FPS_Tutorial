@@ -182,7 +182,7 @@ func _physics_process(delta):
 		process_movement(delta)
 	
 	# If we have grabbed a object, we do not want to be able to change weapons or reload
-	if (grabbed_object == null):
+	if grabbed_object == null:
 		# Process the weapon changing logic. 
 		process_changing_weapons(delta)
 		
@@ -224,9 +224,14 @@ func process_input(delta):
 		# Make a Vector2 with the left joy stick axes.
 		# 
 		# NOTE: You may need to change the axes depending on your controller/OS.
-		# This tutorial assumes you are using a XBOX 360 controller.
-		# The bindings are likely different for different operating systems and/or controllers
-		var joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+		var joypad_vec = Vector2(0, 0)
+		
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
 		
 		# Account for joypad dead zones.
 		# Using the code provided in the article linked below:
