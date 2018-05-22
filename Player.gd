@@ -17,7 +17,7 @@ var dir = Vector3()
 const MAX_SPRINT_SPEED = 30
 const SPRINT_ACCEL = 18
 # A boolean to track if we are spriting
-var is_spriting = false
+var is_sprinting = false
 
 # How fast we slow down, and the steepest angle that counts as a floor (to the KinematicBody).
 const DEACCEL= 16
@@ -261,9 +261,9 @@ func process_input(delta):
 	# Sprinting
 	# If we are sprinting, we need change the is_sprinting boolean accordingly
 	if Input.is_action_pressed("movement_sprint"):
-		is_spriting = true
+		is_sprinting = true
 	else:
-		is_spriting = false
+		is_sprinting = false
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -524,7 +524,7 @@ func process_movement(delta):
 	
 	# Based on whether we are sprinting or not, set our max speed accordingly.
 	var target = dir
-	if is_spriting:
+	if is_sprinting:
 		target *= MAX_SPRINT_SPEED
 	else:
 		target *= MAX_SPEED
@@ -535,7 +535,7 @@ func process_movement(delta):
 	var accel
 	if dir.dot(hvel) > 0:
 		# We should accelerate faster if we are sprinting
-		if is_spriting:
+		if is_sprinting:
 			accel = SPRINT_ACCEL
 		else:
 			accel = ACCEL
@@ -546,7 +546,7 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+	vel = move_and_slide(vel,Vector3(0,1,0), true, 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 
 func process_changing_weapons(delta):

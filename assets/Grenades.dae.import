@@ -7,10 +7,7 @@ path="res://.import/Grenades.dae-7d305bf96b28ceb78a40cc34e2f98092.scn"
 [deps]
 
 source_file="res://assets/Grenades.dae"
-source_md5="6c7f6fa301be4417e0cac5b057a0da1e"
-
 dest_files=[ "res://.import/Grenades.dae-7d305bf96b28ceb78a40cc34e2f98092.scn" ]
-dest_md5="27d3593ac9a0cc79e0014d6366919667"
 
 [params]
 

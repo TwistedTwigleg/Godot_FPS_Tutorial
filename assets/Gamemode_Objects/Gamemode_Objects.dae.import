@@ -7,10 +7,7 @@ path="res://.import/Gamemode_Objects.dae-cd7c84994356a861e7019755872a0048.scn"
 [deps]
 
 source_file="res://assets/Gamemode_Objects/Gamemode_Objects.dae"
-source_md5="6266f46a20cc06fc9f1916e46aaf5638"
-
 dest_files=[ "res://.import/Gamemode_Objects.dae-cd7c84994356a861e7019755872a0048.scn" ]
-dest_md5="280b2b0917ea87cdd236c3ff911ad9e5"
 
 [params]
 

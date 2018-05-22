@@ -7,10 +7,7 @@ path="res://.import/Ruin_Level_Objects.dae-901b498e88c42df8fdfd0b3837ab02e0.scn"
 [deps]
 
 source_file="res://assets/Ruin_Level_Objects/Ruin_Level_Objects.dae"
-source_md5="28023fbd635df61ec62a05e772cc9e16"
-
 dest_files=[ "res://.import/Ruin_Level_Objects.dae-901b498e88c42df8fdfd0b3837ab02e0.scn" ]
-dest_md5="e509b8aeed71ee6bb4875d2630ac0e7d"
 
 [params]
 

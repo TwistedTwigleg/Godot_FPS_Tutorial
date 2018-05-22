@@ -7,10 +7,7 @@ path="res://.import/Space_Level_Objects.dae-2bc51f20d21489bdf4c0eca2067928ba.scn
 [deps]
 
 source_file="res://assets/Space_Level_Objects/Space_Level_Objects.dae"
-source_md5="f2d9c98fea167ba43efd115e138151c5"
-
 dest_files=[ "res://.import/Space_Level_Objects.dae-2bc51f20d21489bdf4c0eca2067928ba.scn" ]
-dest_md5="0fb0598be9620edd92cb0e73c736747b"
 
 [params]
 

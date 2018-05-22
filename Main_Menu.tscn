@@ -143,12 +143,13 @@ _sections_unfolded = [ "Corner Radius" ]
 [sub_resource type="DynamicFont" id=5]
 
 size = 32
+outline_size = 0
+outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 3 )
 
 [node name="Main_Menu" type="Control" index="0"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -167,12 +168,10 @@ ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
 [node name="Background_Animation" type="Spatial" parent="." index="0"]
 
 [node name="World_Environment" type="WorldEnvironment" parent="Background_Animation" index="0"]
-
 environment = SubResource( 2 )
 
 [node name="Main_Menu_Camera" type="Camera" parent="Background_Animation" index="1"]
-
-transform = Transform( 1, -1.74846e-07, 1.74846e-07, 1.74846e-07, 1, -1.74846e-07, -1.74846e-07, 1.74846e-07, 1, 0, 0, 0 )
+transform = Transform( 1, -1.74846e-007, 1.74846e-007, 1.74846e-007, 1, -1.74846e-007, -1.74846e-007, 1.74846e-007, 1, 0, 0, 0 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -188,7 +187,6 @@ far = 100.0
 _sections_unfolded = [ "Transform" ]
 
 [node name="Animation_Player" type="AnimationPlayer" parent="Background_Animation" index="2"]
-
 root_node = NodePath("..")
 autoplay = "Background_Animation"
 playback_process_mode = 1
@@ -199,7 +197,6 @@ blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Start_Menu" type="Panel" parent="." index="1"]
-
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.901961 )
 anchor_left = 0.0
@@ -220,7 +217,6 @@ custom_styles/panelnc = SubResource( 4 )
 _sections_unfolded = [ "custom_styles" ]
 
 [node name="Title_Label" type="Label" parent="Start_Menu" index="0"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -250,7 +246,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "custom_constants" ]
 
 [node name="Button_Start" type="Button" parent="Start_Menu" index="1"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -277,7 +272,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Open_Godot" type="Button" parent="Start_Menu" index="2"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -304,7 +298,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Options" type="Button" parent="Start_Menu" index="3"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -331,7 +324,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Quit" type="Button" parent="Start_Menu" index="4"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -358,7 +350,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Level_Select_Menu" type="Panel" parent="." index="2"]
-
 editor/display_folded = true
 visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
@@ -380,7 +371,6 @@ custom_styles/panelnc = SubResource( 4 )
 _sections_unfolded = [ "custom_styles" ]
 
 [node name="Title_Label" type="Label" parent="Level_Select_Menu" index="0"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -409,7 +399,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "custom_constants" ]
 
 [node name="Button_Back" type="Button" parent="Level_Select_Menu" index="1"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -436,7 +425,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Level_Testing_Area" type="Button" parent="Level_Select_Menu" index="2"]
-
 editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.0
@@ -462,7 +450,6 @@ align = 1
 _sections_unfolded = [ "Rect" ]
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Testing_Area" index="0"]
-
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -483,7 +470,6 @@ stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
 [node name="Button_Level_Space" type="Button" parent="Level_Select_Menu" index="3"]
-
 editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.0
@@ -509,7 +495,6 @@ align = 1
 _sections_unfolded = [ "Rect" ]
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Space" index="0"]
-
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -530,7 +515,6 @@ stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Button_Level_Ruins" type="Button" parent="Level_Select_Menu" index="4"]
-
 editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.0
@@ -556,7 +540,6 @@ align = 1
 _sections_unfolded = [ "Rect" ]
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Ruins" index="0"]
-
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -577,7 +560,6 @@ stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Options_Menu" type="Panel" parent="." index="3"]
-
 editor/display_folded = true
 visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
@@ -599,7 +581,6 @@ custom_styles/panelnc = SubResource( 4 )
 _sections_unfolded = [ "custom_styles" ]
 
 [node name="Title_Label" type="Label" parent="Options_Menu" index="0"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -628,7 +609,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "custom_constants" ]
 
 [node name="Label_Mouse_Sensitivity" type="Label" parent="Options_Menu" index="1"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -652,7 +632,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="HSlider_Mouse_Sensitivity" type="HSlider" parent="Options_Menu" index="2"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -675,13 +654,14 @@ page = 0.0
 value = 0.01
 exp_edit = false
 rounded = false
+allow_greater = false
+allow_lesser = false
 editable = true
 tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
 [node name="Label_Joypad_Sensitivity" type="Label" parent="Options_Menu" index="3"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -705,7 +685,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="HSlider_Joypad_Sensitivity" type="HSlider" parent="Options_Menu" index="4"]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -728,13 +707,14 @@ page = 0.0
 value = 0.1
 exp_edit = false
 rounded = false
+allow_greater = false
+allow_lesser = false
 editable = true
 tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
 [node name="Check_Button_VSync" type="CheckButton" parent="Options_Menu" index="5"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -762,7 +742,6 @@ align = 0
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Fullscreen" type="Button" parent="Options_Menu" index="6"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -789,7 +768,6 @@ align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Check_Button_Debug" type="CheckButton" parent="Options_Menu" index="7"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -816,7 +794,6 @@ align = 0
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Button_Back" type="Button" parent="Options_Menu" index="8"]
-
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -841,5 +818,4 @@ text = "Back"
 flat = false
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
-
 
