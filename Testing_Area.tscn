@@ -345,11 +345,9 @@ _sections_unfolded = [ "Albedo" ]
 [node name="Testing_Area" type="Spatial" index="0"]
 
 [node name="Box" type="Spatial" parent="." index="0"]
-
 editor/display_folded = true
 
 [node name="Floor_plane" type="MeshInstance" parent="Box" index="0"]
-
 editor/display_folded = true
 layers = 1
 material_override = null
@@ -366,7 +364,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Floor_plane" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -377,12 +374,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Floor_plane/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="Celing_plane" type="MeshInstance" parent="Box" index="1"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 75.2188, 0 )
 layers = 1
@@ -400,7 +395,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Celing_plane" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -411,12 +405,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Celing_plane/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="Wall_1" type="MeshInstance" parent="Box" index="2"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.640566, 37.0752, 39.6568 )
 layers = 1
@@ -434,7 +426,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Wall_1" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -445,12 +436,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Wall_1/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="Wall_2" type="MeshInstance" parent="Box" index="3"]
-
 editor/display_folded = true
 transform = Transform( -1.62921e-07, -1, 0.000345306, 0, 0.000345306, 1, -1, 1.62921e-07, -5.62574e-11, 38.2511, 37.0752, 0.0846462 )
 layers = 1
@@ -468,7 +457,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Wall_2" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -479,12 +467,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Wall_2/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="Wall_3" type="MeshInstance" parent="Box" index="4"]
-
 editor/display_folded = true
 transform = Transform( -1.62921e-07, 1, -0.000488118, 0, 0.000488118, 1, 1, 1.62921e-07, -7.95246e-11, -40.2198, 37.0752, 0.0846462 )
 layers = 1
@@ -502,7 +488,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Wall_3" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -513,12 +498,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Wall_3/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="Wall_4" type="MeshInstance" parent="Box" index="5"]
-
 editor/display_folded = true
 transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, -0.569376, 37.0752, -37.7189 )
 layers = 1
@@ -536,7 +519,6 @@ material/0 = SubResource( 2 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Box/Wall_4" index="0"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -547,12 +529,10 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Wall_4/StaticBody" index="0"]
-
 shape = SubResource( 3 )
 disabled = false
 
 [node name="OmniLight" type="OmniLight" parent="Box" index="6"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42.005, 0 )
 layers = 1
@@ -576,7 +556,6 @@ omni_shadow_detail = 1
 _sections_unfolded = [ "Omni", "Shadow" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Box/OmniLight" index="0"]
-
 layers = 1
 material_override = null
 cast_shadow = 0
@@ -594,15 +573,12 @@ _sections_unfolded = [ "Geometry", "material" ]
 [node name="Player" parent="." index="1" instance=ExtResource( 1 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
-
 environment = SubResource( 7 )
 
 [node name="Cubes" type="Spatial" parent="." index="3"]
-
 editor/display_folded = true
 
 [node name="PurpleCube" type="RigidBody" parent="Cubes" index="0"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, 23.1277 )
 input_ray_pickable = true
@@ -619,7 +595,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -634,12 +610,10 @@ script = ExtResource( 2 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -655,7 +629,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="PurpleCube2" type="RigidBody" parent="Cubes" index="1"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.23405, 9.95316, 23.1277 )
 input_ray_pickable = true
@@ -672,7 +645,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -686,12 +659,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube2" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube2" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -707,7 +678,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="PurpleCube3" type="RigidBody" parent="Cubes" index="2"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 9.95316, 23.1277 )
 input_ray_pickable = true
@@ -724,7 +694,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -738,12 +708,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube3" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube3" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -759,7 +727,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="PurpleCube4" type="RigidBody" parent="Cubes" index="3"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 17.1576, 23.1277 )
 input_ray_pickable = true
@@ -776,7 +743,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -790,12 +757,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube4" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube4" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -811,7 +776,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="PurpleCube5" type="RigidBody" parent="Cubes" index="4"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 24.1593, 23.1277 )
 input_ray_pickable = true
@@ -828,7 +792,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -842,12 +806,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube5" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube5" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -863,7 +825,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="PurpleCube6" type="RigidBody" parent="Cubes" index="5"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.451504, 17.9137, 23.1277 )
 input_ray_pickable = true
@@ -880,7 +841,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -894,12 +855,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube6" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube6" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -915,7 +874,6 @@ material/0 = SubResource( 10 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube" type="RigidBody" parent="Cubes" index="6"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, -21.6551 )
 input_ray_pickable = true
@@ -932,7 +890,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -946,12 +904,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -967,7 +923,6 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube2" type="RigidBody" parent="Cubes" index="7"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79916, 9.95316, -21.6551 )
 input_ray_pickable = true
@@ -984,7 +939,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -998,12 +953,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube2" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube2" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1019,7 +972,6 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube3" type="RigidBody" parent="Cubes" index="8"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.58552, 9.95316, -21.6551 )
 input_ray_pickable = true
@@ -1036,7 +988,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -1050,12 +1002,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube3" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube3" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1071,7 +1021,6 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube4" type="RigidBody" parent="Cubes" index="9"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.79556, 17.3734, -21.6551 )
 input_ray_pickable = true
@@ -1088,7 +1037,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -1102,12 +1051,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube4" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube4" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1123,7 +1070,6 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube5" type="RigidBody" parent="Cubes" index="10"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51582, 17.3734, -21.6551 )
 input_ray_pickable = true
@@ -1140,7 +1086,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -1154,12 +1100,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube5" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube5" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1175,7 +1119,6 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="GreenCube6" type="RigidBody" parent="Cubes" index="11"]
-
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.602769, 24.9266, -21.6551 )
 input_ray_pickable = true
@@ -1192,7 +1135,7 @@ continuous_cd = false
 contacts_reported = 0
 contact_monitor = false
 sleeping = false
-can_sleep = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -1206,12 +1149,10 @@ angular_damp = -1.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube6" index="0"]
-
 shape = SubResource( 8 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube6" index="1"]
-
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1227,66 +1168,50 @@ material/0 = SubResource( 11 )
 _sections_unfolded = [ "material" ]
 
 [node name="Targets" type="Spatial" parent="." index="4"]
-
 editor/display_folded = true
 
 [node name="Target_Whole" parent="Targets" index="0" instance=ExtResource( 3 )]
-
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.5618, 9.30001, 0 )
 
 [node name="Target_Whole_2" parent="Targets" index="1" instance=ExtResource( 3 )]
-
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 22.2968, 24.3869 )
 
 [node name="Target_Whole_3" parent="Targets" index="2" instance=ExtResource( 3 )]
-
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 23.1918, -15.5231 )
 
 [node name="Target_Whole_4" parent="Targets" index="3" instance=ExtResource( 3 )]
-
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 36.0166, 6.8679 )
 
 [node name="Target_Whole_5" parent="Targets" index="4" instance=ExtResource( 3 )]
-
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7384, 23.0219, 4.52206 )
 
 [node name="Target_Whole_6" parent="Targets" index="5" instance=ExtResource( 3 )]
-
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -15.9474, 23.0219, -36.7415 )
 
 [node name="Target_Whole_7" parent="Targets" index="6" instance=ExtResource( 3 )]
-
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -30.2721, 9.88401, -36.7415 )
 
 [node name="Target_Whole_8" parent="Targets" index="7" instance=ExtResource( 3 )]
-
 transform = Transform( -1, 0, 8.74228e-08, 6.69697e-08, 0.642788, 0.766044, -5.61943e-08, 0.766044, -0.642788, -26.5127, 34.3122, -19.5636 )
 
 [node name="Health_Pickup" parent="." index="5" instance=ExtResource( 4 )]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0198, 2.68939, 21.5176 )
 
 [node name="Health_Pickup_Small" parent="." index="6" instance=ExtResource( 4 )]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6413, 2.68939, 21.5176 )
 kit_size = 1
 
 [node name="Ammo_Pickup" parent="." index="7" instance=ExtResource( 5 )]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7308, 3, 24.4157 )
 
 [node name="Ammo_Pickup_Small" parent="." index="8" instance=ExtResource( 5 )]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2338, 3, 24.4157 )
 kit_size = 1
 
 [node name="Turret_Raycast" parent="." index="9" instance=ExtResource( 6 )]
-
 transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 30, 0.841041, -30 )
 use_raycast = true
 
 [node name="Turret_Bullet_Objects" parent="." index="10" instance=ExtResource( 6 )]
-
 transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -32, 0.841041, -30 )
-
 

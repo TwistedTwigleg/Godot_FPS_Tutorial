@@ -169,7 +169,7 @@ func fire_bullet():
 	# Otherwise we are using raycasting (which works most of the time, sometimes it does not for some reason)
 	else:
 		# Rotate the raycast to look at the target (assuring we'll hit the target)
-		node_raycast.look_at(current_target.global_transform.origin + PLAYER_HEIGHT, Vector3(0,1,0))
+		node_raycast.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0,1,0))
 		
 		# Force the raycast to update. This will force the raycast to detect collisions when we call it.
 		# This means we are getting a frame perfect collision check with the 3D world.

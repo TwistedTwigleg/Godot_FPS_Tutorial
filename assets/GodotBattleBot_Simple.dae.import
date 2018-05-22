@@ -7,10 +7,7 @@ path="res://.import/GodotBattleBot_Simple.dae-2c0a65311384544dc0b589d8ed27ea52.s
 [deps]
 
 source_file="res://assets/GodotBattleBot_Simple.dae"
-source_md5="42d5968b63b84b41e2a159505d09685c"
-
 dest_files=[ "res://.import/GodotBattleBot_Simple.dae-2c0a65311384544dc0b589d8ed27ea52.scn" ]
-dest_md5="8245dc63d15dc0119b500a4402ad9a3a"
 
 [params]
 
