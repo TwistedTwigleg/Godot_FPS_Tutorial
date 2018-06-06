@@ -143,6 +143,8 @@ surfaces/4 = {
 
 [sub_resource type="CylinderMesh" id=4]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+flip_faces = false
 top_radius = 0.4
 bottom_radius = 1.4
 height = 2.0
@@ -160,6 +162,7 @@ flags_use_point_size = false
 flags_world_triplanar = false
 flags_fixed_size = false
 flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
 vertex_color_use_as_albedo = false
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
@@ -265,6 +268,7 @@ flags_use_point_size = false
 flags_world_triplanar = false
 flags_fixed_size = false
 flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
 vertex_color_use_as_albedo = false
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
@@ -309,6 +313,8 @@ _sections_unfolded = [ "Albedo" ]
 [sub_resource type="SphereMesh" id=11]
 
 material = SubResource( 10 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+flip_faces = false
 radius = 0.2
 height = 0.5
 radial_segments = 6
@@ -316,14 +322,12 @@ rings = 3
 is_hemisphere = false
 
 [node name="Turret" type="Spatial" index="0"]
-
 script = ExtResource( 1 )
 use_raycast = false
 
 [node name="Base" type="Spatial" parent="." index="0"]
 
 [node name="Turret_Base" type="MeshInstance" parent="Base" index="0"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.273253 )
 layers = 1
 material_override = null
@@ -343,7 +347,6 @@ material/3 = null
 _sections_unfolded = [ "Transform" ]
 
 [node name="Static_Body" type="StaticBody" parent="Base" index="1"]
-
 editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -357,24 +360,20 @@ script = ExtResource( 6 )
 path_to_turret_root = NodePath("../..")
 
 [node name="Collision_Shape" type="CollisionShape" parent="Base/Static_Body" index="0"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68306, 0.587342 )
 shape = SubResource( 2 )
 disabled = false
 
 [node name="Collision_Shape_2" type="CollisionShape" parent="Base/Static_Body" index="1"]
-
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.68306, 0.587342 )
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 1.68306, 0.587342 )
 shape = SubResource( 2 )
 disabled = false
 
 [node name="Head" type="Spatial" parent="." index="1"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75254, 0.549067 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Turret_Head" type="MeshInstance" parent="Head" index="0"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00935364, 0.493907 )
 layers = 1
 material_override = null
@@ -395,8 +394,7 @@ material/4 = null
 _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="Flash" type="MeshInstance" parent="Head" index="1"]
-
-transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, -0.6, 0, 0.6, -2.62268e-08, 0, 3.69553, -6.75926 )
+transform = Transform( 0.6, 0, 0, 0, -2.62268e-008, -0.6, 0, 0.6, -2.62268e-008, 0, 3.69553, -6.75926 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -412,8 +410,7 @@ material/0 = SubResource( 5 )
 _sections_unfolded = [ "material" ]
 
 [node name="Flash_2" type="MeshInstance" parent="Head" index="2"]
-
-transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, -0.6, 0, 0.6, -2.62268e-08, 0, 2.65687, -6.38286 )
+transform = Transform( 0.6, 0, 0, 0, -2.62268e-008, -0.6, 0, 0.6, -2.62268e-008, 0, 2.65687, -6.38286 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -429,7 +426,6 @@ material/0 = SubResource( 5 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="Ray_Cast" type="RayCast" parent="Head" index="3"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.35444, -2.734 )
 enabled = false
 exclude_parent = true
@@ -437,11 +433,9 @@ cast_to = Vector3( 0, 0, -40 )
 collision_mask = 1
 
 [node name="Barrel_End" type="Spatial" parent="Head" index="4"]
-
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 4.22162, -11.5493 )
+transform = Transform( -1, 0, -1.50996e-007, 0, 1, 0, 1.50996e-007, 0, -1, 0, 4.22162, -11.5493 )
 
 [node name="Static_Body" type="StaticBody" parent="Head" index="5"]
-
 editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -455,19 +449,16 @@ script = ExtResource( 6 )
 path_to_turret_root = NodePath("../..")
 
 [node name="Collision_Shape" type="CollisionShape" parent="Head/Static_Body" index="0"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.43577, -3.32666 )
 shape = SubResource( 6 )
 disabled = false
 
 [node name="Collision_Shape_2" type="CollisionShape" parent="Head/Static_Body" index="1"]
-
 transform = Transform( 1, 0, 0, 0, 0.922934, 0.384959, 0, -0.384959, 0.922934, 0, 1.90657, 0.297366 )
 shape = SubResource( 7 )
 disabled = false
 
 [node name="Vision_Area" type="Area" parent="." index="2"]
-
 editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
@@ -491,13 +482,11 @@ reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 
 [node name="Collision_Shape" type="CollisionShape" parent="Vision_Area" index="0"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
 shape = SubResource( 8 )
 disabled = false
 
 [node name="Smoke" type="Particles" parent="." index="3"]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85465, 0.50817 )
 layers = 1
 material_override = null
@@ -525,5 +514,4 @@ process_material = SubResource( 9 )
 draw_passes = 1
 draw_pass_1 = SubResource( 11 )
 _sections_unfolded = [ "Draw Passes", "Process Material", "Time" ]
-
 

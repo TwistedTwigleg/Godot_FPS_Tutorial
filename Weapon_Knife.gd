@@ -50,7 +50,7 @@ func fire_weapon():
 			continue
 		
 		if body.has_method("bullet_hit"):
-			body.bullet_hit(DAMAGE, area.global_transform.origin)
+			body.bullet_hit(DAMAGE, area.global_transform)
 
 
 func reload_weapon():

@@ -51,7 +51,7 @@ func fire_weapon():
 		if body == player_node:
 			pass
 		elif body.has_method("bullet_hit"):
-			body.bullet_hit(DAMAGE, ray.get_collision_point())
+			body.bullet_hit(DAMAGE, ray.global_transform)
 	
 	# Remove the bullet from the mag
 	ammo_in_weapon -= 1

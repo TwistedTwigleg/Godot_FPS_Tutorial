@@ -176,11 +176,11 @@ func fire_bullet():
 		node_raycast.force_raycast_update()
 		
 		# If the ray hit something, get its collider and see if it has the 'bullet_hit' method.
-		# If it does, then call it and pass the ray's collision point as the bullet collision point.
+		# If it does, then call it and pass the ray's global transform so we can tell which direction the bullet game from
 		if node_raycast.is_colliding():
 			var body = node_raycast.get_collider()
 			if body.has_method("bullet_hit"):
-				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.get_collision_point())
+				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.global_transform)
 		
 		# Remove the bullet from the turret
 		ammo_in_turret -= 1
