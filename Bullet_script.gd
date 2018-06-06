@@ -41,7 +41,7 @@ func collided(body):
 	# If it does, then call it, passing our global origin as the bullet collision point.
 	if hit_something == false:
 		if body.has_method("bullet_hit"):
-			body.bullet_hit(BULLET_DAMAGE, self.global_transform.origin)
+			body.bullet_hit(BULLET_DAMAGE, global_transform)
 	
 	# Set hit_something to true because we've hit an object and set free ourself.
 	hit_something = true

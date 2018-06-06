@@ -1,14 +1,11 @@
 extends RigidBody
 
+const BASE_BULLET_BOOST = 9;
+
 func _ready():
 	pass
 
-func bullet_hit(damage, bullet_hit_pos):
-	# We get the directional vector pointing from the bullet hit position to our origin.
-	var direction_vect = global_transform.origin - bullet_hit_pos
-	# Normalize the directional vector (so distance doesn't change the knockback)
-	direction_vect = direction_vect.normalized()
+func bullet_hit(damage, bullet_global_trans):
+	var direction_vect = bullet_global_trans.basis.z.normalized() * BASE_BULLET_BOOST;
 	
-	# Then we apply a local impulse at the hit position with a force pointed at the directional vector.
-	# This gives the appearance of the bullet push the object on collision.
-	apply_impulse(bullet_hit_pos, direction_vect * damage)
+	apply_impulse((bullet_global_trans.origin - global_transform.origin).normalized(), direction_vect * damage)

@@ -56,7 +56,7 @@ func _process(delta):
 			var bodies = blast_area.get_overlapping_bodies()
 			for body in bodies:
 				if body.has_method("bullet_hit"):
-					body.bullet_hit(GRENADE_DAMAGE, global_transform.origin)
+					body.bullet_hit(GRENADE_DAMAGE, body.global_transform.looking_at(global_transform.origin, Vector3(0,1,0)) )
 			
 			# This would be the perfect place to play a sound!
 		
