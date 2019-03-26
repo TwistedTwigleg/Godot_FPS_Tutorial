@@ -4,20 +4,22 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/GunTextures.png-33044de8527431be08db9b6ba0e45630.s3tc.stex"
 path.etc2="res://.import/GunTextures.png-33044de8527431be08db9b6ba0e45630.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
 source_file="res://assets/GunTextures.png"
-source_md5="9e2cc48fd22430732940901b58005fef"
-
 dest_files=[ "res://.import/GunTextures.png-33044de8527431be08db9b6ba0e45630.s3tc.stex", "res://.import/GunTextures.png-33044de8527431be08db9b6ba0e45630.etc2.stex" ]
-dest_md5="7a556ab1eb4119f7a6a81568409d7291"
 
 [params]
 
 compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=true
 flags/filter=true
@@ -27,6 +29,7 @@ flags/srgb=1
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=false

@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/lightblue_equirectangular.png-4443ea404861d24dcbb2f1ada4d083d2.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/lightblue_equirectangular.png"
-source_md5="d18f3f4b9cac2a896562c764a5f1bfd2"
-
 dest_files=[ "res://.import/lightblue_equirectangular.png-4443ea404861d24dcbb2f1ada4d083d2.stex" ]
-dest_md5="a4f75a1c0a21348b14df7e22d2d50951"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

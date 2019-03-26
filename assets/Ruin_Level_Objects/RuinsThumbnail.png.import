@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/RuinsThumbnail.png-884ff638e2201465a3fe07d3847537e2.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/Ruin_Level_Objects/RuinsThumbnail.png"
-source_md5="62c2b71719fa1a8135e61ab62386408f"
-
 dest_files=[ "res://.import/RuinsThumbnail.png-884ff638e2201465a3fe07d3847537e2.stex" ]
-dest_md5="135a04a3e8bcdf50820a80febc64989b"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
