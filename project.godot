@@ -23,6 +23,10 @@ config/icon="res://FPS_project_icon.png"
 
 Globals="*res://Globals.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/width=1280
